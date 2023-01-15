@@ -18,4 +18,4 @@ const physicalPersonSchema = new Schema({
 	},
 })
 
-module.exports = Person.discriminator('PhysicalPerson', physicalPersonSchema)
+module.exports = Person.discriminator('physical', physicalPersonSchema)

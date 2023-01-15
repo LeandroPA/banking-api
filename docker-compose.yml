@@ -10,7 +10,6 @@ services:
     volumes:
       - ./dock-client-api:/usr/app
     environment:
-      # DOCK_CLIENT_API_URL: http://client-api/
       DOCK_CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
       
   mongo-db:

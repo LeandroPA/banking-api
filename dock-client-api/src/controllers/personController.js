@@ -1,12 +1,8 @@
-const Person = require('../models/person')
-const PhysicalPerson = require('../models/physicalPerson')
+const personService = require('../services/personService');
 
 exports.create = (req, res) => {
 
-	let person = new PhysicalPerson(req.body);
-  
-	person
-		.save()
+	personService.createPerson(req.body)
 		.then(data => res.send(data))
 		.catch(err => {
 			res.status(500).send(err.message)
@@ -15,8 +11,7 @@ exports.create = (req, res) => {
 
 exports.delete = (req, res) => {
 
-	Person
-		.findByIdAndDelete(req.params.id)
+	personService.deletePerson(req.params.id)
 		.then(person => {
 			if (person) {
 				res.send(person);
