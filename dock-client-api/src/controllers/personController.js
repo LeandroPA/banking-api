@@ -1,15 +1,13 @@
 const personService = require('../services/personService');
 
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
 
 	personService.createPerson(req.body)
-		.then(data => res.send(data))
-		.catch(err => {
-			res.status(500).send(err.message)
-		});
+		.then(data => res.status(201).send(data))
+		.catch(next);
 }
 
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
 
 	personService.deletePerson(req.params.id)
 		.then(person => {
@@ -18,6 +16,6 @@ exports.delete = (req, res) => {
 			} else {
 				res.status(404).send();
 			}
-		})        
-		.catch(err => res.status(500).send());
+		})
+		.catch(next);
 }

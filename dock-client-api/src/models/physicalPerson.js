@@ -7,14 +7,10 @@ const physicalPersonSchema = new Schema({
 		type: String,
 		required: true
 	},
-	cpf: {
+	documentNumber: {
 		type: String,
 		required: true,
-		validate: {
-			validator: cpf.isValid,
-			message: 'invalid cpf'
-
-		}
+		validate: [cpf.isValid, 'Invalid document number format']
 	},
 })
 

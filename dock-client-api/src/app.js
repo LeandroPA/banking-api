@@ -4,18 +4,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config()
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/person');
+const routes = require('./routes/routes');
+const validationErrorHandler = require('./errorHandler/validationErrorHandler');
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(cookieParser());
+
+app.use(routes);
+app.use(validationErrorHandler);
 
 require('./database');
-
-app.use('/', indexRouter);
-app.use('/person', usersRouter);
 
 module.exports = app;
