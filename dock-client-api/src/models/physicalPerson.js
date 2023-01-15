@@ -1,9 +1,22 @@
-let { Schema } = require('mongoose')
-let Person = require('./person')
+const { Schema } = require('mongoose');
+const Person = require('./person');
+const cpf = require('cpf-cnpj-validator');
 
-let physicalPersonSchema = new Schema({
-  fullname: String,
-  cpf: String,
+const physicalPersonSchema = new Schema({
+  fullname: {
+    type: String,
+    required: true
+  },
+  cpf: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (cpf) => {
+        
+      }
+
+    }
+  },
 })
 
 module.exports = Person.discriminator('PhysicalPerson', physicalPersonSchema)
