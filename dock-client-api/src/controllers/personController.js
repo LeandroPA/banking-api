@@ -1,5 +1,8 @@
 const personService = require('../services/personService');
 
+const handleResourceResponse = (res, data) => 
+	res.status(data ? 200 : 404).send(data);
+
 exports.create = (req, res, next) => {
 
 	personService.createPerson(req.body)
@@ -9,20 +12,20 @@ exports.create = (req, res, next) => {
 exports.get = (req, res, next) => {
 
 	personService.getPerson(req.params.id)
-		.then(person => res.status(person ? 200 : 404).send(person))
+		.then(person => handleResourceResponse(res, data))
 		.catch(next);
 }
 
 exports.getByDocumentNumber = (req, res, next) => {
 
 	personService.getPersonByDocumentNumber(req.params.documentNumber)
-		.then(person => res.status(person ? 200 : 404).send(person))
+		.then(person => handleResourceResponse(res, data))
 		.catch(next);
 }
 
 exports.delete = (req, res, next) => {
 
 	personService.deletePerson(req.params.id)
-		.then(person => res.status(person ? 200 : 400).send(person))
+		.then(person => handleResourceResponse(res, data))
 		.catch(next);
 }
