@@ -5,12 +5,14 @@ const { cpf } = require('cpf-cnpj-validator');
 const physicalPersonSchema = new Schema({
 	fullname: {
 		type: String,
-		required: [true, 'fullname is required']
+		required: [true, '{PATH} is required']
 	},
 	documentNumber: {
 		type: String,
-		required: [true, 'documentNumber is required'],
-		validate: [cpf.isValid, 'Invalid documentNumber format']
+		unique: true,
+		dropDups: true,
+		required: [true, '{PATH} is required'],
+		validate: [cpf.isValid, 'Invalid {PATH} format']
 	},
 })
 

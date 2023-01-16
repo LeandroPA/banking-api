@@ -1,13 +1,16 @@
+const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
+
 module.exports =  (err, req, res, next) => {
 
 	if (err && err.name == 'ValidationError' ) {
-		let errors = {};
-
+		let body = {
+            errors: {}
+        };
 		Object.keys(err.errors).forEach((key) => {
-			errors[key] = err.errors[key].message;
-		});
+			body.errors[key] = err.errors[key].message;
+		});		
+        err = new HttpStatusCodeError(400, 'Validation error', body);
+    }
 
-		res.status(400).send({errors: errors});
-
-	}
+    next(err);
   }

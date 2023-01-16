@@ -1,19 +1,17 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const logger = require('morgan');
 require('dotenv').config()
 
 const routes = require('./routes/routes');
-const validationErrorHandler = require('./errorHandler/validationErrorHandler');
+const errorHandlers = require('./errorHandler/errorHandler');
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 
 app.use(routes);
-app.use(validationErrorHandler);
+app.use(errorHandlers);
 
 require('./database');
 
