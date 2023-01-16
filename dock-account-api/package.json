@@ -1,12 +1,11 @@
 {
-  "name": "dock-client-api",
+  "name": "dock-account-api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./src/bin/www"
   },
   "dependencies": {
-    "cpf-cnpj-validator": "^1.0.3",
     "debug": "~2.6.9",
     "express": "^4.18.2",
     "mongoose": "^6.8.3",
