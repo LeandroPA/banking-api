@@ -11,6 +11,18 @@ services:
       - ./dock-client-api:/usr/app
     environment:
       DOCK_CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
+  
+  account-api:
+    build: dock-account-api/.
+    depends_on:
+      - mongo-db
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./dock-account-api:/usr/app
+    environment:
+      DOCK_CLIENT_API_URL: http://client-api:3000
+      DOCK_ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
       
   mongo-db:
     image: mongo
