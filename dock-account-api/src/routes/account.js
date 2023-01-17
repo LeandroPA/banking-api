@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const personController = require('../controllers/personController');
+const accountController = require('../controllers/accountController');
 
-router.post('/', personController.create);
-router.get('/:id', personController.get);
-router.get('/documentNumber/:documentNumber', personController.getByDocumentNumber);
-router.delete('/:id', personController.delete);
+router.post('/', accountController.create);
+router.post('/:id/block', accountController.create);
+router.post('/:id/disable', accountController.create);
+router.post('/:id/disable', accountController.create);
+router.get('/:id', accountController.get);
+router.delete('/:id', accountController.delete);
 
 module.exports = router;

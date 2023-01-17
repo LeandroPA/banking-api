@@ -6,14 +6,25 @@ let accountSchema = new mongoose.Schema(
         holder: String,
         agency: String,
         number: String,
-        enabled: Boolean,
-        blocked: Boolean,
+        enabled: {
+            type: Boolean,
+            default: true
+        },
+        blocked:  {
+            type: Boolean,
+            default: false
+        },
+        balance: {
+            currency: String
+        },
         limits: {
-            deposit: {
-                daily: Number,
-                default: 2000
-            },
             withdraw: {
+                daily: {
+                    type: Number,
+                    default: 2000
+                }
+            },
+            deposit: {
                 daily: Number
             }
         }
