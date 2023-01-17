@@ -25,18 +25,14 @@ function randomNumber(max) {
 
 function calculateVerifierDigit(number) {
 
-	let dv = 0;
+	let verifierDigit = 0;
 
 	for (let i = 0; i < number.length; i++) {
-		console.log(`${number[i]} * ${number.length - i + 1} = ${number[i] * (number.length - i + 1)}`);
-		dv += number[i] * (number.length - i + 1);
+		verifierDigit += number[i] * (number.length - i + 1);
 	}
-
-	console.log(` = ${dv}`);
-	dv = dv % 11;
-
-	console.log(` % 11 = ${dv}`);
-	return dv > 1 ? 11 - dv : 0;
+	
+	verifierDigit = verifierDigit % 11;
+	return verifierDigit > 1 ? 11 - verifierDigit : 0;
 }
 
 function generateAccountNumber() {
