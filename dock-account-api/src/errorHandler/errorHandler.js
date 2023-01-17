@@ -1,10 +1,10 @@
 
-const validationErrorHandler = require('./validationErrorHandler');
+const mongooseValidationErrorHandler = require('./mongooseValidationErrorHandler');
 const duplicateKeyErrorHandler = require('./duplicateKeyErrorHandler');
 const httpStatusCodeErrorHandler = require('./httpStatusCodeErrorHandler');
 
 module.exports = [
-    validationErrorHandler,
+    mongooseValidationErrorHandler,
     duplicateKeyErrorHandler,
     httpStatusCodeErrorHandler
 ];
