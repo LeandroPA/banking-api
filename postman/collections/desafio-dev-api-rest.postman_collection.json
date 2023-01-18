@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "cf700079-59f7-44ad-8964-da776e78642e",
+		"name": "desafio-dev-api-rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "dock-client-api",
+			"item": [
+				{
+					"name": "/person - Create a person",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function cpf() {\r",
+									"  const rnd = (n) => Math.round(Math.random() * n);\r",
+									"  const mod = (base, div) => Math.round(base - Math.floor(base / div) * div)\r",
+									"  const n = Array(9).fill('').map(() => rnd(9));\r",
+									"\r",
+									"  let d1 = n.reduce((total, number, index) => (total + (number * (10 - index))), 0)\r",
+									"  d1 = 11 - mod(d1, 11);\r",
+									"  if (d1 >= 10) d1 = 0;\r",
+									"  \r",
+									"  let d2 = (d1 * 2) + n.reduce((total, number, index) => (total + (number * (11 - index))), 0)\r",
+									"  d2 = 11 - mod(d2, 11);\r",
+									"  if (d2 >= 10) d2 = 0;\r",
+									"\r",
+									"  return `${n.join('')}${d1}${d2}`\r",
+									"}\r",
+									"\r",
+									"pm.environment.set('PERSON_DOCUMENT_NUMBER', cpf());"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    let body = JSON.parse(responseBody);\r",
+									"    pm.environment.set(\"PERSON_ID\", body.id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"Client {{PERSON_DOCUMENT_NUMBER}}\",\r\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CLIENT_API_URL}}/person",
+							"host": [
+								"{{CLIENT_API_URL}}"
+							],
+							"path": [
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/person - Get a person",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CLIENT_API_URL}}/person/{{PERSON_ID}}",
+							"host": [
+								"{{CLIENT_API_URL}}"
+							],
+							"path": [
+								"person",
+								"{{PERSON_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/person - Get a person by document number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{CLIENT_API_URL}}/person/documentNumber/{{PERSON_DOCUMENT_NUMBER}}",
+							"host": [
+								"{{CLIENT_API_URL}}"
+							],
+							"path": [
+								"person",
+								"documentNumber",
+								"{{PERSON_DOCUMENT_NUMBER}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/person - Delete a person",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{CLIENT_API_URL}}/person/{{PERSON_ID}}",
+							"host": [
+								"{{CLIENT_API_URL}}"
+							],
+							"path": [
+								"person",
+								"{{PERSON_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dock-account-api",
+			"item": [
+				{
+					"name": "/account- Create an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    let body = JSON.parse(responseBody);\r",
+									"    pm.environment.set(\"ACCOUNT_ID\", body.id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"holder\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ACCOUNT_API_URL}}/account",
+							"host": [
+								"{{ACCOUNT_API_URL}}"
+							],
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

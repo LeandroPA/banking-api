@@ -1,3 +1,44 @@
+_**WIP - Work in progress**_
+
+# Descrição
+
+Foi utilizado uma abordagem mais para microsserviços, onde cada aplicação possui seu escopo de acordo com o que foi abordado no anunciado.
+
+Ao todo, são 3 projetos: `dock-account-api`, `dock-client-api` e `dock-transaction-api (WIP)`. Onde todos utilizam `NodeJs + Express` + `MongoDB`. 
+
+
+# Uso
+
+## Local
+
+Cada aplicação, precisa apenas rodar o `npm install` no início, e após isso, rodar cada um das aplicações com `npm start`.
+Requisito `node >= 13`
+
+## Docker
+
+Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as 3 aplicações.
+
+Cada aplicação está disponível algumas portas em localhost, são elas:
+
+```
+dock-client-api      - localhost:3000
+dock-account-api     - localhost:3001
+dock-transaction-api - localhost:3002 - (WIP)
+```
+Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
+
+# Testes
+
+## Postman
+
+Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints. Dentro da pasta, possui uma collection e como importar e usa-las.
+
+---
+Enunciado do desafio
+---
+---
+
+
 # Cenário
 
 A Dock está crescendo e expandindo seus negócios, gerando novas oportunidades de revolucionar o mercado financeiro e criar produtos diferenciados.
