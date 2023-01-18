@@ -6,6 +6,10 @@ const CLIENT_API_URL = process.env.DOCK_CLIENT_API_URL;
 
 function handleApiResponseError(response) {
 
+	let body = {
+		errors: {}
+	};
+
 	if (response.status == 404) {
 		body.errors.holder = 'Holder not found';
 		throw new HttpStatusCodeError(404, 'Holder not found', body);
