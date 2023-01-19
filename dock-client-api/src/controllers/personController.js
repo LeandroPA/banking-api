@@ -1,12 +1,12 @@
 const personService = require('../services/personService');
 
 const handleResourceResponse = (res, data) => 
-	res.status(data ? 200 : 404).send(data);
+	res.status(data ? 200 : 404).json(data);
 
 exports.create = (req, res, next) => {
 
 	personService.createPerson(req.body)
-		.then(person => res.status(201).send(person))
+		.then(person => res.status(201).json(person))
 		.catch(next);
 }
 exports.get = (req, res, next) => {
