@@ -1,6 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
-require('dotenv').config()
+require('dotenv').config();
 
 const routes = require('./routes/routes');
 const errorHandlers = require('./errorHandler/errorHandler');
