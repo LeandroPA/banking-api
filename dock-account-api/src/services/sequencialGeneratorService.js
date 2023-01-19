@@ -13,6 +13,5 @@ exports.getSequencial = (identifier) => {
             generator.save();
 
             return generator.sequencial;
-        })
-        .then();
+        });
 }
