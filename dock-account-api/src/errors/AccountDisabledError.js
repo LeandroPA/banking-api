@@ -1,6 +1,6 @@
 class AccountDisabledError extends Error {  
-    constructor () {
-		super(`Can't block/unblock a disabled account`)
+    constructor(message) {
+		super(message)
 
 		this.name = this.constructor.name  
 		Error.captureStackTrace(this, this.constructor);

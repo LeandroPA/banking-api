@@ -1,5 +1,5 @@
 class HttpStatusCodeError extends Error {  
-    constructor (statusCode, message, body) {
+    constructor(statusCode, message, body) {
 		super(message)
 
 		this.name = this.constructor.name  

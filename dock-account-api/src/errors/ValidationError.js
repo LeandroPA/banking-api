@@ -1,7 +1,7 @@
 const HttpStatusCodeError = require('./HttpStatusCodeError')
 
 class ValidationError extends HttpStatusCodeError {  
-    constructor (errors) {
+    constructor(errors) {
 		super(400, 'Validation error', {errors: errors});
 
 		this.name = this.constructor.name  

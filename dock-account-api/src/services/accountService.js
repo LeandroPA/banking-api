@@ -81,7 +81,7 @@ exports.blockAccount = (id, status) => {
 	return exports.getAccount(id)
 		.then(account => {
 			if (!account.enabled) {
-				throw new AccountDisabledError();
+				throw new AccountDisabledError(`Can't ${status ? 'block' : 'unblock'} a disabled account`);
 			}
 			account;
 		})
@@ -95,6 +95,9 @@ exports.blockAccount = (id, status) => {
 exports.disableAccount = (id) => {
 	return exports.getAccount(id)
 		.then(account => {
+			if (!account.enabled) {
+				throw new AccountDisabledError(`Account already disabled`);
+			}
 			account.enabled = false;
 			return account;
 		})
