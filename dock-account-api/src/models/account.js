@@ -15,7 +15,10 @@ let accountSchema = new mongoose.Schema(
             default: false
         },
         balance: {
-            currency: String
+            currency: {
+                type: String,
+                default: 'BRL'
+            }
         },
         limits: {
             withdraw: {
