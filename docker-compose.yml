@@ -23,6 +23,18 @@ services:
     environment:
       DOCK_CLIENT_API_URL: http://client-api:3000
       DOCK_ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
+  
+  transaction-api:
+    build: dock-transaction-api/.
+    depends_on:
+      - mongo-db
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./dock-transaction-api:/usr/app
+    environment:
+      DOCK_ACCOUNT_API_URL: http://account-api:3001
+      DOCK_TRANSACTION_DB_URL: mongodb://mongo-db:27017/transaction-api?retryWrites=true&w=majority
       
   mongo-db:
     image: mongo
