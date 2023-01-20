@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const Account = require('../models/account');
 const { getSequencial } = require('../services/sequencialGeneratorService');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
+const AccountDisabledError = require('../errors/AccountDisabledError');
 
 const CLIENT_API_URL = process.env.DOCK_CLIENT_API_URL;
 const accountNumberIdentifier = 'account_number';
@@ -17,9 +18,13 @@ function handleApiResponseError(response) {
 		throw new HttpStatusCodeError(404, 'Holder not found', body);
 	}
 
-	if (response.status >= 500) {
+	if (response.status >= 500 || response instanceof fetch.FetchError) {
 		body.errors.details = 'Internal API error';
 		throw new HttpStatusCodeError(500, 'Internal API error', body);
+	}
+
+	if (response instanceof Error) {
+		throw response; //Pass to the next catch
 	}
 
 	return response;
@@ -55,6 +60,7 @@ function generateAgencyNumber() {
 
 exports.createAccount = (json) => {	
 	return fetch(`${CLIENT_API_URL}/person/documentNumber/${json.holder}`)
+		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
 		.then(response => response.json())
 		.then(async client => {
@@ -75,8 +81,9 @@ exports.blockAccount = (id, status) => {
 	return exports.getAccount(id)
 		.then(account => {
 			if (!account.enabled) {
-				throw new Error()
+				throw new AccountDisabledError();
 			}
+			account;
 		})
 		.then(account => {
 			account.blocked = status;

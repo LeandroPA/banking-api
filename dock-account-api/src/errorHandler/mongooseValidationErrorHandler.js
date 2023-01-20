@@ -1,15 +1,15 @@
-const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
+const ValidationError = require('../errors/ValidationError');
+const mongooseValidationError = require('mongoose').Error.ValidationError;
 
 module.exports =  (err, req, res, next) => {
 
-	if (err && err.name == 'ValidationError' ) {
-		let body = {
-            errors: {}
-        };
+	if (err instanceof mongooseValidationError) {
+		let errors = {};
+
 		Object.keys(err.errors).forEach((key) => {
-			body.errors[key] = err.errors[key].message;
+			errors[key] = err.errors[key].message;
 		});		
-        err = new HttpStatusCodeError(400, 'Validation error', body);
+        err = new ValidationError(errors);
     }
 
     next(err);
