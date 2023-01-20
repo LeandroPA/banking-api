@@ -14,5 +14,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # production stage
 FROM develop-stage as production-stage
-EXPOSE 80:80
+EXPOSE 3000:3000
 # CMD ["npm", "start"]

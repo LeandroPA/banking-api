@@ -4,7 +4,7 @@ services:
   banking-api-gateway:
     build: dock-banking-api-gateway/.
     ports:
-      - "80:80"
+      - "3000:3000"
     depends_on:
       - client-api
       - account-api
@@ -14,7 +14,7 @@ services:
     depends_on:
       - mongo-db
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - ./dock-client-api:/usr/app
     environment:
@@ -25,11 +25,11 @@ services:
     depends_on:
       - mongo-db
     ports:
-      - "3001:3001"
+      - "3002:3002"
     volumes:
       - ./dock-account-api:/usr/app
     environment:
-      DOCK_CLIENT_API_URL: http://client-api:3000
+      DOCK_CLIENT_API_URL: http://client-api:3001
       DOCK_ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
   
   transaction-api:
@@ -37,11 +37,11 @@ services:
     depends_on:
       - mongo-db
     ports:
-      - "3002:3002"
+      - "3003:3003"
     volumes:
       - ./dock-transaction-api:/usr/app
     environment:
-      DOCK_ACCOUNT_API_URL: http://account-api:3001
+      DOCK_ACCOUNT_API_URL: http://account-api:3002
       DOCK_TRANSACTION_DB_URL: mongodb://mongo-db:27017/transaction-api?retryWrites=true&w=majority
       
   mongo-db:

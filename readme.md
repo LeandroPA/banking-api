@@ -21,9 +21,9 @@ Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rod
 Cada aplicação está disponível algumas portas em localhost, são elas:
 
 ```
-dock-client-api      - localhost:3000
-dock-account-api     - localhost:3001
-dock-transaction-api - localhost:3002 - (WIP)
+dock-client-api      - localhost:3001
+dock-account-api     - localhost:3002
+dock-transaction-api - localhost:3003 - (WIP)
 ```
 Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
 
