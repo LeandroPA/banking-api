@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const Transaction = require('../models/transaction');
-const { getSequencial } = require('./sequencialGeneratorService');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 

@@ -48,7 +48,7 @@ function calculateVerifierDigit(number) {
 
 function generateAccountNumber() {
 	return getSequencial(accountNumberIdentifier)
-		.catch(err => 0)
+		.catch(err => 0) // Default value in case of error
 		.then(number => number.toString().padStart(7, 0))
 		.then(number => `${number}-${calculateVerifierDigit(number)}`);
 }
