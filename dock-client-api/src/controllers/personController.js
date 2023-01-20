@@ -3,8 +3,6 @@ const personService = require('../services/personService');
 
 const handleResourceResponse = (res, data) => {
 
-	console.info(res, data)
-
 	if (!data) {
 		throw new HttpStatusCodeError(404, 'Not Found', null);
 	}

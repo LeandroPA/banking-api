@@ -37,8 +37,8 @@ exports.createTransaction = (json) => {
 		.then(response => response.json())
 		.then(this.getBalance)
 		.then(async account => {
+			console.log(account)
 			json.account = account.id;
-			console.log(account.balance)
 			json.type = json.value > 0 ? 'deposit' : 'withdraw';
 			return json;
 		})
@@ -70,8 +70,7 @@ exports.getBalance = (account) => {
 
 	return Transaction.aggregate(query)
 		.then(value=> {
-			console.info('Value: ', value);
-			account.balance.value = value && value[0].balance || 0
+			account.balance.value = value.length && value[0].balance || 0
 			return account;
 		})
 }
