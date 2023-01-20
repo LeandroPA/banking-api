@@ -43,8 +43,8 @@ function calculateVerifierDigit(number) {
 
 function generateAccountNumber() {
 	return getSequencial(accountNumberIdentifier)
-		.then(number => number.toString().padStart(7, 0))
 		.catch(err => 0)
+		.then(number => number.toString().padStart(7, 0))
 		.then(number => `${number}-${calculateVerifierDigit(number)}`);
 }
 
@@ -69,6 +69,29 @@ exports.createAccount = (json) => {
 
 exports.getAccount = (id) => {
 	return Account.findById(id);
+}
+
+exports.blockAccount = (id, status) => {
+	return exports.getAccount(id)
+		.then(account => {
+			if (!account.enabled) {
+				throw new Error()
+			}
+		})
+		.then(account => {
+			account.blocked = status;
+			return account;
+		})
+		.then(account => account.save());
+}
+
+exports.disableAccount = (id) => {
+	return exports.getAccount(id)
+		.then(account => {
+			account.enabled = false;
+			return account;
+		})
+		.then(account => account.save());
 }
 
 exports.deleteAccount = (id) => {
