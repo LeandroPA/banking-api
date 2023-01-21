@@ -7,6 +7,7 @@ const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 const AccountBlockedError = require('../errors/AccountBlockedError');
 const TransactionLimitError = require('../errors/TransactionLimitError');
+const InsufficientFundsError = require('../errors/InsufficientFundsError');
 
 const ACCOUNT_API_URL = process.env.DOCK_ACCOUNT_API_URL;
 
@@ -40,7 +41,7 @@ function handleAccountEnabledForTransact(account, transaction) {
 				throw new AccountDisabledError('account is disabled for transactions');
 			}
 
-			if (!account.block) {
+			if (account.block) {
 				throw new AccountBlockedError();
 			}
 
@@ -66,12 +67,17 @@ function handleTransactionLimits(account, transaction) {
 	return exports.getStatement(statementQuery)
 		.then(statement => {
 
-			let futureBalanceTransaction = statement.balance + transaction.value;
+			let futureTotalTransacted = statement.total.transacted + transaction.value;
+			let futureTotalBalance = statement.total.balance + transaction.value;
 
-			futureBalanceTransaction *= futureBalanceTransaction < 0 ? -1 : 1;
+			futureTotalTransacted *= futureTotalTransacted < 0 ? -1 : 1;
 
-			if (futureBalanceTransaction > limit) {
+			if (futureTotalTransacted > limit) {
 				throw new TransactionLimitError(`daily ${transaction.type} limit reached`);
+			}
+
+			if (futureTotalBalance < 0) {
+				throw new InsufficientFundsError();
 			}
 
 			return transaction;
@@ -100,26 +106,34 @@ exports.getTransaction = (id) => {
 	return Transaction.findById(id);
 }
 
-exports.getBalance = (accountId) => {
+exports.getBalance = (params) => {
 
-	const query = [{
-		$match: {
-			account: accountId,
-		}
-	},
-	{
-		$group: {
-			_id: null,
-			balance: {
-				$sum: "$value"
+	const query = [
+		{
+			$match: {
+				account: params.accountId,
+				date: {
+					$lte: endOfDay(params.date || new Date())
+				}
+			}
+		},
+		{
+			$group: {
+				_id: null,
+				balance: {
+					$sum: "$value"
+				}
 			}
 		}
-	}];
+	];
+
+	console.log(JSON.stringify(query));
 
 	return Transaction.aggregate(query)
 		.then(values=> {
+			console.log(JSON.stringify(values));
 			return {
-				balance: values.reduce((s, t) => s + t.value, 0)
+				balance: values.reduce((s, t) => s + t.balance, 0)
 			};
 		})
 }
@@ -142,11 +156,16 @@ exports.getStatement = (params) => {
 	}
 
 	return Transaction.find(query)
-		.then(transactions => {
-			return {
-				balance: transactions.reduce((s, t) => s + t.value, 0),
-				transactions: transactions
-			}
+		.then(async transactions => ({
+			total: {
+				balance: await exports.getBalance({accountId: params.accountId, date: params.to}).then(balance => balance.balance),
+				transacted: transactions.reduce((s, t) => s + t.value, 0)
+			},
+			transactions: transactions
+		}))
+		.then(a => {
+			console.log(JSON.stringify(a));
+			return a;
 		})
 }
 
