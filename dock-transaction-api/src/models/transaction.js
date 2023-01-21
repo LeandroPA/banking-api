@@ -10,16 +10,15 @@ let transactionSchema = new mongoose.Schema(
         value: {
             type: Number,
             required: [true, '{PATH} is required'],
-            validate: [value => value != 0, '{PATH} should be different than 0']
+            validate: [value => value > 0, '{PATH} should be more than 0']
         },
-        // type: {
-        //     type: String,
-        //     enum: ['deposit', 'withdraw']
-        // },
         date: {
             type: Date,
             default: Date.now
         }
+    }, 
+    {    
+		discriminatorKey: 'type',
     }
 )
 

@@ -32,7 +32,7 @@ exports.get = (req, res, next) => {
 
 exports.getBalance = (req, res, next) => {
 
-	transactionService.getTransaction(req.params.id)
+	transactionService.getBalance(req.params.id)
 		.then(transaction => handleResourceResponse(res, transaction))
 		.catch(next);
 }
