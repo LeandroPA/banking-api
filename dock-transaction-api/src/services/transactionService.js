@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
 const Transaction = require('../models/transaction');
+const DepositTransaction = require('../models/depositTransaction');
+const WithdrawTransaction = require('../models/withdrawTransaction');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 
@@ -29,19 +31,29 @@ function handleApiResponseError(response) {
 }
 
 
-exports.createTransaction = (json) => {	
-	return fetch(`${ACCOUNT_API_URL}/account/${json.account}`)
+exports.createDepositTransaction = (json) => {	
+	return this.createTransaction(new DepositTransaction(json));
+}
+exports.createWithdrawTransaction = (json) => {	
+	return this.createTransaction(new WithdrawTransaction(json));
+}
+
+exports.createTransaction = (transaction) => {	
+	return fetch(`${ACCOUNT_API_URL}/account/${transaction.account}`)
 		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
 		.then(response => response.json())
-		.then(this.getBalance)
 		.then(async account => {
 			console.log(account)
-			json.account = account.id;
-			json.type = json.value > 0 ? 'deposit' : 'withdraw';
-			return json;
+			transaction.account = account.id;
+			return transaction;
 		})
-		.then(transaction => new Transaction(transaction))
+		.then(this.getBalance)
+		.then(balance => {
+			console.log(balance);
+			return transaction;
+		})
+		// .then(transaction => new Transaction(transaction))
 		.then(transaction => transaction.save());
 }
 
@@ -49,11 +61,12 @@ exports.getTransaction = (id) => {
 	return Transaction.findById(id);
 }
 
-exports.getBalance = (account) => {
+exports.getBalance = (transaction) => {
 
+	console.log('getBalance')
 	const query = [{
 		$match: {
-			account: account.id,
+			account: transaction.account,
 		}
 	  },
 	  {
@@ -63,14 +76,18 @@ exports.getBalance = (account) => {
 				$sum: "$value"
 			}
 		}
-	  },
-	  {"$unset": ["_id"]}
-	];
+	  }];
+
+	const sumBalanceTransactions = (sum, value) => {
+		return sum + (value.balance)
+	};
 
 	return Transaction.aggregate(query)
-		.then(value=> {
-			account.balance.value = value.length && value[0].balance || 0
-			return account;
+		.then(values=> {
+			console.log(values);
+			return {
+				balance: values.reduce(sumBalanceTransactions, 0)
+			};
 		})
 }
 

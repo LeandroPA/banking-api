@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-const DB_URL = process.env.DOCK_ACCOUNT_DB_URL;
+const DB_URL = process.env.DOCK_TRANSACTION_DB_URL;
 
 class Database {
 	constructor() {

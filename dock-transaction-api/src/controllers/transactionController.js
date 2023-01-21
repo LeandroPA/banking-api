@@ -9,13 +9,35 @@ const handleResourceResponse = (res, data) => {
 	res.status(200).json(data);
 };
 
-exports.create = (req, res, next) => {
+exports.deposit = (req, res, next) => {
 
-	transactionService.createTransaction(req.body)
+	transactionService.createDepositTransaction(req.body)
 		.then(transaction => res.status(201).json(transaction))
 		.catch(next);
 }
+
+exports.withdraw = (req, res, next) => {
+
+	transactionService.createWithdrawTransaction(req.body)
+		.then(transaction => res.status(201).json(transaction))
+		.catch(next);
+}
+
 exports.get = (req, res, next) => {
+
+	transactionService.getTransaction(req.params.id)
+		.then(transaction => handleResourceResponse(res, transaction))
+		.catch(next);
+}
+
+exports.getBalance = (req, res, next) => {
+
+	transactionService.getTransaction(req.params.id)
+		.then(transaction => handleResourceResponse(res, transaction))
+		.catch(next);
+}
+
+exports.getStatement = (req, res, next) => {
 
 	transactionService.getTransaction(req.params.id)
 		.then(transaction => handleResourceResponse(res, transaction))

@@ -15,6 +15,10 @@ let accountSchema = new mongoose.Schema(
             default: false
         },
         balance: {
+            value: {
+                type: Number,
+                default: 0
+            },
             currency: {
                 type: String,
                 default: 'BRL'

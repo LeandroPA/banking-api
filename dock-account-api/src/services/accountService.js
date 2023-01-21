@@ -77,6 +77,13 @@ exports.getAccount = (id) => {
 	return Account.findById(id);
 }
 
+exports.updateAccount = (newAccount) => {
+	return this.getAccount(newAccount.id)
+		.then(oldAccount => {
+			
+		});
+}
+
 exports.blockAccount = (id, status) => {
 	return exports.getAccount(id)
 		.then(account => {
