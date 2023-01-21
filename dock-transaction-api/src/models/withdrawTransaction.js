@@ -5,8 +5,10 @@ const withdrawTransactionSchema = new Schema({
 	value: {
         type: Number,
         required: [true, '{PATH} is required'],
-        validate: [value => value > 0, '{PATH} should be more than 0'],
-        set: val => val > 0 ? -val : val
+        //In withdraw, the values are negative, so the validation is
+        //inverted because of 'set'
+        validate: [value => value < 0, '{PATH} should be more than 0'],
+        set: val => -val
     }
 })
 

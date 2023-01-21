@@ -39,7 +39,13 @@ exports.getBalance = (req, res, next) => {
 
 exports.getStatement = (req, res, next) => {
 
-	transactionService.getTransaction(req.params.id)
+	let params = {
+		accountId: req.params.id,
+		from: req.query.from && new Date(req.query.from),
+		to: req.query.to && new Date(req.query.to),
+	}
+
+	transactionService.getStatement(params)
 		.then(transaction => handleResourceResponse(res, transaction))
 		.catch(next);
 }

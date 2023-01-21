@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { startOfDay, endOfDay } = require('date-fns');
 const Transaction = require('../models/transaction');
 const DepositTransaction = require('../models/depositTransaction');
 const WithdrawTransaction = require('../models/withdrawTransaction');
@@ -30,6 +31,35 @@ function handleApiResponseError(response) {
 	return response;
 }
 
+function handleTransactionLimits(account, transaction) {
+	
+	if (!account.limits || !account.limits[transaction.type] ||
+		!('daily' in account.limits[transaction.type])) {
+		return Promise.resolve(transaction);		
+	}
+
+	let limit = account.limits[transaction.type].daily;
+
+	let statementQuery = {
+		accountId: transaction.account,
+		from: new Date(),
+		to: new Date(),
+		type: transaction.type
+	}
+	return exports.getStatement(statementQuery)
+		.then(statement => {
+
+			let futureBalanceTransaction = statement.balance + transaction.value;
+
+			futureBalanceTransaction *= futureBalanceTransaction < 0 ? -1 : 1;
+
+			if (futureBalanceTransaction > limit) {
+				throw new Error('AA');
+			}
+
+			return transaction;
+		})
+}
 
 exports.createDepositTransaction = (json) => {	
 	return this.createTransaction(new DepositTransaction(json));
@@ -38,20 +68,13 @@ exports.createWithdrawTransaction = (json) => {
 	return this.createTransaction(new WithdrawTransaction(json));
 }
 
-exports.createTransaction = (transaction) => {	
+exports.createTransaction = (transaction) => {
+
 	return fetch(`${ACCOUNT_API_URL}/account/${transaction.account}`)
 		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
 		.then(response => response.json())
-		.then(async account => {
-			transaction.account = account.id;
-			return transaction;
-		})
-		.then(this.getBalance)
-		.then(balance => {
-			return transaction;
-		})
-		// .then(transaction => new Transaction(transaction))
+		.then(account => handleTransactionLimits(account, transaction))
 		.then(transaction => transaction.save());
 }
 
@@ -75,15 +98,37 @@ exports.getBalance = (accountId) => {
 		}
 	}];
 
-	const sumBalanceTransactions = (sum, value) => {
-		return sum + (value.balance)
-	};
-
 	return Transaction.aggregate(query)
 		.then(values=> {
 			return {
-				balance: values.reduce(sumBalanceTransactions, 0)
+				balance: values.reduce((s, t) => s + t.value, 0)
 			};
+		})
+}
+
+exports.getStatement = (params) => {
+
+	let query = {
+		account: params.accountId
+	};
+
+	if (params.from) {
+		query.date = {$gte: startOfDay(params.from), ...query.date};
+	}
+	if (params.to) {
+		query.date = {$lte: endOfDay(params.to), ...query.date};
+	}
+
+	if (params.type) {
+		query.type = params.type
+	}
+
+	return Transaction.find(query)
+		.then(transactions => {
+			return {
+				balance: transactions.reduce((s, t) => s + t.value, 0),
+				transactions: transactions
+			}
 		})
 }
 
