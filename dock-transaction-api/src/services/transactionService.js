@@ -127,15 +127,12 @@ exports.getBalance = (params) => {
 		}
 	];
 
-	console.log(JSON.stringify(query));
-
 	return Transaction.aggregate(query)
 		.then(values=> {
-			console.log(JSON.stringify(values));
 			return {
 				balance: values.reduce((s, t) => s + t.balance, 0)
 			};
-		})
+		});
 }
 
 exports.getStatement = (params) => {
@@ -155,18 +152,20 @@ exports.getStatement = (params) => {
 		query.type = params.type
 	}
 
+	let result = {
+		total: {}
+	};
+
 	return Transaction.find(query)
-		.then(async transactions => ({
-			total: {
-				balance: await exports.getBalance({accountId: params.accountId, date: params.to}).then(balance => balance.balance),
-				transacted: transactions.reduce((s, t) => s + t.value, 0)
-			},
-			transactions: transactions
-		}))
-		.then(a => {
-			console.log(JSON.stringify(a));
-			return a;
+		.then(transactions => {
+			result.total.transacted = transactions.reduce((s, t) => s + t.value, 0);
+			result.transactions = transactions;
 		})
+		.then(() => exports.getBalance({accountId: params.accountId, date: params.to}))
+		.then(balance => {
+			result.total.balance = balance.balance;
+			return result;
+		});
 }
 
 exports.deleteTransaction = (id) => {
