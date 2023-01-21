@@ -44,13 +44,11 @@ exports.createTransaction = (transaction) => {
 		.then(handleApiResponseError)
 		.then(response => response.json())
 		.then(async account => {
-			console.log(account)
 			transaction.account = account.id;
 			return transaction;
 		})
 		.then(this.getBalance)
 		.then(balance => {
-			console.log(balance);
 			return transaction;
 		})
 		// .then(transaction => new Transaction(transaction))
@@ -61,22 +59,21 @@ exports.getTransaction = (id) => {
 	return Transaction.findById(id);
 }
 
-exports.getBalance = (transaction) => {
+exports.getBalance = (accountId) => {
 
-	console.log('getBalance')
 	const query = [{
 		$match: {
-			account: transaction.account,
+			account: accountId,
 		}
-	  },
-	  {
+	},
+	{
 		$group: {
 			_id: null,
 			balance: {
 				$sum: "$value"
 			}
 		}
-	  }];
+	}];
 
 	const sumBalanceTransactions = (sum, value) => {
 		return sum + (value.balance)
@@ -84,7 +81,6 @@ exports.getBalance = (transaction) => {
 
 	return Transaction.aggregate(query)
 		.then(values=> {
-			console.log(values);
 			return {
 				balance: values.reduce(sumBalanceTransactions, 0)
 			};

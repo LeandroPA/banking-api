@@ -31,6 +31,7 @@ services:
       - ./dock-account-api:/usr/app
     environment:
       DOCK_CLIENT_API_URL: http://client-api:3001
+      DOCK_TRANSACTION_API_URL: http://transaction-api:3003
       DOCK_ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
   
   transaction-api:

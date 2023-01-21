@@ -1,6 +1,32 @@
 let mongoose = require('mongoose')
 let { toJSON } = require('../util/mongooseUtil')
 
+let balanceSchema = new mongoose.Schema(
+    {
+        currency: {
+            type: String,
+            default: 'BRL'
+        }
+    }, 
+    {
+        _id: false,
+        toObject: {
+            virtuals: true
+        },
+        toJSON: {
+            virtuals: true
+        }
+    }
+)
+
+balanceSchema.virtual('value')
+    .get(() => {
+        return this.value;
+    })
+    .set((val) => {
+        this.value = val;
+    })
+
 let accountSchema = new mongoose.Schema(
 	{
         holder: String,
@@ -15,14 +41,8 @@ let accountSchema = new mongoose.Schema(
             default: false
         },
         balance: {
-            value: {
-                type: Number,
-                default: 0
-            },
-            currency: {
-                type: String,
-                default: 'BRL'
-            }
+            type: balanceSchema,
+            default: {}
         },
         limits: {
             withdraw: {
@@ -37,7 +57,8 @@ let accountSchema = new mongoose.Schema(
         }
     },
 	{
-		timestamps: true 
+        timestamps: true,
+        toJSON: { virtuals: true }
     }
 )
 

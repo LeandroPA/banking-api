@@ -15,6 +15,7 @@ exports.create = (req, res, next) => {
 		.then(account => res.status(201).json(account))
 		.catch(next);
 }
+
 exports.get = (req, res, next) => {
 
 	accountService.getAccount(req.params.id)

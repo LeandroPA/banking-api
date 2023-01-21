@@ -5,6 +5,7 @@ const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 
 const CLIENT_API_URL = process.env.DOCK_CLIENT_API_URL;
+const TRANSACTION_API_URL = process.env.DOCK_TRANSACTION_API_URL;
 const accountNumberIdentifier = 'account_number';
 
 function handleApiResponseError(response) {
@@ -54,8 +55,8 @@ function generateAccountNumber() {
 }
 
 function generateAgencyNumber() {
-	let number = randomNumber(1000) + 1;
-	return number.toString().padStart(4, 0);
+	return Promise.resolve(randomNumber(1000) + 1)
+		.then(number => number.toString().padStart(4, 0));
 }
 
 exports.createAccount = (json) => {	
@@ -65,7 +66,7 @@ exports.createAccount = (json) => {
 		.then(response => response.json())
 		.then(async client => {
 			json.holder = client.id;			
-			json.agency = generateAgencyNumber();
+			json.agency = await generateAgencyNumber();
 			json.number = await generateAccountNumber();
 			return json;
 		})
@@ -74,7 +75,19 @@ exports.createAccount = (json) => {
 }
 
 exports.getAccount = (id) => {
-	return Account.findById(id);
+	return Account.findById(id)
+		.then(this.getAccountBalance);
+}
+
+exports.getAccountBalance = (account) => {
+	return fetch(`${TRANSACTION_API_URL}/transaction/account/${account.id}/balance`)
+		.catch(handleApiResponseError)
+		.then(handleApiResponseError)
+		.then(response => response.json())
+		.then(balance => {
+			account.balance.value = balance.balance;
+			return account;
+		})
 }
 
 exports.updateAccount = (newAccount) => {
