@@ -5,6 +5,8 @@ const DepositTransaction = require('../models/depositTransaction');
 const WithdrawTransaction = require('../models/withdrawTransaction');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
+const AccountBlockedError = require('../errors/AccountBlockedError');
+const TransactionLimitError = require('../errors/TransactionLimitError');
 
 const ACCOUNT_API_URL = process.env.DOCK_ACCOUNT_API_URL;
 
@@ -31,6 +33,21 @@ function handleApiResponseError(response) {
 	return response;
 }
 
+function handleAccountEnabledForTransact(account, transaction) {
+	return Promise.resolve(account)
+		.then(account => {
+			if (!account.enabled) {
+				throw new AccountDisabledError('account is disabled for transactions');
+			}
+
+			if (!account.block) {
+				throw new AccountBlockedError();
+			}
+
+			return account;
+		});
+}
+
 function handleTransactionLimits(account, transaction) {
 	
 	if (!account.limits || !account.limits[transaction.type] ||
@@ -54,7 +71,7 @@ function handleTransactionLimits(account, transaction) {
 			futureBalanceTransaction *= futureBalanceTransaction < 0 ? -1 : 1;
 
 			if (futureBalanceTransaction > limit) {
-				throw new Error('AA');
+				throw new TransactionLimitError(`daily ${transaction.type} limit reached`);
 			}
 
 			return transaction;
@@ -74,6 +91,7 @@ exports.createTransaction = (transaction) => {
 		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
 		.then(response => response.json())
+		.then(account => handleAccountEnabledForTransact(account, transaction))
 		.then(account => handleTransactionLimits(account, transaction))
 		.then(transaction => transaction.save());
 }
