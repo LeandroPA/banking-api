@@ -10,5 +10,5 @@ RUN npm install
 
 # production stage
 FROM build-stage as production-stage
-EXPOSE 3002
+EXPOSE 3003
 CMD ["npm", "start"]

@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "cf700079-59f7-44ad-8964-da776e78642e",
 		"name": "desafio-dev-api-rest",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7620522"
 	},
 	"item": [
 		{
@@ -74,7 +75,7 @@
 					"response": []
 				},
 				{
-					"name": "/person - Get a person",
+					"name": "/person/id - Get a person",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -103,7 +104,7 @@
 					"response": []
 				},
 				{
-					"name": "/person - Get a person by document number",
+					"name": "/person/id/documentNumber/number - Get a person by document number",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -133,7 +134,7 @@
 					"response": []
 				},
 				{
-					"name": "/person - Delete a person",
+					"name": "/person/id - Delete a person",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -210,6 +211,200 @@
 							],
 							"path": [
 								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/id - Get an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}",
+							"host": [
+								"{{ACCOUNT_API_URL}}"
+							],
+							"path": [
+								"account",
+								"{{ACCOUNT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/id/block - Block an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}/block",
+							"host": [
+								"{{ACCOUNT_API_URL}}"
+							],
+							"path": [
+								"account",
+								"{{ACCOUNT_ID}}",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/id/block - Unblock an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}/block",
+							"host": [
+								"{{ACCOUNT_API_URL}}"
+							],
+							"path": [
+								"account",
+								"{{ACCOUNT_ID}}",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/id/disable - Disable an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}/disable",
+							"host": [
+								"{{ACCOUNT_API_URL}}"
+							],
+							"path": [
+								"account",
+								"{{ACCOUNT_ID}}",
+								"disable"
 							]
 						}
 					},

@@ -1,12 +1,18 @@
+const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const personService = require('../services/personService');
 
-const handleResourceResponse = (res, data) => 
-	res.status(data ? 200 : 404).send(data);
+const handleResourceResponse = (res, data) => {
+
+	if (!data) {
+		throw new HttpStatusCodeError(404, 'Not Found', null);
+	}
+	res.status(200).json(data);
+};
 
 exports.create = (req, res, next) => {
 
 	personService.createPerson(req.body)
-		.then(person => res.status(201).send(person))
+		.then(person => res.status(201).json(person))
 		.catch(next);
 }
 exports.get = (req, res, next) => {
