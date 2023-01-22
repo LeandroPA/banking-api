@@ -23,6 +23,13 @@ exports.get = (req, res, next) => {
 		.catch(next);
 }
 
+exports.getByAgencyAndNumber = (req, res, next) => {
+
+	accountService.getAccountByNumberAndAgency(req.params.agency, req.params.number)
+		.then(account => handleResourceResponse(res, account))
+		.catch(next);
+}
+
 exports.block = (req, res, next) => {
 
 	accountService.blockAccount(req.params.id, true)

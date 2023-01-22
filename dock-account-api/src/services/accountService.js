@@ -57,6 +57,7 @@ function generateAccountNumber() {
 
 function generateAgencyNumber() {
 	return Promise.resolve(randomNumber(1000) + 1)
+		.catch(err => 0) // Default value in case of error
 		.then(number => number.toString().padStart(4, 0));
 }
 
@@ -77,6 +78,11 @@ exports.createAccount = (json) => {
 
 exports.getAccount = (id) => {
 	return Account.findById(id)
+		.then(exports.getAccountBalance);
+}
+
+exports.getAccountByNumberAndAgency = (agency, number) => {
+	return Account.findOne({agency: agency, number: number})
 		.then(exports.getAccountBalance);
 }
 
