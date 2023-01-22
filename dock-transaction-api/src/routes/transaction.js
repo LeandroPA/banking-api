@@ -10,8 +10,25 @@ router.get('/:id', validate(param('id').isMongoId()), transactionController.get)
 router.get('/account/:id/balance', validate(param('id').isMongoId()), transactionController.getBalance);
 router.get('/account/:id/statement', validate(
     param('id').isMongoId(), 
-    query('from').isDate(), 
-    query('to').isDate()), transactionController.getStatement);
-router.delete('/:id', validate(param('id').isMongoId()), transactionController.delete);
+    query('from')
+        .optional()
+        .isISO8601()
+        .withMessage('Invalid date format')
+        .isBefore()
+        .withMessage('Date must be before or equal to today')
+        .toDate(), 
+    query('to')
+        .optional()
+        .isISO8601()
+        .withMessage('Invalid date format')
+        .isBefore()
+        .withMessage('Date must be before or equal to today')
+        .toDate()
+        .custom((to, { req }) => {
+        if (req.query.from && to.getTime() < req.query.from.getTime()) {
+            throw new Error('Date must be equal or after \'from\' date');
+        }
+        return true
+    })), transactionController.getStatement);
 
 module.exports = router;
