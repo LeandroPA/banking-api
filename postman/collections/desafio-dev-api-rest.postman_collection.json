@@ -90,11 +90,10 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/person",
+									"raw": "{{BANKING_API_URL}}/person",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"person"
 									]
@@ -134,7 +133,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca20861eb8862867ac268\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"77283276661\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
+							"body": "{\n    \"id\": \"{{PERSON_ID}}\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request - Invalid documentNumber format",
@@ -197,7 +196,7 @@
 							"body": "{\n    \"errors\": {\n        \"documentNumber\": \"Invalid documentNumber format\"\n    }\n}"
 						},
 						{
-							"name": "400 Bad Request - required fields",
+							"name": "400 Bad Request - Required fields",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
@@ -353,14 +352,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:3000/person/63cc98a061eb8862867ac260",
+									"raw": "{{BANKING_API_URLL}}/person/{{PERSON_ID}}",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"person",
-										"63cc98a061eb8862867ac260"
+										"{{PERSON_ID}}"
 									]
 								}
 							},
@@ -398,7 +396,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca20861eb8862867ac268\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"77283276661\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
+							"body": "{\n    \"id\": \"{{PERSON_ID}}\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request - Invalid id",
@@ -490,15 +488,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:3000/person/documentNumber/45747215612",
+									"raw": "{{BANKING_API_URL}}/person/documentNumber/45747215612",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"person",
 										"documentNumber",
-										"45747215612"
+										"{{PERSON_DOCUMENT_NUMBER}}"
 									]
 								}
 							},
@@ -536,7 +533,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca20861eb8862867ac268\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"77283276661\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
+							"body": "{\n    \"id\": \"{{PERSON_ID}}\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -657,11 +654,10 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/account",
+									"raw": "{{BANKING_API_URL}}/account",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"account"
 									]
@@ -701,7 +697,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:46:02.298Z\"\n}"
+							"body": "{\n    \"id\": \"{{ACCOUNT_ID}}\",\n    \"holder\": \"{{PERSON_ID}}\",\n    \"agency\": \"{{ACCOUNT_AGENCY}}\",\n    \"number\": \"{{ACCOUNT_NUMBER}}\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:46:02.298Z\"\n}"
 						},
 						{
 							"name": "404 Not Found - Holder not found",
@@ -890,14 +886,13 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d",
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"account",
-										"63cc9f72a23faefce2e1e80d"
+										"{{ACCOUNT_ID}}"
 									]
 								}
 							},
@@ -935,7 +930,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63ccd66fd497eeb7e1ec7078\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63ca2fd2eba61369183cce18\",\n    \"agency\": \"0564\",\n    \"number\": \"0000013-2\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T06:23:43.086Z\",\n    \"updatedAt\": \"2023-01-22T06:23:43.086Z\"\n}"
+							"body": "{\n    \"id\": \"{{ACCOUNT_ID}}\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"{{PERSON_ID}}\",\n    \"agency\": \"{{ACCOUNT_AGENCY}}\",\n    \"number\": \"{{ACCOUNT_NUMBER}}\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T06:23:43.086Z\",\n    \"updatedAt\": \"2023-01-22T06:23:43.086Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -1119,15 +1114,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/account/0564/0000013-2",
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_AGENCY}}/{{ACCOUNT_NUMBER}}",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"account",
-										"0564",
-										"0000013-2"
+										"{{ACCOUNT_AGENCY}}",
+										"{{ACCOUNT_NUMBER}}"
 									]
 								}
 							},
@@ -1165,7 +1159,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63ccd66fd497eeb7e1ec7078\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63ca2fd2eba61369183cce18\",\n    \"agency\": \"0564\",\n    \"number\": \"0000013-2\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T06:23:43.086Z\",\n    \"updatedAt\": \"2023-01-22T06:23:43.086Z\"\n}"
+							"body": "{\n    \"id\": \"{{ACCOUNT_ID}}\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"{{PERSON_ID}}\",\n    \"agency\": \"{{ACCOUNT_AGENCY}}\",\n    \"number\": \"{{ACCOUNT_NUMBER}}\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T06:23:43.086Z\",\n    \"updatedAt\": \"2023-01-22T06:23:43.086Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -1348,14 +1342,13 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d/block",
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"account",
-										"63cc9f72a23faefce2e1e80d",
+										"{{ACCOUNT_ID}}",
 										"block"
 									]
 								}
@@ -1394,7 +1387,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": true,\n    \"blocked\": true,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:35.442Z\"\n}"
+							"body": "{\n    \"id\": \"{{ACCOUNT_ID}}\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"{{PERSON_ID}}\",\n    \"agency\": \"{{ACCOUNT_AGENCY}}\",\n    \"number\": \"{{ACCOUNT_NUMBER}}\",\n    \"enabled\": true,\n    \"blocked\": true,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:35.442Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -1639,14 +1632,13 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d/block",
+									"raw": "{{BANKING_API_URL}}/account/63cc9f72a23faefce2e1e80d/block",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"account",
-										"63cc9f72a23faefce2e1e80d",
+										"{{ACCOUNT_ID}}",
 										"block"
 									]
 								}
@@ -1685,7 +1677,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:57.953Z\"\n}"
+							"body": "{\n    \"id\": \"{{ACCOUNT_ID}}\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"{{PERSON_ID}}\",\n    \"agency\": \"{{ACCOUNT_AGENCY}}\",\n    \"number\": \"{{ACCOUNT_NUMBER}}\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:57.953Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -1930,14 +1922,13 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d/disable",
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/disable",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"account",
-										"63cc9f72a23faefce2e1e80d",
+										"{{ACCOUNT_ID}}",
 										"disable"
 									]
 								}
@@ -1976,7 +1967,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": false,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:53:31.656Z\"\n}"
+							"body": "{\n    \"id\": \"{{ACCOUNT_ID}}\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"{{PERSON_ID}}\",\n    \"agency\": \"{{ACCOUNT_AGENCY}}\",\n    \"number\": \"{{ACCOUNT_NUMBER}}\",\n    \"enabled\": false,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:57.953Z\"\n}"
 						},
 						{
 							"name": "404 - Not Found",
@@ -2221,7 +2212,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"account\": \"63cc9f72a23faefce2e1e80d\",\r\n    \"value\": 1000\r\n}",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 1000\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2229,11 +2220,10 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/transaction/deposit",
+									"raw": "{{BANKING_API_URL}}/transaction/deposit",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"transaction",
 										"deposit"
@@ -2274,7 +2264,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca4bda7c007552fa9d8b3\",\n    \"account\": \"63cca36a34aafd597a6e3f2f\",\n    \"value\": 1000,\n    \"type\": \"deposit\",\n    \"date\": \"2023-01-22T02:51:41.436Z\"\n}"
+							"body": "{\n    \"id\": \"{{TRANSACTION_ID}}\",\n    \"account\": \"{{ACCOUNT_ID}}\",\n    \"value\": 1000,\n    \"type\": \"deposit\",\n    \"date\": \"2023-01-22T02:51:41.436Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request - Required fields",
@@ -2640,7 +2630,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"account\": \"63cc9f72a23faefce2e1e80d\",\r\n    \"value\": 500\r\n}",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 500\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2648,11 +2638,10 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/transaction/withdraw",
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"transaction",
 										"withdraw"
@@ -2693,7 +2682,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cca4d0a7c007552fa9d8b6\",\n    \"value\": -500,\n    \"account\": \"63cca36a34aafd597a6e3f2f\",\n    \"type\": \"withdraw\",\n    \"date\": \"2023-01-22T02:52:00.947Z\"\n}"
+							"body": "{\n    \"id\": \"{{TRANSACTION_ID}}\",\n    \"value\": -500,\n    \"account\": \"{{ACCOUNT_ID}}\",\n    \"type\": \"withdraw\",\n    \"date\": \"2023-01-22T02:52:00.947Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request - Required fields",
@@ -3130,15 +3119,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d/balance",
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/balance",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"transaction",
 										"account",
-										"63cc9f72a23faefce2e1e80d",
+										"{{ACCOUNT_ID}}",
 										"balance"
 									]
 								}
@@ -3323,15 +3311,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d/statement?from=2023-01-22&to=2023-01-22",
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=2023-01-22&to=2023-01-22",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"transaction",
 										"account",
-										"63cc9f72a23faefce2e1e80d",
+										"{{ACCOUNT_ID}}",
 										"statement"
 									],
 									"query": [
@@ -3382,7 +3369,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"total\": {\n        \"transacted\": 500,\n        \"balance\": 500\n    },\n    \"transactions\": [\n        {\n            \"id\": \"63cca4bda7c007552fa9d8b3\",\n            \"account\": \"63cca36a34aafd597a6e3f2f\",\n            \"value\": 1000,\n            \"type\": \"deposit\",\n            \"date\": \"2023-01-22T02:51:41.436Z\"\n        },\n        {\n            \"id\": \"63cca4d0a7c007552fa9d8b6\",\n            \"value\": -500,\n            \"account\": \"63cca36a34aafd597a6e3f2f\",\n            \"type\": \"withdraw\",\n            \"date\": \"2023-01-22T02:52:00.947Z\"\n        }\n    ]\n}"
+							"body": "{\n    \"total\": {\n        \"transacted\": 500,\n        \"balance\": 500\n    },\n    \"transactions\": [\n        {\n            \"id\": \"63cca4bda7c007552fa9d8b3\",\n            \"account\": \"{{ACCOUNT_ID}}\",\n            \"value\": 1000,\n            \"type\": \"deposit\",\n            \"date\": \"2023-01-22T02:51:41.436Z\"\n        },\n        {\n            \"id\": \"63cca4d0a7c007552fa9d8b6\",\n            \"value\": -500,\n            \"account\": \"{{ACCOUNT_ID}}\",\n            \"type\": \"withdraw\",\n            \"date\": \"2023-01-22T02:52:00.947Z\"\n        }\n    ]\n}"
 						},
 						{
 							"name": "400 Bad Request - Invalid id",
@@ -3399,15 +3386,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d2/statement?from=2023-01-21&to=2023-01-21",
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=2023-01-21&to=2023-01-21",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"transaction",
 										"account",
-										"63cc9f72a23faefce2e1e80d2",
+										"{{ACCOUNT_ID}}",
 										"statement"
 									],
 									"query": [
@@ -3475,15 +3461,14 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d/statement?from=01/12/2022&to=31/12/2022",
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=01/12/2022&to=31/12/2022",
 									"host": [
-										"localhost"
+										"{{BANKING_API_URL}}"
 									],
-									"port": "3000",
 									"path": [
 										"transaction",
 										"account",
-										"63cc9f72a23faefce2e1e80d",
+										"{{ACCOUNT_ID}}",
 										"statement"
 									],
 									"query": [
