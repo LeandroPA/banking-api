@@ -103,7 +103,7 @@ exports.blockAccount = (id, status) => {
 			if (!account.enabled) {
 				throw new AccountDisabledError(`Can't ${status ? 'block' : 'unblock'} a disabled account`);
 			}
-			account;
+			return account;
 		})
 		.then(account => {
 			account.blocked = status;

@@ -20,16 +20,15 @@ let balanceSchema = new mongoose.Schema(
 )
 
 balanceSchema.virtual('value')
-    .get(() => {
-        return this.value;
-    })
-    .set((val) => {
-        this.value = val;
-    })
+    .get(() => this.value || 0)
+    .set((val) => val);
 
 let accountSchema = new mongoose.Schema(
 	{
-        holder: String,
+        holder: {
+            type: String,
+            required: [true, '{PATH} is required']
+        },
         agency: String,
         number: String,
         enabled: {
