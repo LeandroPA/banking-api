@@ -33,7 +33,7 @@
 									"  return `${n.join('')}${d1}${d2}`\r",
 									"}\r",
 									"\r",
-									"pm.environment.set('PERSON_DOCUMENT_NUMBER', cpf());"
+									"// pm.environment.set('PERSON_DOCUMENT_NUMBER', cpf());"
 								],
 								"type": "text/javascript"
 							}
@@ -352,13 +352,17 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
+									"raw": "https://ebcee290-711a-4860-bfd7-81cb3e9d73b8.mock.pstmn.io/person/63cc98a061eb8862867ac260",
+									"protocol": "https",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"ebcee290-711a-4860-bfd7-81cb3e9d73b8",
+										"mock",
+										"pstmn",
+										"io"
 									],
 									"path": [
 										"person",
-										"{{PERSON_ID}}"
+										"63cc98a061eb8862867ac260"
 									]
 								}
 							},
@@ -487,14 +491,18 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{BANKING_API_URL}}/person/documentNumber/{{PERSON_DOCUMENT_NUMBER}}",
+									"raw": "https://ebcee290-711a-4860-bfd7-81cb3e9d73b8.mock.pstmn.io/person/documentNumber/45747215612",
+									"protocol": "https",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"ebcee290-711a-4860-bfd7-81cb3e9d73b8",
+										"mock",
+										"pstmn",
+										"io"
 									],
 									"path": [
 										"person",
 										"documentNumber",
-										"{{PERSON_DOCUMENT_NUMBER}}"
+										"45747215612"
 									]
 								}
 							},
@@ -562,132 +570,6 @@
 								{
 									"key": "Date",
 									"value": "Sun, 22 Jan 2023 03:00:46 GMT"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								}
-							],
-							"cookie": [],
-							"body": null
-						}
-					]
-				},
-				{
-					"name": "/person/id - Delete a person",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
-							"host": [
-								"{{BANKING_API_URL}}"
-							],
-							"path": [
-								"person",
-								"{{PERSON_ID}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "200 OK",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
-									"host": [
-										"{{BANKING_API_URL}}"
-									],
-									"path": [
-										"person",
-										"{{PERSON_ID}}"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx/1.23.3"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 22 Jan 2023 02:39:45 GMT"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "189"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"bd-Pj2qvtyyzDhfYiKdSYHIg8g1u7M\""
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": \"63cca16261eb8862867ac263\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"76207318145\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:37:22.403Z\",\n    \"updatedAt\": \"2023-01-22T02:37:22.403Z\"\n}"
-						},
-						{
-							"name": "404 Not Found",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
-									"host": [
-										"{{BANKING_API_URL}}"
-									],
-									"path": [
-										"person",
-										"{{PERSON_ID}}"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Server",
-									"value": "nginx/1.23.3"
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 22 Jan 2023 03:02:19 GMT"
 								},
 								{
 									"key": "Transfer-Encoding",
@@ -1009,22 +891,51 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/account/63cc45674bc3192aa589118f",
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}",
 									"host": [
 										"{{BANKING_API_URL}}"
 									],
 									"path": [
 										"account",
-										"63cc45674bc3192aa589118f"
+										"{{ACCOUNT_ID}}"
 									]
 								}
 							},
 							"status": "OK",
 							"code": 200,
 							"_postman_previewlanguage": "json",
-							"header": null,
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 07:11:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-TYW4/V5ORSdCBtDrRfEZ+WKwdHo\""
+								}
+							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"63cc45674bc3192aa589118f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cc4564321228ee427ed92c\",\n    \"agency\": \"0531\",\n    \"number\": \"0000002-7\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-21T20:04:55.881Z\",\n    \"updatedAt\": \"2023-01-21T20:04:55.881Z\"\n}"
+							"body": "{\n    \"id\": \"63ccd66fd497eeb7e1ec7078\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63ca2fd2eba61369183cce18\",\n    \"agency\": \"0564\",\n    \"number\": \"0000013-2\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T06:23:43.086Z\",\n    \"updatedAt\": \"2023-01-22T06:23:43.086Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
