@@ -3,6 +3,7 @@ const Account = require('../models/account');
 const { getSequencial } = require('../services/sequencialGeneratorService');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
+const AccountBlockedError = require('../errors/AccountBlockedError');
 
 const CLIENT_API_URL = process.env.DOCK_CLIENT_API_URL;
 const TRANSACTION_API_URL = process.env.DOCK_TRANSACTION_API_URL;
@@ -80,6 +81,11 @@ exports.getAccount = (id) => {
 }
 
 exports.getAccountBalance = (account) => {
+
+	if (!account || !account.id) {
+		return Promise.resolve(account);
+	}
+
 	return fetch(`${TRANSACTION_API_URL}/transaction/account/${account.id}/balance`)
 		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
@@ -90,38 +96,35 @@ exports.getAccountBalance = (account) => {
 		})
 }
 
-exports.updateAccount = (newAccount) => {
-	return this.getAccount(newAccount.id)
-		.then(oldAccount => {
-			
-		});
-}
-
 exports.blockAccount = (id, status) => {
 	return exports.getAccount(id)
 		.then(account => {
+			if (!account) {
+				return account;
+			}
 			if (!account.enabled) {
 				throw new AccountDisabledError(`Can't ${status ? 'block' : 'unblock'} a disabled account`);
 			}
-			return account;
-		})
-		.then(account => {
+			if (account.blocked == status) {
+				throw new AccountBlockedError(`Account already ${status ? 'blocked' : 'unblocked'}`);
+			}
 			account.blocked = status;
-			return account;
-		})
-		.then(account => account.save());
+			return account.save();
+		});
 }
 
 exports.disableAccount = (id) => {
 	return exports.getAccount(id)
 		.then(account => {
+			if (!account) {
+				return account;
+			}
 			if (!account.enabled) {
 				throw new AccountDisabledError(`Account already disabled`);
 			}
 			account.enabled = false;
-			return account;
-		})
-		.then(account => account.save());
+			return account.save();
+		});
 }
 
 exports.deleteAccount = (id) => {

@@ -38,10 +38,10 @@ function handleAccountEnabledForTransact(account, transaction) {
 	return Promise.resolve(account)
 		.then(account => {
 			if (!account.enabled) {
-				throw new AccountDisabledError('account is disabled for transactions');
+				throw new AccountDisabledError('account is disabledd for transactions');
 			}
 
-			if (account.block) {
+			if (account.blocked) {
 				throw new AccountBlockedError();
 			}
 
@@ -93,13 +93,17 @@ exports.createWithdrawTransaction = (json) => {
 
 exports.createTransaction = (transaction) => {
 
-	return fetch(`${ACCOUNT_API_URL}/account/${transaction.account}`)
+	return transaction.validate()
+		.then(() => fetch(`${ACCOUNT_API_URL}/account/${transaction.account}`))
 		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
 		.then(response => response.json())
 		.then(account => handleAccountEnabledForTransact(account, transaction))
 		.then(account => handleTransactionLimits(account, transaction))
-		.then(transaction => transaction.save());
+		.then(transaction => {
+			transaction.date = new Date()
+			return transaction.save();
+		});
 }
 
 exports.getTransaction = (id) => {
