@@ -28,10 +28,3 @@ exports.getByDocumentNumber = (req, res, next) => {
 		.then(person => handleResourceResponse(res, person))
 		.catch(next);
 }
-
-exports.delete = (req, res, next) => {
-
-	personService.deletePerson(req.params.id)
-		.then(person => handleResourceResponse(res, person))
-		.catch(next);
-}

@@ -132,7 +132,3 @@ exports.disableAccount = (id) => {
 			return account.save();
 		});
 }
-
-exports.deleteAccount = (id) => {
-	return Account.findByIdAndDelete(id);
-}

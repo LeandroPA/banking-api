@@ -13,6 +13,5 @@ router.get('/:agency/:number', validate(
 router.post('/:id/block', validate(param('id').isMongoId()), accountController.block);
 router.delete('/:id/block', validate(param('id').isMongoId()), accountController.unblock);
 router.post('/:id/disable', validate(param('id').isMongoId()), accountController.disable);
-router.delete('/:id', validate(param('id').isMongoId()), accountController.delete);
 
 module.exports = router;

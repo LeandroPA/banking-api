@@ -7,6 +7,5 @@ const validate = require('../errorHandler/requestValidationErrorHandler');
 router.post('/', personController.create);
 router.get('/:id', validate(param('id').isMongoId()), personController.get);
 router.get('/documentNumber/:documentNumber', personController.getByDocumentNumber);
-router.delete('/:id', validate(param('id').isMongoId()), personController.delete);
 
 module.exports = router;

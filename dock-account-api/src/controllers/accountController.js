@@ -50,10 +50,3 @@ exports.disable = (req, res, next) => {
 		.then(account => handleResourceResponse(res, account))
 		.catch(next);
 }
-
-exports.delete = (req, res, next) => {
-
-	accountService.deleteAccount(req.params.id)
-		.then(account => handleResourceResponse(res, account))
-		.catch(next);
-}

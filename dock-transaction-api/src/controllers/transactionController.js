@@ -49,10 +49,3 @@ exports.getStatement = (req, res, next) => {
 		.then(transaction => handleResourceResponse(res, transaction))
 		.catch(next);
 }
-
-exports.delete = (req, res, next) => {
-
-	transactionService.deleteTransaction(req.params.id)
-		.then(transaction => handleResourceResponse(res, transaction))
-		.catch(next);
-}

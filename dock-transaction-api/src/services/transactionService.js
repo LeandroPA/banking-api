@@ -171,7 +171,3 @@ exports.getStatement = (params) => {
 			return result;
 		});
 }
-
-exports.deleteTransaction = (id) => {
-	return Transaction.findByIdAndDelete(id);
-}

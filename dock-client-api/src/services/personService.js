@@ -12,7 +12,3 @@ exports.getPerson = (id) => {
 exports.getPersonByDocumentNumber = (documentNumber) => {
 	return PhysicalPerson.findOne({documentNumber: documentNumber});
 }
-
-exports.deletePerson = (id) => {
-	return Person.findByIdAndDelete(id);
-}
