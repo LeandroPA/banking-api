@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "cf700079-59f7-44ad-8964-da776e78642e",
 		"name": "desafio-dev-api-rest",
-		"description": "Documentação para API de Banking do desafio técnico da empresa Dock.",
+		"description": "Documentação para API de Banking do desafio técnico da empresa Dock.  \nCada microsserviço possui o seu endpoint, por exemplo:\n\n``` http\ndock-client-api          - localhost:3001\ndock-account-api         - localhost:3002\ndock-transaction-api     - localhost:3003\n\n```\n\nPorém, o api-gateway faz o routing para cada serviço através do endpoint padrão:\n\n```http\ndock-banking-api-gateway - localhost:3000\n\n```\n\nPara mais detalhes, [repositório no Github](https://github.com/LeandroPA/desafio-dev-api-rest)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7620522"
 	},
@@ -33,7 +33,7 @@
 									"  return `${n.join('')}${d1}${d2}`\r",
 									"}\r",
 									"\r",
-									"// pm.environment.set('PERSON_DOCUMENT_NUMBER', cpf());"
+									"pm.environment.set('PERSON_DOCUMENT_NUMBER', cpf());"
 								],
 								"type": "text/javascript"
 							}
@@ -72,7 +72,7 @@
 								"person"
 							]
 						},
-						"description": "Endpoint para criação de pessoa cliente do banco."
+						"description": "Endpoint para criação de pessoa cliente do banco. `documentNumber` segue formatação de um CPF válido e somente números."
 					},
 					"response": [
 						{
@@ -319,7 +319,7 @@
 					]
 				},
 				{
-					"name": "/person/id - Get a person",
+					"name": "/person/[id] - Get a person",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -343,7 +343,8 @@
 								"person",
 								"{{PERSON_ID}}"
 							]
-						}
+						},
+						"description": "Pegar dados de um cliente/pessoa por seu `id`."
 					},
 					"response": [
 						{
@@ -352,14 +353,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://ebcee290-711a-4860-bfd7-81cb3e9d73b8.mock.pstmn.io/person/63cc98a061eb8862867ac260",
-									"protocol": "https",
+									"raw": "localhost:3000/person/63cc98a061eb8862867ac260",
 									"host": [
-										"ebcee290-711a-4860-bfd7-81cb3e9d73b8",
-										"mock",
-										"pstmn",
-										"io"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"person",
 										"63cc98a061eb8862867ac260"
@@ -457,7 +455,7 @@
 					]
 				},
 				{
-					"name": "/person/documentNumber/number - Get a person by document number",
+					"name": "/person/documentNumber/[number] - Get a person by document number",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -482,7 +480,8 @@
 								"documentNumber",
 								"{{PERSON_DOCUMENT_NUMBER}}"
 							]
-						}
+						},
+						"description": "Pegar dados de um cliente/pessoa pelo seu `documentNumber`, no formato de um CPF válido e somente números."
 					},
 					"response": [
 						{
@@ -491,14 +490,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://ebcee290-711a-4860-bfd7-81cb3e9d73b8.mock.pstmn.io/person/documentNumber/45747215612",
-									"protocol": "https",
+									"raw": "localhost:3000/person/documentNumber/45747215612",
 									"host": [
-										"ebcee290-711a-4860-bfd7-81cb3e9d73b8",
-										"mock",
-										"pstmn",
-										"io"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"person",
 										"documentNumber",
@@ -642,7 +638,8 @@
 							"path": [
 								"account"
 							]
-						}
+						},
+						"description": "Endpoint para criação de conta. `holder` representa o `documentNumber` de um cliente, no formato de CPF somente com os dígitos."
 					},
 					"response": [
 						{
@@ -652,7 +649,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"holder\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+									"raw": "{\r\n    \"holder\": \"45747215612\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -660,10 +657,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/account",
+									"raw": "localhost:3000/account",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"account"
 									]
@@ -828,7 +826,7 @@
 					]
 				},
 				{
-					"name": "/account/id - Get an account",
+					"name": "/account/[id] - Get an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -873,7 +871,8 @@
 								"account",
 								"{{ACCOUNT_ID}}"
 							]
-						}
+						},
+						"description": "Pegar dados de uma conta pelo seu `id`."
 					},
 					"response": [
 						{
@@ -891,13 +890,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}",
+									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"account",
-										"{{ACCOUNT_ID}}"
+										"63cc9f72a23faefce2e1e80d"
 									]
 								}
 							},
@@ -1054,7 +1054,7 @@
 					]
 				},
 				{
-					"name": "/account/agency/number - Get an account by agency and number",
+					"name": "/account/[agency]/[number] - Get an account by agency and number",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1100,7 +1100,8 @@
 								"{{ACCOUNT_AGENCY}}",
 								"{{ACCOUNT_NUMBER}}"
 							]
-						}
+						},
+						"description": "Pegar dados de um banco pelo seu `agency` e `number`. `agency` é o número de 4 dígitos e `number` é um número de 7 dígitos com um sufixo do dígito verificador."
 					},
 					"response": [
 						{
@@ -1118,14 +1119,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_AGENCY}}/{{ACCOUNT_NUMBER}}",
+									"raw": "localhost:3000/account/0564/0000013-2",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"account",
-										"{{ACCOUNT_AGENCY}}",
-										"{{ACCOUNT_NUMBER}}"
+										"0564",
+										"0000013-2"
 									]
 								}
 							},
@@ -1284,7 +1286,7 @@
 					]
 				},
 				{
-					"name": "/account/id/block - Block an account",
+					"name": "/account/[id]/block - Block an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1327,7 +1329,8 @@
 								"{{ACCOUNT_ID}}",
 								"block"
 							]
-						}
+						},
+						"description": "Endpoint para bloquear uma conta. Para desbloquear, necessário mudar o `http method` para `DELETE`."
 					},
 					"response": [
 						{
@@ -1345,13 +1348,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
+									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d/block",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"account",
-										"{{ACCOUNT_ID}}",
+										"63cc9f72a23faefce2e1e80d",
 										"block"
 									]
 								}
@@ -1573,7 +1577,7 @@
 					]
 				},
 				{
-					"name": "/account/id/block - Unblock an account",
+					"name": "/account/[id]/block - Unblock an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1588,7 +1592,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"postman.setNextRequest('/transaction/deposit - Create an deposit transaction')"
 								],
 								"type": "text/javascript"
 							}
@@ -1616,7 +1620,8 @@
 								"{{ACCOUNT_ID}}",
 								"block"
 							]
-						}
+						},
+						"description": "Endpoint para desbloquear uma conta. Para bloquear, necessário mudar o `http method` para `POST`."
 					},
 					"response": [
 						{
@@ -1634,13 +1639,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
+									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d/block",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"account",
-										"{{ACCOUNT_ID}}",
+										"63cc9f72a23faefce2e1e80d",
 										"block"
 									]
 								}
@@ -1862,7 +1868,7 @@
 					]
 				},
 				{
-					"name": "/account/id/disable - Disable an account",
+					"name": "/account/[id]/disable - Disable an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1877,7 +1883,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"postman.setNextRequest(null);"
 								],
 								"type": "text/javascript"
 							}
@@ -1905,7 +1911,8 @@
 								"{{ACCOUNT_ID}}",
 								"disable"
 							]
-						}
+						},
+						"description": "Endpoint para bloquear uma conta."
 					},
 					"response": [
 						{
@@ -2151,7 +2158,8 @@
 						}
 					]
 				}
-			]
+			],
+			"description": "Microsserviço responsável pela gestão de contas de um cliente"
 		},
 		{
 			"name": "dock-transaction-api",
@@ -2202,7 +2210,8 @@
 								"transaction",
 								"deposit"
 							]
-						}
+						},
+						"description": "Endpoint para criação de uma transação de depósito."
 					},
 					"response": [
 						{
@@ -2620,7 +2629,8 @@
 								"transaction",
 								"withdraw"
 							]
-						}
+						},
+						"description": "Endpoint para criação de uma transação de saque."
 					},
 					"response": [
 						{
@@ -3054,7 +3064,7 @@
 					]
 				},
 				{
-					"name": "/transaction/account/id/balance - Get the balance of an account",
+					"name": "/transaction/account/[id]/balance - Get the balance of an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3101,7 +3111,8 @@
 								"63cc98a061eb8862867ac260",
 								"balance"
 							]
-						}
+						},
+						"description": "Pegar o saldo bancário de uma conta, uma vez que esse dado é calculado em tempo real. É mais utilizado internamente por endpoints do tipo `GET` em [dock-account-api](#dock-account-api), por exemplo."
 					},
 					"response": [
 						{
@@ -3234,7 +3245,7 @@
 					]
 				},
 				{
-					"name": "/transaction/account/id/statement - Get the statement of an account",
+					"name": "/transaction/account/[id]/statement - Get the statement of an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3249,7 +3260,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"postman.setNextRequest(\"/account/[id]/disable - Disable an account\");"
 								],
 								"type": "text/javascript"
 							}
@@ -3285,15 +3296,16 @@
 								{
 									"key": "from",
 									"value": "2023-01-21",
-									"description": "Filter transactions **from** this date. **Optional**"
+									"description": "Filtrar transações **a partir** dessa data, no formato `YYYY-MM-DD`. **Opcional**"
 								},
 								{
 									"key": "to",
 									"value": "2023-01-21",
-									"description": "Filter transactions **to** this date. **Optional**"
+									"description": "Filtrar transações **até** essa data, no formato `YYYY-MM-DD`. **Opcional**"
 								}
 							]
-						}
+						},
+						"description": "Endpoint para coletar o extrato bancário por período. No resultado, espera-se informações como o total transacionado e o saldo, com uma lista de transações."
 					},
 					"response": [
 						{
@@ -3387,14 +3399,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}2/statement?from=2023-01-21&to=2023-01-21",
+									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d2/statement?from=2023-01-21&to=2023-01-21",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"transaction",
 										"account",
-										"{{ACCOUNT_ID}}2",
+										"63cc9f72a23faefce2e1e80d2",
 										"statement"
 									],
 									"query": [
@@ -3462,14 +3475,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=01/12/2022&to=31/12/2022",
+									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d/statement?from=01/12/2022&to=31/12/2022",
 									"host": [
-										"{{BANKING_API_URL}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
 										"transaction",
 										"account",
-										"{{ACCOUNT_ID}}",
+										"63cc9f72a23faefce2e1e80d",
 										"statement"
 									],
 									"query": [
@@ -3599,7 +3613,30 @@
 						}
 					]
 				}
-			]
+			],
+			"description": "Microsserviço responsável pela gestão de transações de uma conta."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code 200 or 201\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+					"});"
+				]
+			}
 		}
 	]
 }
