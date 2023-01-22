@@ -82,7 +82,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"fullname\": \"Leandro Alencar\",\r\n    \"documentNumber\": \"45747215612\"\r\n}",
+									"raw": "{\r\n    \"fullname\": \"Leandro Alencar\",\r\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
