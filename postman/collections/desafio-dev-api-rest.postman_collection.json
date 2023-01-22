@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "cf700079-59f7-44ad-8964-da776e78642e",
 		"name": "desafio-dev-api-rest",
+		"description": "Documentação para API de Banking do desafio técnico da empresa Dock.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7620522"
 	},
@@ -55,7 +56,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullname\": \"Client {{PERSON_DOCUMENT_NUMBER}}\",\r\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+							"raw": "{\r\n    \"fullname\": \"Leandro Alencar\",\r\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -63,16 +64,259 @@
 							}
 						},
 						"url": {
-							"raw": "{{CLIENT_API_URL}}/person",
+							"raw": "{{BANKING_API_URL}}/person",
 							"host": [
-								"{{CLIENT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"person"
 							]
-						}
+						},
+						"description": "Endpoint para criação de pessoa cliente do banco."
 					},
-					"response": []
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"Leandro Alencar\",\r\n    \"documentNumber\": \"45747215612\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/person",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"person"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:40:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bd-cK9vzrcseebd8UNYdZG3bpULPRo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca20861eb8862867ac268\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"77283276661\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid documentNumber format",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"Leandro Alencar\",\r\n    \"documentNumber\": \"12345678912\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:56:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d-6Sc70D39GmU9muCX8JYCG+6Opq0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"documentNumber\": \"Invalid documentNumber format\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - required fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:57:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "92"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5c-ebB/iLzXSUt76j4QxdPbosC3BLQ\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"documentNumber\": \"documentNumber is required\",\n        \"fullname\": \"fullname is required\"\n    }\n}"
+						},
+						{
+							"name": "409 Conflict - Duplicate documentNumber",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullname\": \"Leandro Alencar\",\r\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:58:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42-SHNMeBmg0eQNGPccXA8rLxeRcQA\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"documentNumber\": \"Duplicate value for documentNumber\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "/person/id - Get a person",
@@ -91,9 +335,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{CLIENT_API_URL}}/person/{{PERSON_ID}}",
+							"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
 							"host": [
-								"{{CLIENT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"person",
@@ -101,10 +345,115 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"{{PERSON_ID}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:40:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bd-cK9vzrcseebd8UNYdZG3bpULPRo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca20861eb8862867ac268\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"77283276661\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}2",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"{{PERSON_ID}}2"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:59:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
 				},
 				{
-					"name": "/person/id/documentNumber/number - Get a person by document number",
+					"name": "/person/documentNumber/number - Get a person by document number",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -120,9 +469,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{CLIENT_API_URL}}/person/documentNumber/{{PERSON_DOCUMENT_NUMBER}}",
+							"raw": "{{BANKING_API_URL}}/person/documentNumber/{{PERSON_DOCUMENT_NUMBER}}",
 							"host": [
-								"{{CLIENT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"person",
@@ -131,7 +480,106 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/documentNumber/{{PERSON_DOCUMENT_NUMBER}}",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"documentNumber",
+										"{{PERSON_DOCUMENT_NUMBER}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:40:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bd-cK9vzrcseebd8UNYdZG3bpULPRo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca20861eb8862867ac268\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"77283276661\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/documentNumber/12345678912",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"documentNumber",
+										"12345678912"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:00:46 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "/person/id - Delete a person",
@@ -150,9 +598,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{CLIENT_API_URL}}/person/{{PERSON_ID}}",
+							"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
 							"host": [
-								"{{CLIENT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"person",
@@ -160,9 +608,107 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"{{PERSON_ID}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:39:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bd-Pj2qvtyyzDhfYiKdSYHIg8g1u7M\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca16261eb8862867ac263\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"76207318145\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:37:22.403Z\",\n    \"updatedAt\": \"2023-01-22T02:37:22.403Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/{{PERSON_ID}}",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"{{PERSON_ID}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:02:19 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
-			]
+			],
+			"description": "Microsserviço responsável por gestão de clientes."
 		},
 		{
 			"name": "dock-account-api",
@@ -186,6 +732,8 @@
 									"if (pm.response.code == 201) {\r",
 									"    let body = JSON.parse(responseBody);\r",
 									"    pm.environment.set(\"ACCOUNT_ID\", body.id);\r",
+									"    pm.environment.set(\"ACCOUNT_AGENCY\", body.agency);\r",
+									"    pm.environment.set(\"ACCOUNT_NUMBER\", body.number);\r",
 									"}"
 								],
 								"type": "text/javascript"
@@ -205,16 +753,197 @@
 							}
 						},
 						"url": {
-							"raw": "{{ACCOUNT_API_URL}}/account",
+							"raw": "{{BANKING_API_URL}}/account",
 							"host": [
-								"{{ACCOUNT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"account"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"holder\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:46:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-E3UISlFj9WRFUFLGr5qy/F6dnIA\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:46:02.298Z\"\n}"
+						},
+						{
+							"name": "404 Not Found - Holder not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"holder\": \"{{PERSON_DOCUMENT_NUMBER}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:13:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28-UkMRFdTdZcNpcUDQxheOhlJfASE\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"holder\": \"Holder not found\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - holder is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"holder\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:14:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-eWr8u9MVzXZGTUujq40AJtqQ4J4\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"holder\": \"holder is required\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "/account/id - Get an account",
@@ -254,9 +983,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}",
+							"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}",
 							"host": [
-								"{{ACCOUNT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"account",
@@ -264,7 +993,384 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/63cc45674bc3192aa589118f",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"63cc45674bc3192aa589118f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cc45674bc3192aa589118f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cc4564321228ee427ed92c\",\n    \"agency\": \"0531\",\n    \"number\": \"0000002-7\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-21T20:04:55.881Z\",\n    \"updatedAt\": \"2023-01-21T20:04:55.881Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/63cc98a061eb8862867ac260",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"63cc98a061eb8862867ac260"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:28:25 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}2",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}2"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:00:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/account/agency/number - Get an account by agency and number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_AGENCY}}/{{ACCOUNT_NUMBER}}",
+							"host": [
+								"{{BANKING_API_URL}}"
+							],
+							"path": [
+								"account",
+								"{{ACCOUNT_AGENCY}}",
+								"{{ACCOUNT_NUMBER}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_AGENCY}}/{{ACCOUNT_NUMBER}}",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_AGENCY}}",
+										"{{ACCOUNT_NUMBER}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 06:50:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-TYW4/V5ORSdCBtDrRfEZ+WKwdHo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63ccd66fd497eeb7e1ec7078\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63ca2fd2eba61369183cce18\",\n    \"agency\": \"0564\",\n    \"number\": \"0000013-2\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T06:23:43.086Z\",\n    \"updatedAt\": \"2023-01-22T06:23:43.086Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/1234/1234567-8",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"1234",
+										"1234567-8"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 06:52:40 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 Bad Request - Invalid values",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/2/1",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"2",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 06:47:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e-Lxd1WS1EziZZ61fMmWSPJhE0ZGo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"agency\": \"Invalid value\",\n        \"number\": \"Invalid value\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "/account/id/block - Block an account",
@@ -301,9 +1407,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}/block",
+							"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
 							"host": [
-								"{{ACCOUNT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"account",
@@ -312,7 +1418,248 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}",
+										"block"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:50:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "290"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"122-ABS9KLsfZ+4yuM9/8mg4G4QSRbs\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": true,\n    \"blocked\": true,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:35.442Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/63cc98a061eb8862867ac260/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"63cc98a061eb8862867ac260",
+										"block"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:41:48 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 Bad Request - Account already blocked",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}",
+										"block"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:56:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30-USwhkiZb5QAKbikQXtG2RVL+AIk\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"Account already blocked\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}2/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}2",
+										"block"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:01:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "/account/id/block - Unblock an account",
@@ -349,9 +1696,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}/block",
+							"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
 							"host": [
-								"{{ACCOUNT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"account",
@@ -360,7 +1707,248 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}",
+										"block"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:50:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-nOEOKBhRDZftCVk13wpqygWnDhU\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": true,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:50:57.953Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/63cc98a061eb8862867ac260/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"63cc98a061eb8862867ac260",
+										"block"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:41:48 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 Bad Request - Account already unblocked",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}",
+										"block"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:55:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-kSO4LMCFH313R8go0XHQqYIWSrw\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"Account already unblocked\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}2/block",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}2",
+										"block"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:01:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "/account/id/disable - Disable an account",
@@ -397,9 +1985,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{ACCOUNT_API_URL}}/account/{{ACCOUNT_ID}}/disable",
+							"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/disable",
 							"host": [
-								"{{ACCOUNT_API_URL}}"
+								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"account",
@@ -408,7 +1996,1697 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/account/63cc9f72a23faefce2e1e80d/disable",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"account",
+										"63cc9f72a23faefce2e1e80d",
+										"disable"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:53:31 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "294"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"126-iLQgJIWY1kPm1AYa5kiDBqfpHzo\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca36a34aafd597a6e3f2f\",\n    \"limits\": {\n        \"withdraw\": {\n            \"daily\": 2000\n        }\n    },\n    \"holder\": \"63cca20861eb8862867ac268\",\n    \"agency\": \"0870\",\n    \"number\": \"0000008-6\",\n    \"enabled\": false,\n    \"blocked\": false,\n    \"balance\": {\n        \"currency\": \"BRL\",\n        \"value\": 0\n    },\n    \"createdAt\": \"2023-01-22T02:46:02.298Z\",\n    \"updatedAt\": \"2023-01-22T02:53:31.656Z\"\n}"
+						},
+						{
+							"name": "404 - Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/63cc98a061eb8862867ac260/disable",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"63cc98a061eb8862867ac260",
+										"disable"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:58:50 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 Bad Request - Account already disabled",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/{{ACCOUNT_ID}}/disable",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"{{ACCOUNT_ID}}",
+										"disable"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:58:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-W8Fcl7efHq5ljQanKd1OEvsqJ30\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"Account already disabled\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/account/63cc98a061eb8862867ac2602/disable",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"account",
+										"63cc98a061eb8862867ac2602",
+										"disable"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:59:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "dock-transaction-api",
+			"item": [
+				{
+					"name": "/transaction/deposit - Create an deposit transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    let body = JSON.parse(responseBody);\r",
+									"    pm.environment.set(\"TRANSACTION_ID\", body.id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BANKING_API_URL}}/transaction/deposit",
+							"host": [
+								"{{BANKING_API_URL}}"
+							],
+							"path": [
+								"transaction",
+								"deposit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"63cc9f72a23faefce2e1e80d\",\r\n    \"value\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/transaction/deposit",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:51:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"86-DW+NJI9sWzlSk4xW02GluEXfYoI\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca4bda7c007552fa9d8b3\",\n    \"account\": \"63cca36a34aafd597a6e3f2f\",\n    \"value\": 1000,\n    \"type\": \"deposit\",\n    \"date\": \"2023-01-22T02:51:41.436Z\"\n}"
+						},
+						{
+							"name": "400 Bad Request - Required fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/deposit",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:13:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"48-cfYPUItDQkGVtK9iPOxf1fT52qw\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"value\": \"value is required\",\n        \"account\": \"account is required\"\n    }\n}"
+						},
+						{
+							"name": "404 Not Found - Holder not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"63cc98a061eb8862867ac260\",\r\n    \"value\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/deposit",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:19:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28-UkMRFdTdZcNpcUDQxheOhlJfASE\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"holder\": \"Holder not found\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Value should be more than 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/deposit",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:18:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-a/O/A1a8C3nP1j49V6O0lYMDRac\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"value\": \"value should be more than 0\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Account blocked for transactions",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/deposit",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:16:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-aefAQoZP8d67FbNkzIxsvqGohMU\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"account is blocked for transactions\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Account disabled for transaction",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/deposit",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:02:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d-8nwrP4HbhuZh3HtcgpMq/9i7QeU\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"account is disabled for transactions\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/transaction/withdraw - Create an withdraw transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    let body = JSON.parse(responseBody);\r",
+									"    pm.environment.set(\"TRANSACTION_ID\", body.id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+							"host": [
+								"{{BANKING_API_URL}}"
+							],
+							"path": [
+								"transaction",
+								"withdraw"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"63cc9f72a23faefce2e1e80d\",\r\n    \"value\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/transaction/withdraw",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:52:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "135"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"87-kcivlktbNnBkRrXqO5Qlsujb4qA\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63cca4d0a7c007552fa9d8b6\",\n    \"value\": -500,\n    \"account\": \"63cca36a34aafd597a6e3f2f\",\n    \"type\": \"withdraw\",\n    \"date\": \"2023-01-22T02:52:00.947Z\"\n}"
+						},
+						{
+							"name": "400 Bad Request - Required fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:20:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"48-2zlP6cDwnw3uIodQPESKerae52Y\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"account\": \"account is required\",\n        \"value\": \"value is required\"\n    }\n}"
+						},
+						{
+							"name": "404 Not Found - Holder not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"63cc98a061eb8862867ac260\",\r\n    \"value\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:21:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28-UkMRFdTdZcNpcUDQxheOhlJfASE\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"holder\": \"Holder not found\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Value should be more than 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:21:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-a/O/A1a8C3nP1j49V6O0lYMDRac\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"value\": \"value should be more than 0\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Insufficient funds",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 03:16:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "59"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3b-2vARgCByJSQPGK2z7NZZaQr1M0A\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"insufficient funds for transaction\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Account blocked for transactions",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:16:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-aefAQoZP8d67FbNkzIxsvqGohMU\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"account is blocked for transactions\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Account disabled for transactions",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\": \"{{ACCOUNT_ID}}\",\r\n    \"value\": 500\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/withdraw",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:22:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e-gm1STqzecgmsORnj4iLxZn51CUU\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"details\": \"account is disabledd for transactions\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/transaction/account/id/balance - Get the balance of an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BANKING_API_URL}}/transaction/account/63cc98a061eb8862867ac260/balance",
+							"host": [
+								"{{BANKING_API_URL}}"
+							],
+							"path": [
+								"transaction",
+								"account",
+								"63cc98a061eb8862867ac260",
+								"balance"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d/balance",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"transaction",
+										"account",
+										"63cc9f72a23faefce2e1e80d",
+										"balance"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:52:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "15"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f-+ZB+3jEqyOadZRc6Jm34ozF+CYM\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"balance\": 500\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}2/balance",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"account",
+										"{{ACCOUNT_ID}}2",
+										"balance"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 04:23:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "/transaction/account/id/statement - Get the statement of an account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=2023-01-21&to=2023-01-21",
+							"host": [
+								"{{BANKING_API_URL}}"
+							],
+							"path": [
+								"transaction",
+								"account",
+								"{{ACCOUNT_ID}}",
+								"statement"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2023-01-21",
+									"description": "Filter transactions **from** this date. **Optional**"
+								},
+								{
+									"key": "to",
+									"value": "2023-01-21",
+									"description": "Filter transactions **to** this date. **Optional**"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/transaction/account/63cc9f72a23faefce2e1e80d/statement?from=2023-01-22&to=2023-01-22",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"transaction",
+										"account",
+										"63cc9f72a23faefce2e1e80d",
+										"statement"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "2023-01-22",
+											"description": "Filter transactions **from** this date. **Optional**"
+										},
+										{
+											"key": "to",
+											"value": "2023-01-22",
+											"description": "Filter transactions **to** this date. **Optional**"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 02:52:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "330"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14a-lUtdxRAMphSuOb/AbVfd8MbjHjc\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"total\": {\n        \"transacted\": 500,\n        \"balance\": 500\n    },\n    \"transactions\": [\n        {\n            \"id\": \"63cca4bda7c007552fa9d8b3\",\n            \"account\": \"63cca36a34aafd597a6e3f2f\",\n            \"value\": 1000,\n            \"type\": \"deposit\",\n            \"date\": \"2023-01-22T02:51:41.436Z\"\n        },\n        {\n            \"id\": \"63cca4d0a7c007552fa9d8b6\",\n            \"value\": -500,\n            \"account\": \"63cca36a34aafd597a6e3f2f\",\n            \"type\": \"withdraw\",\n            \"date\": \"2023-01-22T02:52:00.947Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}2/statement?from=2023-01-21&to=2023-01-21",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"account",
+										"{{ACCOUNT_ID}}2",
+										"statement"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "2023-01-21",
+											"description": "Filter transactions **from** this date. **Optional**"
+										},
+										{
+											"key": "to",
+											"value": "2023-01-21",
+											"description": "Filter transactions **to** this date. **Optional**"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 06:22:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid dates",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=01/12/2022&to=31/12/2022",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"account",
+										"{{ACCOUNT_ID}}",
+										"statement"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "01/12/2022",
+											"description": "Filter transactions **from** this date. **Optional**"
+										},
+										{
+											"key": "to",
+											"value": "31/12/2022",
+											"description": "Filter transactions **to** this date. **Optional**"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 06:05:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-ytB7E1tyLf8WYMvm39XXHK3kP9I\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"from\": \"Invalid value\",\n        \"to\": \"Invalid value\"\n    }\n}"
+						},
+						{
+							"name": "400 Bad Request - Invalid date times",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/statement?from=2030-01-23&to=2023-01-21",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"account",
+										"{{ACCOUNT_ID}}",
+										"statement"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "2030-01-23",
+											"description": "Filter transactions **from** this date. **Optional**"
+										},
+										{
+											"key": "to",
+											"value": "2023-01-21",
+											"description": "Filter transactions **to** this date. **Optional**"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jan 2023 06:17:16 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6a-x5uVkJnS8kMCUMA63JNXXKPIrhk\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"from\": \"Date must be before or equal to today\",\n        \"to\": \"Date must be equal or after 'from' date\"\n    }\n}"
+						}
+					]
 				}
 			]
 		}
