@@ -1,37 +1,66 @@
-_**WIP - Work in progress**_
 
-# Descrição
+# Título do Projeto
 
-Foi utilizado uma abordagem mais para microsserviços, onde cada aplicação possui seu escopo de acordo com o que foi abordado no anunciado.
-
-Ao todo, são 3 projetos: `dock-account-api`, `dock-client-api` e `dock-transaction-api (WIP)`. Onde todos utilizam `NodeJs + Express` + `MongoDB`. 
+Desafio técnico para empresa Dock com a finalidade de desenvolvimento de uma aplicação bancária.
 
 
-# Uso
 
-## Local
+## Arquitetura
 
-Cada aplicação, precisa apenas rodar o `npm install` no início, e após isso, rodar cada um das aplicações com `npm start`.
-Requisito `node >= 13`
+A arquitetura escolhida pra esse projeto foi de microsserviço, onde é separado os microsserviços essenciais da aplicação
+com um api gateway para unificar os endpoints.
 
-## Docker
+<img src="arquitetura.png" alt="arquitetura" width="500"/>
 
-Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as 3 aplicações.
+## Stack utilizada
 
-Cada aplicação está disponível algumas portas em localhost, são elas:
+**dock-banking-api-gateway:** Nginx
 
+**dock-client-api:** NodeJS, Express, Mongoose
+
+**dock-account-api:** Node, Express, Mongoose
+
+**dock-transaction-api:** Node, Express, Mongoose
+
+**database:** MongoDB
+
+
+## Documentação da API
+
+A documentação da API é gerada via Postman e está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC#c4a05224-2362-44b5-b320-181b48b569db).
+## Rodando localmente
+
+Para cada aplicação, um serviço diferente numa porta diferente.
 ```
-dock-client-api      - localhost:3001
-dock-account-api     - localhost:3002
-dock-transaction-api - localhost:3003 - (WIP)
+dock-banking-api-gateway - localhost:3000 //TODO: disponibilizar configuração para Nginx
+dock-client-api          - localhost:3001
+dock-account-api         - localhost:3002
+dock-transaction-api     - localhost:3003
 ```
+
+### Local
+
+Para cada aplicação, exceto `dock-banking-api-gateway`, rodar os comandos abaixo:
+
+```shell
+cd dock-client-api/ #dock-account-api ou dock-transaction-api
+npm install
+npm start
+```
+
+### Docker
+
+Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as aplicações.
+
 Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
 
-# Testes
 
-## Postman
+## Testes
 
-Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints. Dentro da pasta, possui uma collection e como importar e usa-las.
+### Postman
+
+Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints. 
+Dentro da pasta, possui uma collection e como importar e usa-las.
 
 ---
 
