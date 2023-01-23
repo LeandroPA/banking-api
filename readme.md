@@ -62,16 +62,16 @@ $ npm start
 
 ### Docker
 
-Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as aplicações.
+Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker compose up` para iniciar as aplicações.
 
 ```shell
-$ docker compose up
+$ docker compose up --build
 ```
 
 Caso queira iniciar com [mongo-express](https://github.com/mongo-express/mongo-express), apenas para testes e consulta ao banco, inicie com o profile `debug`.
 
 ```shell
-$ docker compose --profile debug up
+$ docker compose --profile debug up --build
 ```
 
 Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
