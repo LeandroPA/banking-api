@@ -4,7 +4,7 @@
     <li>Certificar que possui versões mais atualizadas do postman;</li>
     <li>Abrir o postman, estando logado e/ou com ambiente pronto para uso;</li>
     <li>
-        Ir até a opção `Import > Folder` e importar essa pasta do projeto:<br>
+        Ir até a opção <code>Import > Folder</code> e importar essa pasta do projeto:<br>
         <img src="postman-passo-1.png" alt="postman-passo-1" width="500"/>    
         <img src="postman-passo-2.png" alt="postman-passo-1" width="500"/>
     </li>
