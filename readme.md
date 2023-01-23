@@ -27,7 +27,19 @@ com um api gateway para unificar os endpoints.
 
 ## Documentação da API
 
-A documentação da API é gerada via Postman e está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
+A documentação da API é gerada via Postman.
+
+```http
+POST /person - Cadastrar uma pessoa.
+POST /account - Cadastrar uma conta digital dock.
+POST /transaction/deposit - Fazer um depósito.
+POST /transaction/withdraw - Fazer um saque.
+GET  /transaction/account/[id]/statement - Consultar extrato bancário.
+...
+```
+
+Documentação completa está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
+
 ## Rodando localmente
 
 Para cada aplicação, um serviço diferente numa porta diferente.
