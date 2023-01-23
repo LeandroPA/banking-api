@@ -64,6 +64,16 @@ $ npm start
 
 Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as aplicações.
 
+```shell
+$ docker compose up
+```
+
+Caso queira iniciar com [mongo-express](https://github.com/mongo-express/mongo-express), apenas para testes e consulta ao banco, inicie com o profile `debug`.
+
+```shell
+$ docker compose --profile debug up
+```
+
 Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
 
 
@@ -71,7 +81,26 @@ Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
 
 ### Postman
 
-Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints. 
+Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints.
+
+Todo o postman está configurado para facilitar criação de recurso:
+- Dados são gerados aleatoriamente (tipo CPF) ou pré definidos;
+- IDs dos últimos recursos são salvos em variáveis que são utilizados pelos demais endpoints.
+Criando assim, um fluxo de execução de endpoints:
+    ```
+    Criar uma pessoa.
+    ┣ Pegar dados da pessoa.
+    ┣ Pegar dados de pessoa através do endpoint de CPF.
+    ┗ Criar uma conta bancária.
+      ┣ Pegar dados da conta bancária.
+      ┣ Pegar dados da conta bancária através de números de agência e conta.
+      ┣ Consultar saldo.
+      ┣ Consultar extrato.
+      ┣ Bloquear/Desbloquear uma conta bancária.
+      ┣ Desativar uma conta bancária.
+      ┗ Realizar uma transação de depósito/saque.
+        ┗ Pegar dados da transação.
+    ```
 Dentro da pasta, possui uma collection e como importar e usa-las.
 
 ---
