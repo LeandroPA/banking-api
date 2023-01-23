@@ -2102,7 +2102,7 @@
 			"name": "dock-transaction-api",
 			"item": [
 				{
-					"name": "/transaction/deposit - Create an deposit transaction",
+					"name": "/transaction/deposit - Create a deposit transaction",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2520,7 +2520,7 @@
 					]
 				},
 				{
-					"name": "/transaction/withdraw - Create an withdraw transaction",
+					"name": "/transaction/withdraw - Create a withdraw transaction",
 					"event": [
 						{
 							"listen": "prerequest",
