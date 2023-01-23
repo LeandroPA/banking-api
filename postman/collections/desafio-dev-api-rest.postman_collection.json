@@ -633,7 +633,7 @@
 			"name": "dock-account-api",
 			"item": [
 				{
-					"name": "/account- Create an account",
+					"name": "/account - Create an account",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1575,7 +1575,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"postman.setNextRequest('/transaction/deposit - Create an deposit transaction')"
+									"postman.setNextRequest('/transaction/deposit - Create a deposit transaction')"
 								],
 								"type": "text/javascript"
 							}
