@@ -399,6 +399,50 @@
 							"body": "{\n    \"id\": \"{{PERSON_ID}}\",\n    \"fullname\": \"Leandro Alencar\",\n    \"documentNumber\": \"{{PERSON_DOCUMENT_NUMBER}}\",\n    \"type\": \"physical\",\n    \"createdAt\": \"2023-01-22T02:40:08.906Z\",\n    \"updatedAt\": \"2023-01-22T02:40:08.906Z\"\n}"
 						},
 						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BANKING_API_URL}}/person/63ce13781af79149c9fb3a45",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"person",
+										"63ce13781af79149c9fb3a45"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Jan 2023 05:16:00 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
 							"name": "400 Bad Request - Invalid id",
 							"originalRequest": {
 								"method": "GET",
@@ -2999,6 +3043,233 @@
 					]
 				},
 				{
+					"name": "/transaction/[id] - Get a transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BANKING_API_URL}}/transaction/{{TRANSACTION_ID}}",
+							"host": [
+								"{{BANKING_API_URL}}"
+							],
+							"path": [
+								"transaction",
+								"{{TRANSACTION_ID}}"
+							]
+						},
+						"description": "Pegar o saldo bancário de uma conta, uma vez que esse dado é calculado em tempo real. É mais utilizado internamente por endpoints do tipo `GET` em [dock-account-api](#dock-account-api), por exemplo."
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/{{TRANSACTION_ID}}",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"{{TRANSACTION_ID}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Jan 2023 05:15:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"86-7GT3igId7G+vvlj/oFw/hptFqNc\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"63ce17d77f39c23699da2bd3\",\n    \"account\": \"63ce13781af79149c9fb3a45\",\n    \"value\": 1000,\n    \"type\": \"deposit\",\n    \"date\": \"2023-01-23T05:15:03.986Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/63ce13781af79149c9fb3a45",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"63ce13781af79149c9fb3a45"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Jan 2023 05:16:37 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 Bad Request - Invalid id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BANKING_API_URL}}/transaction/{{TRANSACTION_ID}}2",
+									"host": [
+										"{{BANKING_API_URL}}"
+									],
+									"path": [
+										"transaction",
+										"{{TRANSACTION_ID}}2"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.23.3"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Jan 2023 05:17:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-/o9X5CkveY4nvQpasvdsPwsO/Q0\""
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": {\n        \"id\": \"Invalid value\"\n    }\n}"
+						}
+					]
+				},
+				{
 					"name": "/transaction/account/[id]/balance - Get the balance of an account",
 					"event": [
 						{
@@ -3036,14 +3307,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{BANKING_API_URL}}/transaction/account/63cc98a061eb8862867ac260/balance",
+							"raw": "{{BANKING_API_URL}}/transaction/account/{{ACCOUNT_ID}}/balance",
 							"host": [
 								"{{BANKING_API_URL}}"
 							],
 							"path": [
 								"transaction",
 								"account",
-								"63cc98a061eb8862867ac260",
+								"{{ACCOUNT_ID}}",
 								"balance"
 							]
 						},
