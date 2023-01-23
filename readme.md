@@ -1,5 +1,5 @@
 
-# Título do Projeto
+# desafio-dev-api-rest
 
 Desafio técnico para empresa Dock com a finalidade de desenvolvimento de uma aplicação bancária.
 
@@ -27,7 +27,7 @@ com um api gateway para unificar os endpoints.
 
 ## Documentação da API
 
-A documentação da API é gerada via Postman e está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC#c4a05224-2362-44b5-b320-181b48b569db).
+A documentação da API é gerada via Postman e está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
 ## Rodando localmente
 
 Para cada aplicação, um serviço diferente numa porta diferente.
@@ -43,9 +43,9 @@ dock-transaction-api     - localhost:3003
 Para cada aplicação, exceto `dock-banking-api-gateway`, rodar os comandos abaixo:
 
 ```shell
-cd dock-client-api/ #dock-account-api ou dock-transaction-api
-npm install
-npm start
+$ cd dock-client-api/ #dock-account-api ou dock-transaction-api
+$ npm install
+$ npm start
 ```
 
 ### Docker
@@ -64,11 +64,9 @@ Dentro da pasta, possui uma collection e como importar e usa-las.
 
 ---
 
-Enunciado do desafio
----
+### Enunciado do desafio
 
 ---
-
 
 # Cenário
 
