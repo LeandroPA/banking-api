@@ -10,7 +10,9 @@ let transactionSchema = new mongoose.Schema(
         value: {
             type: Number,
             required: [true, '{PATH} is required'],
-            validate: [value => value > 0, '{PATH} should be more than 0']
+            validate: [value => value > 0, '{PATH} should be more than 0'],
+            //Ignore more than 2 decimal places
+            set: val => parseInt(val * 100) / 100
         },
         date: {
             type: Date,

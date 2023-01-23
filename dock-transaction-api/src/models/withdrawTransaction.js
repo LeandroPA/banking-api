@@ -8,7 +8,7 @@ const withdrawTransactionSchema = new Schema({
         //In withdraw, the values are negative, so the validation is
         //inverted because of 'set'
         validate: [value => value < 0, '{PATH} should be more than 0'],
-        set: val => -val
+        set: val => parseInt(-val * 100) / 100
     }
 })
 
