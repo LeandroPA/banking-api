@@ -1,14 +1,25 @@
 version: "3"
 
 services:
+  banking-api-gateway:
+    build: dock-banking-api-gateway/.
+    ports:
+      - "3000:3000"
+    depends_on:
+      - client-api
+      - account-api
+      - transaction-api
+    volumes:
+      - ./dock-banking-api-gateway:/usr/app
+  
   client-api:
     build: dock-client-api/.
     depends_on:
       - mongo-db
     ports:
-      - "3000:3000"
-    volumes:
-      - ./dock-client-api:/usr/app
+      - "3001:3001"
+    # volumes:
+    #   - ./dock-client-api:/usr/app
     environment:
       DOCK_CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
   
@@ -17,12 +28,25 @@ services:
     depends_on:
       - mongo-db
     ports:
-      - "3001:3001"
-    volumes:
-      - ./dock-account-api:/usr/app
+      - "3002:3002"
+    # volumes:
+    #   - ./dock-account-api:/usr/app
     environment:
-      DOCK_CLIENT_API_URL: http://client-api:3000
+      DOCK_CLIENT_API_URL: http://client-api:3001
+      DOCK_TRANSACTION_API_URL: http://transaction-api:3003
       DOCK_ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
+  
+  transaction-api:
+    build: dock-transaction-api/.
+    depends_on:
+      - mongo-db
+    ports:
+      - "3003:3003"
+    # volumes:
+    #   - ./dock-transaction-api:/usr/app
+    environment:
+      DOCK_ACCOUNT_API_URL: http://account-api:3002
+      DOCK_TRANSACTION_DB_URL: mongodb://mongo-db:27017/transaction-api?retryWrites=true&w=majority
       
   mongo-db:
     image: mongo
@@ -33,5 +57,7 @@ services:
     restart: always
     ports:
       - 8081:8081
+    profiles:
+      - debug
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://mongo-db:27017/

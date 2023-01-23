@@ -1,15 +1,10 @@
-const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
+const ValidationError = require('../errors/ValidationError');
 const { validationResult } = require('express-validator');
 
 const handleValidationResult = (errors) => {
 
 	if (!errors.isEmpty()) {
-
-		let body = {
-			errors: errors.formatWith(error => {return error.msg}).mapped()
-		}
-
-		throw new HttpStatusCodeError(400, 'Validation error', body);
+		throw new ValidationError(errors.formatWith(error => {return error.msg}).mapped());
 	} 
 }
 

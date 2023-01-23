@@ -1,43 +1,113 @@
-_**WIP - Work in progress**_
 
-# Descrição
+# desafio-dev-api-rest
 
-Foi utilizado uma abordagem mais para microsserviços, onde cada aplicação possui seu escopo de acordo com o que foi abordado no anunciado.
-
-Ao todo, são 3 projetos: `dock-account-api`, `dock-client-api` e `dock-transaction-api (WIP)`. Onde todos utilizam `NodeJs + Express` + `MongoDB`. 
+Desafio técnico para empresa Dock com a finalidade de desenvolvimento de uma aplicação bancária.
 
 
-# Uso
 
-## Local
+## Arquitetura
 
-Cada aplicação, precisa apenas rodar o `npm install` no início, e após isso, rodar cada um das aplicações com `npm start`.
-Requisito `node >= 13`
+A arquitetura escolhida pra esse projeto foi de microsserviço, onde é separado os microsserviços essenciais da aplicação
+com um api gateway para unificar os endpoints.
 
-## Docker
+<img src="arquitetura.png" alt="arquitetura" width="500"/>
 
-Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as 3 aplicações.
+## Stack utilizada
 
-Cada aplicação está disponível algumas portas em localhost, são elas:
+**dock-banking-api-gateway:** Nginx
 
+**dock-client-api:** NodeJS, Express, Mongoose
+
+**dock-account-api:** Node, Express, Mongoose
+
+**dock-transaction-api:** Node, Express, Mongoose
+
+**database:** MongoDB
+
+
+## Documentação da API
+
+A documentação da API é gerada via Postman.
+
+```http
+POST /person - Cadastrar uma pessoa.
+POST /account - Cadastrar uma conta digital dock.
+POST /transaction/deposit - Fazer um depósito.
+POST /transaction/withdraw - Fazer um saque.
+GET  /transaction/account/[id]/statement - Consultar extrato bancário.
+...
 ```
-dock-client-api      - localhost:3000
-dock-account-api     - localhost:3001
-dock-transaction-api - localhost:3002 - (WIP)
+
+Documentação completa está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
+
+## Rodando localmente
+
+Para cada aplicação, um serviço diferente numa porta diferente.
 ```
+dock-banking-api-gateway - localhost:3000 //TODO: disponibilizar configuração para Nginx
+dock-client-api          - localhost:3001
+dock-account-api         - localhost:3002
+dock-transaction-api     - localhost:3003
+```
+
+### Local
+
+Para cada aplicação, exceto `dock-banking-api-gateway`, rodar os comandos abaixo:
+
+```shell
+$ cd dock-client-api/ #dock-account-api ou dock-transaction-api
+$ npm install
+$ npm start
+```
+
+### Docker
+
+Na pasta principal possui um `docker-compose.yml` onde é necessário apenas rodar `docker-compose up` para iniciar as aplicações.
+
+```shell
+$ docker-compose up --build
+```
+
+Caso queira iniciar com [mongo-express](https://github.com/mongo-express/mongo-express), apenas para testes e consulta ao banco, inicie com o profile `debug`.
+
+```shell
+$ docker-compose --profile debug up --build
+```
+
 Recomende-se o uso do [postman](#postman) abaixo sobre testes dos endpoints.
 
-# Testes
 
-## Postman
+## Testes
 
-Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints. Dentro da pasta, possui uma collection e como importar e usa-las.
+### Postman
+
+Para testes da aplicação, é possível com auxílio do [postman](/postman/), onde será possível testar todos os endpoints.
+
+Todo o postman está configurado para facilitar criação de recurso:
+- Dados são gerados aleatoriamente (tipo CPF) ou pré definidos;
+- IDs dos últimos recursos são salvos em variáveis que são utilizados pelos demais endpoints.
+Criando assim, um fluxo de execução de endpoints:
+    ```
+    Criar uma pessoa.
+    ┣ Pegar dados da pessoa.
+    ┣ Pegar dados de pessoa através do endpoint de CPF.
+    ┗ Criar uma conta bancária.
+      ┣ Pegar dados da conta bancária.
+      ┣ Pegar dados da conta bancária através de números de agência e conta.
+      ┣ Consultar saldo.
+      ┣ Consultar extrato.
+      ┣ Bloquear/Desbloquear uma conta bancária.
+      ┣ Desativar uma conta bancária.
+      ┗ Realizar uma transação de depósito/saque.
+        ┗ Pegar dados da transação.
+    ```
+Dentro da pasta, possui uma collection e como importar e usa-las.
 
 ---
-Enunciado do desafio
----
----
 
+### Enunciado do desafio
+
+---
 
 # Cenário
 

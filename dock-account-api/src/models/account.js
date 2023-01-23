@@ -1,9 +1,34 @@
 let mongoose = require('mongoose')
 let { toJSON } = require('../util/mongooseUtil')
 
+let balanceSchema = new mongoose.Schema(
+    {
+        currency: {
+            type: String,
+            default: 'BRL'
+        }
+    }, 
+    {
+        _id: false,
+        toObject: {
+            virtuals: true
+        },
+        toJSON: {
+            virtuals: true
+        }
+    }
+)
+
+balanceSchema.virtual('value')
+    .get(() => this.value || 0)
+    .set((val) => val);
+
 let accountSchema = new mongoose.Schema(
 	{
-        holder: String,
+        holder: {
+            type: String,
+            required: [true, '{PATH} is required']
+        },
         agency: String,
         number: String,
         enabled: {
@@ -15,7 +40,8 @@ let accountSchema = new mongoose.Schema(
             default: false
         },
         balance: {
-            currency: String
+            type: balanceSchema,
+            default: {}
         },
         limits: {
             withdraw: {
@@ -30,7 +56,8 @@ let accountSchema = new mongoose.Schema(
         }
     },
 	{
-		timestamps: true 
+        timestamps: true,
+        toJSON: { virtuals: true }
     }
 )
 

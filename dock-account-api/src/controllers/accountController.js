@@ -1,7 +1,13 @@
 const accountService = require('../services/accountService');
+const HttpStatusCodeError = require('../errors/HttpStatusCodeError')
 
-const handleResourceResponse = (res, data) => 
-	res.status(data ? 200 : 404).json(data);
+const handleResourceResponse = (res, data) => {
+
+	if (!data) {
+		throw new HttpStatusCodeError(404, 'Not Found', null);
+	}
+	res.status(200).json(data);
+};
 
 exports.create = (req, res, next) => {
 
@@ -9,6 +15,7 @@ exports.create = (req, res, next) => {
 		.then(account => res.status(201).json(account))
 		.catch(next);
 }
+
 exports.get = (req, res, next) => {
 
 	accountService.getAccount(req.params.id)
@@ -16,9 +23,30 @@ exports.get = (req, res, next) => {
 		.catch(next);
 }
 
-exports.delete = (req, res, next) => {
+exports.getByAgencyAndNumber = (req, res, next) => {
 
-	accountService.deleteAccount(req.params.id)
+	accountService.getAccountByNumberAndAgency(req.params.agency, req.params.number)
+		.then(account => handleResourceResponse(res, account))
+		.catch(next);
+}
+
+exports.block = (req, res, next) => {
+
+	accountService.blockAccount(req.params.id, true)
+		.then(account => handleResourceResponse(res, account))
+		.catch(next);
+}
+
+exports.unblock = (req, res, next) => {
+
+	accountService.blockAccount(req.params.id, false)
+		.then(account => handleResourceResponse(res, account))
+		.catch(next);
+}
+
+exports.disable = (req, res, next) => {
+
+	accountService.disableAccount(req.params.id)
 		.then(account => handleResourceResponse(res, account))
 		.catch(next);
 }
