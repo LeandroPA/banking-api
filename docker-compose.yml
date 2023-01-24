@@ -2,7 +2,7 @@ version: "3"
 
 services:
   banking-api-gateway:
-    build: dock-banking-api-gateway/.
+    build: banking-api-gateway/.
     ports:
       - "3000:3000"
     depends_on:
@@ -10,43 +10,43 @@ services:
       - account-api
       - transaction-api
     volumes:
-      - ./dock-banking-api-gateway:/usr/app
+      - ./banking-api-gateway:/usr/app
   
   client-api:
-    build: dock-client-api/.
+    build: client-api/.
     depends_on:
       - mongo-db
     ports:
       - "3001:3001"
     # volumes:
-    #   - ./dock-client-api:/usr/app
+    #   - ./client-api:/usr/app
     environment:
-      DOCK_CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
+      CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
   
   account-api:
-    build: dock-account-api/.
+    build: account-api/.
     depends_on:
       - mongo-db
     ports:
       - "3002:3002"
     # volumes:
-    #   - ./dock-account-api:/usr/app
+    #   - ./account-api:/usr/app
     environment:
-      DOCK_CLIENT_API_URL: http://client-api:3001
-      DOCK_TRANSACTION_API_URL: http://transaction-api:3003
-      DOCK_ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
+      CLIENT_API_URL: http://client-api:3001
+      TRANSACTION_API_URL: http://transaction-api:3003
+      ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
   
   transaction-api:
-    build: dock-transaction-api/.
+    build: transaction-api/.
     depends_on:
       - mongo-db
     ports:
       - "3003:3003"
     # volumes:
-    #   - ./dock-transaction-api:/usr/app
+    #   - ./transaction-api:/usr/app
     environment:
-      DOCK_ACCOUNT_API_URL: http://account-api:3002
-      DOCK_TRANSACTION_DB_URL: mongodb://mongo-db:27017/transaction-api?retryWrites=true&w=majority
+      ACCOUNT_API_URL: http://account-api:3002
+      TRANSACTION_DB_URL: mongodb://mongo-db:27017/transaction-api?retryWrites=true&w=majority
       
   mongo-db:
     image: mongo

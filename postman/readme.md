@@ -33,7 +33,7 @@ Para realizar os testes, contanto que já tenha [importado](#importando) a colle
         <img src="postman-testes-passo-1.png" alt="postman-testes-passo-1" width="500"/>
     </li>
     <li>
-        Ajustar as preferências (o padrão já atende) e em seguida <code>Run desafio-dev-api-rest</code>:<br>
+        Ajustar as preferências (o padrão já atende) e em seguida <code>Run banking-api</code>:<br>
         <img src="postman-testes-passo-2.png" alt="postman-testes-passo-2" width="500"/>
     </li>
     <li>
