@@ -38,7 +38,7 @@ GET  /transaction/account/[id]/statement - Consultar extrato bancário.
 ...
 ```
 
-Documentação completa está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
+Documentação completa está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDcyzdN).
 
 ## Rodando localmente
 

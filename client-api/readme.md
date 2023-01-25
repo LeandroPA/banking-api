@@ -12,7 +12,7 @@ GET    /person/[id] - Consultar uma pessoa.
 GET    /person/documentNumber/[documentNumber] - Consultar uma pessoa via CPF.
 ```
 
-A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC#408c0205-a206-490e-863d-d2e630656ccb).
+A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDcyzdN#303fdcea-be84-4939-a5f0-29ac0aa49fde).
 ## Variáveis de Ambiente
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu `.env`

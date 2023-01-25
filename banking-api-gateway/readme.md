@@ -11,7 +11,7 @@ Request   /account - Redireciona para account-api/account.
 Request   /transaction - Redireciona para transaction-api/transaction.
 ```
 
-A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
+A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDcyzdN).
 
 ## Rodando localmente
 

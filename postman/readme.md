@@ -44,4 +44,4 @@ Para realizar os testes, contanto que já tenha [importado](#importando) a colle
 
 ### Documentação
 
-A documentação da API é gerada via Postman que está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC).
+A documentação da API é gerada via Postman que está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDcyzdN).
