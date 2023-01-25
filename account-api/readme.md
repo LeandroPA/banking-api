@@ -15,7 +15,7 @@ DELETE /account/[id]/block - Desbloquear uma conta.
 POST   /account/[id]/disable - Desativar uma conta.
 ```
 
-A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC#deef9887-d802-4982-bda5-17c164bb19de).
+A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDcyzdN#9055fec4-7792-458d-a43d-4f86bacc14cf).
 ## Variáveis de Ambiente
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu `.env`

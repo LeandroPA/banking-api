@@ -13,7 +13,7 @@ POST   /transaction/account/[id]/balance - Consultar o saldo de uma conta.
 POST   /transaction/account/[id]/statement - Consultar o extrato de uma conta.
 ```
 
-A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDa1LoC#bbe864e9-5a02-4d51-b39b-afc23285f75f).
+A documentação completa desse microsserviço está disponível [aqui](https://documenter.getpostman.com/view/7620522/2s8ZDcyzdN#5a1edf1d-0ae7-41a8-a614-8876ff562177).
 
 ## Variáveis de Ambiente
 
