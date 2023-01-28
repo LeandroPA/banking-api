@@ -18,8 +18,8 @@ services:
       - mongo-db
     ports:
       - "3001:3001"
-    # volumes:
-    #   - ./client-api:/usr/app
+    volumes:
+      - ./client-api:/usr/app
     environment:
       CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
   
@@ -29,8 +29,8 @@ services:
       - mongo-db
     ports:
       - "3002:3002"
-    # volumes:
-    #   - ./account-api:/usr/app
+    volumes:
+      - ./account-api:/usr/app
     environment:
       CLIENT_API_URL: http://client-api:3001
       TRANSACTION_API_URL: http://transaction-api:3003
@@ -42,8 +42,8 @@ services:
       - mongo-db
     ports:
       - "3003:3003"
-    # volumes:
-    #   - ./transaction-api:/usr/app
+    volumes:
+      - ./transaction-api:/usr/app
     environment:
       ACCOUNT_API_URL: http://account-api:3002
       TRANSACTION_DB_URL: mongodb://mongo-db:27017/transaction-api?retryWrites=true&w=majority
