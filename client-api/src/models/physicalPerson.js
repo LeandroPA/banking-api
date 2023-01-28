@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, isValidObjectId } = require('mongoose');
 const Person = require('./person');
 const { cpf } = require('cpf-cnpj-validator');
 
@@ -15,5 +15,12 @@ const physicalPersonSchema = new Schema({
 		validate: [cpf.isValid, 'Invalid {PATH} format']
 	},
 })
+
+physicalPersonSchema.static('findOneByIdOrDocumentNumber', function(idOrDocumentNumber) {
+	if (isValidObjectId(idOrDocumentNumber)) {
+		return this.findById(idOrDocumentNumber);
+	}
+	return this.findOne({ documentNumber: idOrDocumentNumber});
+});
 
 module.exports = Person.discriminator('physical', physicalPersonSchema)

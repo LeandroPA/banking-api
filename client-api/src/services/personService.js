@@ -6,9 +6,5 @@ exports.createPerson = (json) => {
 }
 
 exports.getPerson = (id) => {
-	return Person.findById(id);
-}
-
-exports.getPersonByDocumentNumber = (documentNumber) => {
-	return PhysicalPerson.findOne({documentNumber: documentNumber});
+	return PhysicalPerson.findOneByIdOrDocumentNumber(id);
 }

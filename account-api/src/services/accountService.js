@@ -63,7 +63,7 @@ function generateAgencyNumber() {
 }
 
 exports.createAccount = (json) => {	
-	return fetch(`${CLIENT_API_URL}/person/documentNumber/${json.holder}`)
+	return fetch(`${CLIENT_API_URL}/person/${json.holder}`)
 		.catch(handleApiResponseError)
 		.then(handleApiResponseError)
 		.then(response => response.json())

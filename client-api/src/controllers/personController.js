@@ -24,7 +24,7 @@ exports.get = (req, res, next) => {
 
 exports.getByDocumentNumber = (req, res, next) => {
 
-	personService.getPersonByDocumentNumber(req.params.documentNumber)
+	personService.getPerson(req.params.documentNumber)
 		.then(person => handleResourceResponse(res, person))
 		.catch(next);
 }
