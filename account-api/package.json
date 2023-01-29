@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./src/bin/www",
-    "swagger-autogen": "nodemon ./src/swagger.js"
+    "swagger-autogen": "node ./src/swagger.js"
   },
   "nodemonConfig": {
     "ignore": [

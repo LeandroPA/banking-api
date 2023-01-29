@@ -1,7 +1,6 @@
 const swaggerAutogen = require('swagger-autogen')({openapi: '3.0.0'});
 
-// const outputFile = '../banking-api-gateway/swagger-outputs/swagger-account-api.json';
-const outputFile = './swagger_output.json';
+const outputFile = '../swagger-outputs/swagger-account-api.json';
 const endpointsFiles = ['./src/app.js'];
 
 const doc = {
@@ -171,9 +170,9 @@ const doc = {
 }
 
 swaggerAutogen(outputFile, endpointsFiles, doc)
-    .then(() => {
-        require('./bin/www');
-    })
-    .catch((err) => {
-        console.error(`Error when starting application after swaggerAutogen: `, err);
-    });
+    // .then(() => {
+    //     require('./bin/www');
+    // })
+    // .catch((err) => {
+    //     console.error(`Error when starting application after swaggerAutogen: `, err);
+    // });
