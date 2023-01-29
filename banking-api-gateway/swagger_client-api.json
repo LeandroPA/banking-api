@@ -27,7 +27,7 @@
     {
       "name": "account-api",
       "description": "Endpoints"
-    }
+    },
   ],
   "paths": {
     "/": {
@@ -95,37 +95,38 @@
         }
       }
     },
-    "/account/{id}": {
-      "get": {
+    "/account/abc": {
+      "post": {
         "tags": [
           "account-api"
         ],
-        "summary": "Get an account",
+        "summary": "Create an account",
         "description": "Some description...",
-        "operationId": "getAccount",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The id of the account"
-          }
-        ],
+        "operationId": "createAccount",
+        "parameters": [],
         "responses": {
-          "200": {
-            "$ref": "#/components/responses/GetAccount",
-            "description": "OK"
+          "201": {
+            "description": "Created",
+            "$ref": "#/components/responses/AccountCreated"
           },
           "400": {
-            "$ref": "#/components/responses/InvalidId",
+            "$ref": "#/components/responses/HolderIsRequired",
             "description": "Bad Request"
           },
           "404": {
-            "$ref": "#/components/responses/NotFound",
+            "$ref": "#/components/responses/HolderNotFound",
             "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "A valid document number of physical person (Brazil CPF)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/New Account"
+              }
+            }
           }
         }
       }

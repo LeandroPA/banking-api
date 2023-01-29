@@ -11,6 +11,8 @@ services:
       - transaction-api
     volumes:
       - ./banking-api-gateway:/usr/app
+    environment:
+      BASE_URL: /docs
   
   client-api:
     build: client-api/.

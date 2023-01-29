@@ -1,6 +1,6 @@
 const swaggerAutogen = require('swagger-autogen')({openapi: '3.0.0'});
 
-const outputFile = './src/swagger_output.json';
+const outputFile = '../banking-api-gateway/swagger_output.json';
 const endpointsFiles = ['./src/app.js'];
 
 const doc = {
@@ -37,9 +37,6 @@ const doc = {
     ],
     components: {
         schemas: {
-            Error: {
-                field: 'Error message'
-            },
             "New Account": {
                 $holder: "45747215612"
             },
@@ -61,6 +58,9 @@ const doc = {
                 },
                 createdAt: "2023-01-22T02:46:02.298Z",
                 updatedAt: "2023-01-22T02:46:02.298Z"
+            },
+            Error: {
+                field: 'Error message'
             }
         },
         responses: {
