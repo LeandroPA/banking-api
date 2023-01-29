@@ -65,13 +65,13 @@
           "account-api"
         ],
         "summary": "Create an account",
-        "description": "Some description...",
+        "description": "Some description... 2",
         "operationId": "createAccount",
         "parameters": [],
         "responses": {
           "201": {
-            "description": "Created",
-            "$ref": "#/components/responses/AccountCreated"
+            "$ref": "#/components/responses/AccountCreated",
+            "description": "Created"
           },
           "400": {
             "$ref": "#/components/responses/HolderIsRequired",

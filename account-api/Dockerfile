@@ -2,11 +2,11 @@
 FROM node:13.14-alpine as develop-stage
 WORKDIR /usr/app
 COPY package*.json ./
-COPY . .
 
 # build stage
 FROM develop-stage as build-stage
 RUN npm install
+COPY . .
 
 # production stage
 FROM build-stage as production-stage
