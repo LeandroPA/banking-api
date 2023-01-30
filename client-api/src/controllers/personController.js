@@ -10,7 +10,6 @@ const handleResourceResponse = (res, data) => {
 };
 
 exports.create = (req, res, next) => {
-
 	/*
 		#swagger.operationId = 'createPerson'
 		#swagger.tags = ['client-api']
@@ -22,14 +21,17 @@ exports.create = (req, res, next) => {
 			description: 'A new physical person creation. Requires `fullname` and `documentNumber` (Brazil CPF format).',			
 			content: {
 				'application/json': {
-					schema: { $ref: '#/definitions/New Person' },
+					schema: { $ref: '#/components/schemas/New Person' },
 				}
 			}
 		}
 	*/
-
 	personService.createPerson(req.body)
+		// #swagger.responses[201] = { $ref: '#/components/responses/PersonCreated'}
 		.then(person => res.status(201).json(person))
+		// #swagger.responses[400] = { $ref: '#/components/responses/PersonRequiredFields'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidDocumentNumberFormat'}
+		// #swagger.responses[409] = { $ref: '#/components/responses/DuplicateDocumentNumber'}
 		.catch(next);
 }
 exports.get = (req, res, next) => {

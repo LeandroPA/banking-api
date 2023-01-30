@@ -38,15 +38,43 @@ const doc = {
     ],
     components: {
         schemas: {
-            Error: {
-                field: 'Error message'
+            Person: {
+                id: '63cc98a061eb8862867ac260',
+                fullname: 'Leandro Alencar',
+                documentNumber: '45747215612',
+                type: 'physical',
+                createdAt: '2023-01-22T02:40:08.906Z',
+                updatedAt: '2023-01-22T02:40:08.906Z'
             },
             'New Person': {
-                fullname: 'Leandro Alencar',
-                documentNumber: '45747215612'
+                $fullname: 'Leandro Alencar',
+                $documentNumber: '45747215612'
+            },
+            Error: {
+                field: 'Error message'
             }
         },
         responses: {
+            PersonCreated: {
+                description: 'Resource created',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Person',
+                        }
+                    }
+                }
+            },
+            GetPerson: {
+                description: 'OK',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Person',
+                        }
+                    }
+                }
+            },
             NotFound: {
                 description: 'Not Found'
             },
@@ -59,6 +87,46 @@ const doc = {
                         },
                         example: {
                             id: 'invalid id'
+                        }
+                    }
+                }
+            },
+            PersonRequiredFields: {
+                description: 'Required fields',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        example: {
+                            // fullname: "fullname is required",
+                            documentNumber: "documentNumber is required"
+                        }
+                    }
+                }
+            },
+            InvalidDocumentNumberFormat: {
+                description: 'Invalid documentNumber format',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        example: {
+                            documentNumber: "Invalid documentNumber format"
+                        }
+                    }
+                }
+            },
+            DuplicateDocumentNumber: {
+                description: 'Duplicate value for documentNumber',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        example: {
+                            documentNumber: "Invalid documentNumber format"
                         }
                     }
                 }

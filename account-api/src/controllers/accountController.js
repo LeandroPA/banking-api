@@ -22,7 +22,7 @@ exports.create = (req, res, next) => {
 			description: 'A valid document number of physical person (Brazil CPF)',			
 			content: {
 				'application/json': {
-					schema: { $ref: '#/definitions/New Account' },
+					schema: { $ref: '#/components/schemas/New Account' },
 				}
 			}
 		}
@@ -31,7 +31,7 @@ exports.create = (req, res, next) => {
 		// #swagger.responses[201] = { $ref: '#/components/responses/AccountCreated'}
 		.then(account => res.status(201).json(account)) 
 		// #swagger.responses[400] = { $ref: '#/components/responses/HolderIsRequired'}
-		// #swagger.responses[404] = { $ref: '#/components/responses/HolderNotFound'}	
+		// #swagger.responses[404] = { $ref: '#/components/responses/HolderNotFound'}
 		.catch(next);
 }
 

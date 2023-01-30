@@ -65,7 +65,7 @@
           "account-api"
         ],
         "summary": "Create an account",
-        "description": "Some description...",
+        "description": "Endpoint for account creation.",
         "operationId": "createAccount",
         "parameters": [],
         "responses": {

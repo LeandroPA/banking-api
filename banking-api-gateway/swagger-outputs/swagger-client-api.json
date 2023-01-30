@@ -43,13 +43,28 @@
     },
     "/person/": {
       "post": {
-        "description": "",
+        "tags": [
+          "client-api"
+        ],
+        "summary": "Create a person ",
+        "description": "Endpoint for person creation.",
+        "operationId": "createPerson",
         "parameters": [],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "$ref": "#/components/responses/PersonCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidDocumentNumberFormat",
+            "description": "Bad Request"
+          },
+          "409": {
+            "$ref": "#/components/responses/DuplicateDocumentNumber",
+            "description": "Conflict"
           }
-        }
+        },
+        "requestBody": {}
       }
     },
     "/person/{id}": {
@@ -87,6 +102,52 @@
   },
   "components": {
     "schemas": {
+      "Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "63cc98a061eb8862867ac260"
+          },
+          "fullname": {
+            "type": "string",
+            "example": "Leandro Alencar"
+          },
+          "documentNumber": {
+            "type": "string",
+            "example": "45747215612"
+          },
+          "type": {
+            "type": "string",
+            "example": "physical"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-01-22T02:40:08.906Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-01-22T02:40:08.906Z"
+          }
+        }
+      },
+      "New Person": {
+        "type": "object",
+        "properties": {
+          "fullname": {
+            "type": "string",
+            "example": "Leandro Alencar"
+          },
+          "documentNumber": {
+            "type": "string",
+            "example": "45747215612"
+          }
+        },
+        "required": [
+          "fullname",
+          "documentNumber"
+        ]
+      },
       "Error": {
         "type": "object",
         "properties": {
@@ -98,6 +159,26 @@
       }
     },
     "responses": {
+      "PersonCreated": {
+        "description": "Resource created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Person"
+            }
+          }
+        }
+      },
+      "GetPerson": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Person"
+            }
+          }
+        }
+      },
       "NotFound": {
         "description": "Not Found"
       },
@@ -110,6 +191,45 @@
             },
             "example": {
               "id": "invalid id"
+            }
+          }
+        }
+      },
+      "PersonRequiredFields": {
+        "description": "Required fields",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "documentNumber": "documentNumber is required"
+            }
+          }
+        }
+      },
+      "InvalidDocumentNumberFormat": {
+        "description": "Invalid documentNumber format",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "documentNumber": "Invalid documentNumber format"
+            }
+          }
+        }
+      },
+      "DuplicateDocumentNumber": {
+        "description": "Duplicate value for documentNumber",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "documentNumber": "Invalid documentNumber format"
             }
           }
         }
