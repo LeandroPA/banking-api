@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 		#swagger.responses[200] = {
 			description: 'A valid response as health check, including some api informations',			
 			content: {
-				"application/json": {
+				'application/json': {
 					schema: { 
 						type: 'object',
 						properties: {

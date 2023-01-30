@@ -15,14 +15,14 @@ exports.create = (req, res, next) => {
 		#swagger.operationId = 'createAccount'
 		#swagger.tags = ['account-api']
 		#swagger.summary = 'Create an account'
-		#swagger.description = 'Some description...'
+		#swagger.description = 'Endpoint for account creation.'
 		#swagger.produces = ['application/json']
 		#swagger.requestBody = {
 			required: true,
 			description: 'A valid document number of physical person (Brazil CPF)',			
 			content: {
-				"application/json": {
-					schema: { $ref: "#/definitions/New Account" },
+				'application/json': {
+					schema: { $ref: '#/definitions/New Account' },
 				}
 			}
 		}

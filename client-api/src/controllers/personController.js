@@ -11,6 +11,23 @@ const handleResourceResponse = (res, data) => {
 
 exports.create = (req, res, next) => {
 
+	/*
+		#swagger.operationId = 'createPerson'
+		#swagger.tags = ['client-api']
+		#swagger.summary = 'Create a person '
+		#swagger.description = 'Endpoint for person creation.'
+		#swagger.produces = ['application/json']
+		#swagger.requestBody = {
+			required: true,
+			description: 'A new physical person creation. Requires `fullname` and `documentNumber` (Brazil CPF format).',			
+			content: {
+				'application/json': {
+					schema: { $ref: '#/definitions/New Person' },
+				}
+			}
+		}
+	*/
+
 	personService.createPerson(req.body)
 		.then(person => res.status(201).json(person))
 		.catch(next);

@@ -125,7 +125,7 @@ exports.getBalance = (params) => {
 			$group: {
 				_id: null,
 				balance: {
-					$sum: "$value"
+					$sum: '$value'
 				}
 			}
 		}
