@@ -24,6 +24,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 CLIENT_API_URL=<url para aplicação client-api>
 TRANSACTION_API_URL=<url para aplicação transaction-api>
 ACCOUNT_DB_URL=<URI de conexão com MongoDb>
+SWAGGER_OUTPUT_JSON_PATH=../banking-api-gateway/swagger-outputs/swagger-account-api.json
 ```
 
 

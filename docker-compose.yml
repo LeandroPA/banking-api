@@ -9,8 +9,7 @@ services:
       - client-api
       - account-api
       - transaction-api
-    volumes:
-      - swagger-outputs-volume:/usr/app/swagger-outputs
+    # volumes:
     #   - ./banking-api-gateway:/usr/app
     environment:
       BASE_URL: /docs
@@ -22,8 +21,7 @@ services:
       - mongo-db
     ports:
       - "3001:3001"
-    volumes:
-      - swagger-outputs-volume:/usr/app/swagger-outputs
+    # volumes:
     #   - ./client-api:/usr/app
     environment:
       CLIENT_DB_URL: mongodb://mongo-db:27017/client-api?retryWrites=true&w=majority
@@ -34,8 +32,7 @@ services:
       - mongo-db
     ports:
       - "3002:3002"
-    volumes:
-      - swagger-outputs-volume:/usr/app/swagger-outputs
+    # volumes:
     #   - ./account-api:/usr/app
     environment:
       CLIENT_API_URL: http://client-api:3001
@@ -48,8 +45,7 @@ services:
       - mongo-db
     ports:
       - "3003:3003"
-    volumes:
-      - swagger-outputs-volume:/usr/app/swagger-outputs
+    # volumes:
       # - ./transaction-api:/usr/app
     environment:
       ACCOUNT_API_URL: http://account-api:3002
@@ -68,8 +64,4 @@ services:
       - debug
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://mongo-db:27017/
-
-volumes:
-  swagger-outputs-volume:
-    external: true
     

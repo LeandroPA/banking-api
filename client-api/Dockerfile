@@ -7,8 +7,6 @@ COPY package*.json ./
 FROM develop-stage as build-stage
 RUN npm install
 COPY . .
-RUN mkdir swagger-outputs
-RUN npm run swagger-autogen
 
 # production stage
 FROM build-stage as production-stage

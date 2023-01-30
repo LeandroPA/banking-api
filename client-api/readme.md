@@ -19,6 +19,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 ```env
 CLIENT_DB_URL=<URI de conexão com MongoDb>
+SWAGGER_OUTPUT_JSON_PATH=../banking-api-gateway/swagger-outputs/swagger-client-api.json
 ```
 
 

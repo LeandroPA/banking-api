@@ -1,6 +1,7 @@
 const swaggerAutogen = require('swagger-autogen')({openapi: '3.0.0'});
+require('dotenv').config();
 
-const outputFile = '../swagger-outputs/swagger-account-api.json';
+const outputFile = process.env.SWAGGER_OUTPUT_JSON_PATH;
 const endpointsFiles = ['./src/app.js'];
 
 const doc = {
