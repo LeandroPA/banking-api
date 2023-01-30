@@ -71,4 +71,5 @@ services:
 
 volumes:
   swagger-outputs-volume:
+    external: true
     
