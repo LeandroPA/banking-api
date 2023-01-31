@@ -39,7 +39,9 @@ const doc = {
     components: {
         schemas: {
             Error: {
-                field: 'Error message'
+                errors: {
+                    field: 'Error message'
+                }
             }
         },
         responses: {
@@ -54,7 +56,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            id: 'invalid id'
+                            errors: {
+                                id: 'invalid id'
+                            }
                         }
                     }
                 }

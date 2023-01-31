@@ -61,7 +61,9 @@ const doc = {
                 updatedAt: '2023-01-22T02:46:02.298Z'
             },
             Error: {
-                field: 'Error message'
+                errors: {
+                    field: 'Error message'
+                }
             }
         },
         responses: {
@@ -93,7 +95,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            holder: 'Holder not found'
+                            errors: {
+                                holder: 'Holder not found'
+                            }
                         }
                     }
                 }
@@ -106,7 +110,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            holder: 'holder is required'
+                            errors: {
+                                holder: 'holder is required'
+                            }
                         }
                     }
                 }
@@ -122,7 +128,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            id: 'invalid id'
+                            errors: {
+                                id: 'invalid id'                                
+                            }
                         }
                     }
                 }
@@ -135,7 +143,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            details: 'Account already blocked'
+                            errors: {
+                                details: 'Account already blocked'
+                            }
                         }
                     }
                 }
@@ -148,7 +158,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            details: 'Account already unblocked'
+                            errors: {
+                                details: 'Account already unblocked'
+                            }
                         }
                     }
                 }
@@ -161,7 +173,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            details: 'Account already disabled'
+                            errors: {
+                                details: 'Account already disabled'
+                            }
                         }
                     }
                 }
@@ -170,10 +184,4 @@ const doc = {
     }
 }
 
-swaggerAutogen(outputFile, endpointsFiles, doc)
-    // .then(() => {
-    //     require('./bin/www');
-    // })
-    // .catch((err) => {
-    //     console.error(`Error when starting application after swaggerAutogen: `, err);
-    // });
+swaggerAutogen(outputFile, endpointsFiles, doc);

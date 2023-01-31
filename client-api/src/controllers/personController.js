@@ -29,15 +29,28 @@ exports.create = (req, res, next) => {
 	personService.createPerson(req.body)
 		// #swagger.responses[201] = { $ref: '#/components/responses/PersonCreated'}
 		.then(person => res.status(201).json(person))
-		// #swagger.responses[400] = { $ref: '#/components/responses/PersonRequiredFields'}
-		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidDocumentNumberFormat'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/NewPersonValidationCheck'}
 		// #swagger.responses[409] = { $ref: '#/components/responses/DuplicateDocumentNumber'}
 		.catch(next);
 }
 exports.get = (req, res, next) => {
-
+	/*
+		#swagger.operationId = 'getPerson'
+		#swagger.tags = ['client-api']
+		#swagger.summary = 'Get a person '
+		#swagger.description = 'Endpoint to get a person.'
+		#swagger.produces = ['application/json']
+		#swagger.parameters['id'] = {
+			in: 'path',
+			required: true,
+			description: 'Id of the person. It can be the field `person.id` or `person.documentNumber`.'
+		}
+	*/
 	personService.getPerson(req.params.id)
+		// #swagger.responses[200] = { $ref: '#/components/responses/GetPerson'}
 		.then(person => handleResourceResponse(res, person))
+		// #swagger.responses[400] = { $ref: '#/components/responses/NotFound'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/InvalidId'}
 		.catch(next);
 }
 

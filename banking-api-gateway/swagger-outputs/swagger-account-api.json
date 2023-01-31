@@ -359,9 +359,14 @@
       "Error": {
         "type": "object",
         "properties": {
-          "field": {
-            "type": "string",
-            "example": "Error message"
+          "errors": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "example": "Error message"
+              }
+            }
           }
         }
       }
@@ -395,7 +400,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "holder": "Holder not found"
+              "errors": {
+                "holder": "Holder not found"
+              }
             }
           }
         }
@@ -408,7 +415,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "holder": "holder is required"
+              "errors": {
+                "holder": "holder is required"
+              }
             }
           }
         }
@@ -424,7 +433,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "id": "invalid id"
+              "errors": {
+                "id": "invalid id"
+              }
             }
           }
         }
@@ -437,7 +448,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "details": "Account already blocked"
+              "errors": {
+                "details": "Account already blocked"
+              }
             }
           }
         }
@@ -450,7 +463,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "details": "Account already unblocked"
+              "errors": {
+                "details": "Account already unblocked"
+              }
             }
           }
         }
@@ -463,7 +478,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "details": "Account already disabled"
+              "errors": {
+                "details": "Account already disabled"
+              }
             }
           }
         }

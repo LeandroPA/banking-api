@@ -51,7 +51,18 @@ const doc = {
                 $documentNumber: '45747215612'
             },
             Error: {
-                field: 'Error message'
+                errors: {
+                    field: 'Error message'
+                }
+            }
+        },
+        paramaters: {
+            PersonId: {
+                in: 'path',
+                type: 'string',
+                required: true,
+                format: '.*',
+                description: 'Id of the person. It can be the field `person.id` or `person.documentNumber`.'
             }
         },
         responses: {
@@ -86,34 +97,25 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            id: 'invalid id'
+                            errors: {
+                                id: 'invalid id'
+                            }
                         }
                     }
                 }
             },
-            PersonRequiredFields: {
-                description: 'Required fields',
+            NewPersonValidationCheck: {
+                description: 'Errors on validating request',
                 content: {
                     'application/json': {
                         schema: {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            // fullname: "fullname is required",
-                            documentNumber: "documentNumber is required"
-                        }
-                    }
-                }
-            },
-            InvalidDocumentNumberFormat: {
-                description: 'Invalid documentNumber format',
-                content: {
-                    'application/json': {
-                        schema: {
-                            $ref: '#/components/schemas/Error',
-                        },
-                        example: {
-                            documentNumber: "Invalid documentNumber format"
+                            errors: {
+                                fullname: 'fullname is required',
+                                documentNumber: 'Invalid documentNumber format'
+                            }
                         }
                     }
                 }
@@ -126,7 +128,9 @@ const doc = {
                             $ref: '#/components/schemas/Error',
                         },
                         example: {
-                            documentNumber: "Invalid documentNumber format"
+                            errors: {
+                                documentNumber: 'Invalid documentNumber format'
+                            }
                         }
                     }
                 }
@@ -135,10 +139,4 @@ const doc = {
     }
 }
 
-swaggerAutogen(outputFile, endpointsFiles, doc)
-    // .then(() => {
-    //     require('./bin/www');
-    // })
-    // .catch((err) => {
-    //     console.error(`Error when starting application after swaggerAutogen: `, err);
-    // });
+swaggerAutogen(outputFile, endpointsFiles, doc);

@@ -131,9 +131,14 @@
       "Error": {
         "type": "object",
         "properties": {
-          "field": {
-            "type": "string",
-            "example": "Error message"
+          "errors": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "example": "Error message"
+              }
+            }
           }
         }
       }
@@ -150,7 +155,9 @@
               "$ref": "#/components/schemas/Error"
             },
             "example": {
-              "id": "invalid id"
+              "errors": {
+                "id": "invalid id"
+              }
             }
           }
         }
