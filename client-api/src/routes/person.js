@@ -10,6 +10,5 @@ router.get('/:id', validate(oneOf([
     param('id').isMongoId(),
     param('id').custom(cpf.isValid)
 ], 'id must be a valid id or document number')), personController.get);
-router.get('/documentNumber/:documentNumber', personController.getByDocumentNumber);
 
 module.exports = router;

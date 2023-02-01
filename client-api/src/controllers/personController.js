@@ -53,10 +53,3 @@ exports.get = (req, res, next) => {
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
 		.catch(next);
 }
-
-exports.getByDocumentNumber = (req, res, next) => {
-
-	personService.getPerson(req.params.documentNumber)
-		.then(person => handleResourceResponse(res, person))
-		.catch(next);
-}
