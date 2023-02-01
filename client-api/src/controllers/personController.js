@@ -18,7 +18,7 @@ exports.create = (req, res, next) => {
 		#swagger.produces = ['application/json']
 		#swagger.requestBody = {
 			required: true,
-			description: 'A new physical person creation. Requires `fullname` and `documentNumber` (Brazil CPF format).',			
+			description: 'A new physical person creation. Requires <code>fullname</code> and <code>documentNumber</code> (Brazil CPF format).',			
 			content: {
 				'application/json': {
 					schema: { $ref: '#/components/schemas/New Person' },
@@ -43,14 +43,14 @@ exports.get = (req, res, next) => {
 		#swagger.parameters['id'] = {
 			in: 'path',
 			required: true,
-			description: 'Id of the person. It can be the field `person.id` or `person.documentNumber`.'
+			description: 'Id of the person. It can be the field <code>person.id</code> or <code>person.documentNumber</code>.'
 		}
 	*/
 	personService.getPerson(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetPerson'}
 		.then(person => handleResourceResponse(res, person))
-		// #swagger.responses[400] = { $ref: '#/components/responses/NotFound'}
-		// #swagger.responses[404] = { $ref: '#/components/responses/InvalidId'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/PersonInvalidId'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
 		.catch(next);
 }
 

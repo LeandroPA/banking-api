@@ -38,6 +38,10 @@ const doc = {
     ],
     components: {
         schemas: {
+            'New Person': {
+                $fullname: 'Leandro Alencar',
+                $documentNumber: '45747215612'
+            },
             Person: {
                 id: '63cc98a061eb8862867ac260',
                 fullname: 'Leandro Alencar',
@@ -45,10 +49,6 @@ const doc = {
                 type: 'physical',
                 createdAt: '2023-01-22T02:40:08.906Z',
                 updatedAt: '2023-01-22T02:40:08.906Z'
-            },
-            'New Person': {
-                $fullname: 'Leandro Alencar',
-                $documentNumber: '45747215612'
             },
             Error: {
                 errors: {
@@ -99,6 +99,21 @@ const doc = {
                         example: {
                             errors: {
                                 id: 'invalid id'
+                            }
+                        }
+                    }
+                }
+            },
+            PersonInvalidId: {
+                description: 'Invalid id',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        example: {
+                            errors: {
+                                id: 'id must be a valid id or document number'
                             }
                         }
                     }

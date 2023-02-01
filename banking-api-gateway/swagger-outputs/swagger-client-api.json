@@ -64,7 +64,17 @@
             "description": "Conflict"
           }
         },
-        "requestBody": {}
+        "requestBody": {
+          "required": true,
+          "description": "A new physical person creation. Requires <code>fullname</code> and <code>documentNumber</code> (Brazil CPF format).",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/New Person"
+              }
+            }
+          }
+        }
       }
     },
     "/person/{id}": {
@@ -82,7 +92,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Id of the person. It can be the field <code>person.id</code> or <code>person.documentNumber</code>."
           }
         ],
         "responses": {
@@ -91,35 +102,36 @@
             "description": "OK"
           },
           "400": {
-            "$ref": "#/components/responses/NotFound",
+            "$ref": "#/components/responses/PersonInvalidId",
             "description": "Bad Request"
           },
           "404": {
-            "$ref": "#/components/responses/InvalidId",
+            "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
           }
         }
-      }
-    },
-    "/person/documentNumber/{documentNumber}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "documentNumber",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
       }
     }
   },
   "components": {
     "schemas": {
+      "New Person": {
+        "type": "object",
+        "properties": {
+          "fullname": {
+            "type": "string",
+            "example": "Leandro Alencar"
+          },
+          "documentNumber": {
+            "type": "string",
+            "example": "45747215612"
+          }
+        },
+        "required": [
+          "fullname",
+          "documentNumber"
+        ]
+      },
       "Person": {
         "type": "object",
         "properties": {
@@ -148,23 +160,6 @@
             "example": "2023-01-22T02:40:08.906Z"
           }
         }
-      },
-      "New Person": {
-        "type": "object",
-        "properties": {
-          "fullname": {
-            "type": "string",
-            "example": "Leandro Alencar"
-          },
-          "documentNumber": {
-            "type": "string",
-            "example": "45747215612"
-          }
-        },
-        "required": [
-          "fullname",
-          "documentNumber"
-        ]
       },
       "Error": {
         "type": "object",
@@ -224,6 +219,21 @@
             "example": {
               "errors": {
                 "id": "invalid id"
+              }
+            }
+          }
+        }
+      },
+      "PersonInvalidId": {
+        "description": "Invalid id",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "errors": {
+                "id": "id must be a valid id or document number"
               }
             }
           }
