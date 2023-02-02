@@ -18,8 +18,8 @@ function handleApiResponseError(response) {
 	};
 
 	if (response.status == 404) {
-		body.errors.holder = 'Holder not found';
-		throw new HttpStatusCodeError(404, 'Holder not found', body);
+		body.errors.holder = 'Account not found';
+		throw new HttpStatusCodeError(404, 'Account not found', body);
 	}
 
 	if (response.status >= 500 || response instanceof fetch.FetchError) {
