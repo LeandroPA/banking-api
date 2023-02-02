@@ -32,19 +32,145 @@ const doc = {
     produces: ['application/json'],
     tags: [
         {
+            'name': 'account-api',
+            'description': 'Endpoints'
+        },
+        {
             'name': 'client-api',
+            'description': 'Endpoints'
+        },
+        {
+            'name': 'transaction-api',
             'description': 'Endpoints'
         }
     ],
     components: {
         schemas: {
+            'New Transaction': {
+                account: '63cc9f72a23faefce2e1e80d', //Or
+                value: 1000
+            },
+            'Transaction': {
+                id: '63cca04bd6608851304d5f31',
+                account: '63cc9f72a23faefce2e1e80d',
+                value: 1000,
+                type: 'deposit',
+                date: '2023-01-22T02:51:41.436Z'              
+            },
             Error: {
                 errors: {
                     field: 'Error message'
                 }
             }
         },
+        '@schemas': {
+            'Transaction': {
+                type: 'object',
+                examples: {
+                    Deposit: { 
+                        id: '63cca04bd6608851304d5f31',
+                        account: '63cc9f72a23faefce2e1e80d',
+                        value: 1000,
+                        type: 'depoist',
+                        date: '2023-01-22T02:51:41.436Z'
+                    }
+                },
+                properties: {
+                    id: {
+                        type: 'string',
+                        description: 'Id of the transaction',
+                        example: '63cca04bd6608851304d5f31'
+                    },
+                    account: {
+                        type: 'string',
+                        description: 'The account owner of the transaction',
+                        example: '63cc9f72a23faefce2e1e80d'
+                    },
+                    value: {
+                        type: 'number',
+                        description: 'The value of the transaction, may be negative if <code>type == \'withdraw\'</code> for example.',
+                        example: 1000
+                    },
+                    type: {
+                        type: 'string',
+                        'enum': ['deposit', 'withdraw'],
+                        description: 'The type of transaction',
+                        example: 'deposit'
+                    },
+                    date: {
+                        type: 'string',
+                        description: 'The date of transaction',
+                        example: '2023-01-22T02:51:41.436Z'
+                    }
+                }
+            }
+        },
+        examples: {
+            Transaction: {                
+                id: '63cca04bd6608851304d5f31',
+                account: '63cc9f72a23faefce2e1e80d',
+                value: 1000,
+                type: 'depoist',
+                date: '2023-01-22T02:51:41.436Z'  
+            }
+        },
         responses: {
+            DepositTransaction: {
+                description: 'Deposit Transaction',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Transaction',
+                        },
+                        example:  {
+                            id: '63cca04bd6608851304d5f31',
+                            account: '63cc9f72a23faefce2e1e80d',
+                            value: 1000,
+                            type: 'depoist',
+                            date: '2023-01-22T02:51:41.436Z'        
+                        },
+                    }
+                }
+            },
+            WithdrawTransaction: {
+                description: 'Withdraw Transaction',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Transaction',
+                        },
+                        example:  {
+                            id: '63cca04bd6608851304d5f31',
+                            account: '63cc9f72a23faefce2e1e80d',
+                            value: -1000,
+                            type: 'withdraw',
+                            date: '2023-01-22T02:51:41.436Z'        
+                        },
+                    }
+                }
+            },
+            BadRequestDepositTransaction: {
+                description: 'Invalid id',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        examples: {
+                            'When checking validations': {
+                                errors: {
+                                    field: "value is required",
+                                }
+                            },
+                            'When value is less than 0': {
+                                errors: {
+                                    value: "0 is required",
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             NotFound: {
                 description: 'Not Found'
             },
@@ -67,10 +193,4 @@ const doc = {
     }
 }
 
-swaggerAutogen(outputFile, endpointsFiles, doc)
-    // .then(() => {
-    //     require('./bin/www');
-    // })
-    // .catch((err) => {
-    //     console.error(`Error when starting application after swaggerAutogen: `, err);
-    // });
+swaggerAutogen(outputFile, endpointsFiles, doc);

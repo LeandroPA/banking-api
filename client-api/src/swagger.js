@@ -32,7 +32,15 @@ const doc = {
     produces: ['application/json'],
     tags: [
         {
+            'name': 'account-api',
+            'description': 'Endpoints'
+        },
+        {
             'name': 'client-api',
+            'description': 'Endpoints'
+        },
+        {
+            'name': 'transaction-api',
             'description': 'Endpoints'
         }
     ],
@@ -54,15 +62,6 @@ const doc = {
                 errors: {
                     field: 'Error message'
                 }
-            }
-        },
-        paramaters: {
-            PersonId: {
-                in: 'path',
-                type: 'string',
-                required: true,
-                format: '.*',
-                description: 'Id of the person. It can be the field `person.id` or `person.documentNumber`.'
             }
         },
         responses: {

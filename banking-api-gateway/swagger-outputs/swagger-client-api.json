@@ -25,7 +25,15 @@
   ],
   "tags": [
     {
+      "name": "account-api",
+      "description": "Endpoints"
+    },
+    {
       "name": "client-api",
+      "description": "Endpoints"
+    },
+    {
+      "name": "transaction-api",
       "description": "Endpoints"
     }
   ],
@@ -174,15 +182,6 @@
             }
           }
         }
-      }
-    },
-    "paramaters": {
-      "PersonId": {
-        "in": "path",
-        "type": "string",
-        "required": true,
-        "format": ".*",
-        "description": "Id of the person. It can be the field `person.id` or `person.documentNumber`."
       }
     },
     "responses": {

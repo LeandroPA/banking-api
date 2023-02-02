@@ -11,8 +11,27 @@ const handleResourceResponse = (res, data) => {
 
 exports.deposit = (req, res, next) => {
 
+	/*
+		#swagger.operationId = 'deposit'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Create a deposit transaction'
+		#swagger.description = 'Endpoint to create a deposit transaction.'
+		#swagger.produces = ['application/json']
+		#swagger.requestBody = {
+			required: true,
+			description: '',			
+			content: {
+				'application/json': {
+					schema: { $ref: '#/components/schemas/New Transaction' },
+				}
+			}
+		}
+	*/
 	transactionService.createDepositTransaction(req.body)
+		// #swagger.responses[201] = { $ref: '#/components/responses/DepositTransaction'}
 		.then(transaction => res.status(201).json(transaction))
+		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestDepositTransaction'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
 		.catch(next);
 }
 

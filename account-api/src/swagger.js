@@ -34,6 +34,14 @@ const doc = {
         {
             'name': 'account-api',
             'description': 'Endpoints'
+        },
+        {
+            'name': 'client-api',
+            'description': 'Endpoints'
+        },
+        {
+            'name': 'transaction-api',
+            'description': 'Endpoints'
         }
     ],
     components: {
