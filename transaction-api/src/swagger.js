@@ -50,13 +50,6 @@ const doc = {
                 account: '63cc9f72a23faefce2e1e80d', //Or
                 value: 1000
             },
-            'Transaction': {
-                id: '63cca04bd6608851304d5f31',
-                account: '63cc9f72a23faefce2e1e80d',
-                value: 1000,
-                type: 'deposit',
-                date: '2023-01-22T02:51:41.436Z'              
-            },
             Error: {
                 errors: {
                     field: 'Error message'
@@ -66,15 +59,6 @@ const doc = {
         '@schemas': {
             'Transaction': {
                 type: 'object',
-                examples: {
-                    Deposit: { 
-                        id: '63cca04bd6608851304d5f31',
-                        account: '63cc9f72a23faefce2e1e80d',
-                        value: 1000,
-                        type: 'depoist',
-                        date: '2023-01-22T02:51:41.436Z'
-                    }
-                },
                 properties: {
                     id: {
                         type: 'string',
@@ -103,18 +87,89 @@ const doc = {
                         example: '2023-01-22T02:51:41.436Z'
                     }
                 }
+            },
+            'New Transaction': {
+                type: 'object',
+                properties: {
+                    account: {
+                        type: 'string',
+                        description: 'The account owner of the transaction',
+                        example: '63cc9f72a23faefce2e1e80d'
+                    },
+                    value: {
+                        type: 'number',
+                        description: 'The value of the transaction.',
+                        example: 1000
+                    }
+                }
             }
         },
         examples: {
-            Transaction: {                
+            DepositTransaction: {                
                 id: '63cca04bd6608851304d5f31',
                 account: '63cc9f72a23faefce2e1e80d',
                 value: 1000,
-                type: 'depoist',
+                type: 'deposit',
                 date: '2023-01-22T02:51:41.436Z'  
+            },
+            WithdrawTransaction: {                
+                id: '63cca04bd6608851304d5f31',
+                account: '63cc9f72a23faefce2e1e80d',
+                value: -1000,
+                type: 'withdraw',
+                date: '2023-01-22T02:51:41.436Z'  
+            },
+            NewTransaction: {                
+                account: '63cc9f72a23faefce2e1e80d',
+                value: 1000
+            },
+            TransactionRequiredFieldsError: {
+                errors: {
+                    value: "value is required",
+                    account: "account is required"
+                }
+            },
+            TransactionInvalidValueError: {
+                errors: {
+                    value: "value should be more than 0"
+                }
+            },
+            TransactionAccountBlockedError: {
+                errors: {
+                    details: "account is blocked for transactions"
+                }
+            },
+            TransactionAccountDisabledError: {
+                errors: {
+                    details: "account is disabled for transactions"
+                }
+            },
+            TransactionInsufficientFundsError: {
+                errors: {
+                    details: "insufficient funds for transaction"
+                }
             }
+
         },
         responses: {
+            Transaction: {
+                description: 'Transaction',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Transaction',
+                        },
+                        examples: {
+                            'Deposit Transaction': {
+                                $ref: '#/components/examples/DepositTransaction'
+                            },
+                            'Withdraw Transaction': {
+                                $ref: '#/components/examples/WithdrawTransaction'
+                            },
+                        }
+                    }
+                }
+            },
             DepositTransaction: {
                 description: 'Deposit Transaction',
                 content: {
@@ -122,12 +177,8 @@ const doc = {
                         schema: {
                             $ref: '#/components/schemas/Transaction',
                         },
-                        example:  {
-                            id: '63cca04bd6608851304d5f31',
-                            account: '63cc9f72a23faefce2e1e80d',
-                            value: 1000,
-                            type: 'depoist',
-                            date: '2023-01-22T02:51:41.436Z'        
+                        example: {
+                            $ref: '#/components/examples/DepositTransaction',
                         },
                     }
                 }
@@ -139,33 +190,83 @@ const doc = {
                         schema: {
                             $ref: '#/components/schemas/Transaction',
                         },
-                        example:  {
-                            id: '63cca04bd6608851304d5f31',
-                            account: '63cc9f72a23faefce2e1e80d',
-                            value: -1000,
-                            type: 'withdraw',
-                            date: '2023-01-22T02:51:41.436Z'        
+                        example: {
+                            $ref: '#/components/examples/WithdrawTransaction',
                         },
                     }
                 }
             },
+            Balance: {
+                description: 'Balance',
+                content: {
+                    'application/json': {
+                        example: {
+                            balance: 1000
+                        }
+                    }
+                }
+            },
             BadRequestDepositTransaction: {
-                description: 'Invalid id',
+                description: 'Invalid request',
                 content: {
                     'application/json': {
                         schema: {
                             $ref: '#/components/schemas/Error',
                         },
                         examples: {
-                            'When checking validations': {
-                                errors: {
-                                    field: "value is required",
-                                }
+                            'When required fields are missing': {
+                                $ref: '#/components/examples/TransactionRequiredFieldsError'
                             },
-                            'When value is less than 0': {
-                                errors: {
-                                    value: "0 is required",
-                                }
+                            'When value is less or equal to 0': {
+                                $ref: '#/components/examples/TransactionInvalidValueError'
+                            },
+                            'When the account is blocked for transactions': {
+                                $ref: '#/components/examples/TransactionAccountBlockedError'
+                            },
+                            'When the account is disabled for transactions': {
+                                $ref: '#/components/examples/TransactionAccountDisabledError'
+                            },
+                        }
+                    }
+                }
+            },
+            BadRequestWithdrawTransaction: {
+                description: 'Invalid request',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        examples: {
+                            'When required fields are missing': {
+                                $ref: '#/components/examples/TransactionRequiredFieldsError'
+                            },
+                            'When value is less or equal to 0': {
+                                $ref: '#/components/examples/TransactionInvalidValueError'
+                            },
+                            'When the account is blocked for transactions': {
+                                $ref: '#/components/examples/TransactionAccountBlockedError'
+                            },
+                            'When the account is disabled for transactions': {
+                                $ref: '#/components/examples/TransactionAccountDisabledError'
+                            },
+                            'When the account has insufficient funds': {
+                                $ref: '#/components/examples/TransactionInsufficientFundsError'
+                            },
+                        }
+                    }
+                }
+            },
+            AccountNotFound: {
+                description: 'Accout not found',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        example: {
+                            errors: {
+                                holder: "Account not found"
                             }
                         }
                     }

@@ -68,7 +68,7 @@
             "description": "Bad Request"
           },
           "404": {
-            "$ref": "#/components/responses/NotFound",
+            "$ref": "#/components/responses/AccountNotFound",
             "description": "Not Found"
           }
         },
@@ -87,18 +87,48 @@
     },
     "/transaction/withdraw": {
       "post": {
-        "description": "",
+        "tags": [
+          "transaction-api"
+        ],
+        "summary": "Create a withdraw transaction",
+        "description": "Endpoint to create a withdraw transaction.",
+        "operationId": "withdraw",
         "parameters": [],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "$ref": "#/components/responses/WithdrawTransaction"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestWithdrawTransaction",
+            "description": "Bad Request"
+          },
+          "404": {
+            "$ref": "#/components/responses/AccountNotFound",
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/New Transaction"
+              }
+            }
           }
         }
       }
     },
     "/transaction/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "transaction-api"
+        ],
+        "summary": "Create a withdraw transaction",
+        "description": "Endpoint to create a withdraw transaction.",
+        "operationId": "withdraw",
         "parameters": [
           {
             "name": "id",
@@ -109,7 +139,31 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Transaction",
+            "description": "OK"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidId",
+            "description": "Bad Request"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound",
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/New Transaction"
+              }
+            }
+          }
+        }
       }
     },
     "/transaction/account/{id}/balance": {
@@ -125,7 +179,16 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Balance",
+            "description": "OK"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidId",
+            "description": "Bad Request"
+          }
+        }
       }
     },
     "/transaction/account/{id}/statement": {
@@ -166,25 +229,32 @@
         "properties": {
           "account": {
             "type": "string",
+            "description": "The account owner of the transaction",
             "example": "63cc9f72a23faefce2e1e80d"
           },
           "value": {
             "type": "number",
+            "description": "The value of the transaction.",
             "example": 1000
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "example": "Error message"
+              }
+            }
           }
         }
       },
       "Transaction": {
         "type": "object",
-        "examples": {
-          "Deposit": {
-            "id": "63cca04bd6608851304d5f31",
-            "account": "63cc9f72a23faefce2e1e80d",
-            "value": 1000,
-            "type": "depoist",
-            "date": "2023-01-22T02:51:41.436Z"
-          }
-        },
         "properties": {
           "id": {
             "type": "string",
@@ -216,32 +286,83 @@
             "example": "2023-01-22T02:51:41.436Z"
           }
         }
+      }
+    },
+    "examples": {
+      "DepositTransaction": {
+        "id": "63cca04bd6608851304d5f31",
+        "account": "63cc9f72a23faefce2e1e80d",
+        "value": 1000,
+        "type": "deposit",
+        "date": "2023-01-22T02:51:41.436Z"
       },
-      "Error": {
-        "type": "object",
-        "properties": {
+      "WithdrawTransaction": {
+        "id": "63cca04bd6608851304d5f31",
+        "account": "63cc9f72a23faefce2e1e80d",
+        "value": -1000,
+        "type": "withdraw",
+        "date": "2023-01-22T02:51:41.436Z"
+      },
+      "NewTransaction": {
+        "account": "63cc9f72a23faefce2e1e80d",
+        "value": 1000
+      },
+      "TransactionRequiredFieldsError": {
+        "value": {
           "errors": {
-            "type": "object",
-            "properties": {
-              "field": {
-                "type": "string",
-                "example": "Error message"
-              }
-            }
+            "value": "value is required",
+            "account": "account is required"
+          }
+        }
+      },
+      "TransactionInvalidValueError": {
+        "value": {
+          "errors": {
+            "value": "value should be more than 0"
+          }
+        }
+      },
+      "TransactionAccountBlockedError": {
+        "value": {
+          "errors": {
+            "details": "account is blocked for transactions"
+          }
+        }
+      },
+      "TransactionAccountDisabledError": {
+        "value": {
+          "errors": {
+            "details": "account is disabled for transactions"
+          }
+        }
+      },
+      "TransactionInsufficientFundsError": {
+        "value": {
+          "errors": {
+            "details": "insufficient funds for transaction"
           }
         }
       }
     },
-    "examples": {
-      "Transaction": {
-        "id": "63cca04bd6608851304d5f31",
-        "account": "63cc9f72a23faefce2e1e80d",
-        "value": 1000,
-        "type": "depoist",
-        "date": "2023-01-22T02:51:41.436Z"
-      }
-    },
     "responses": {
+      "Transaction": {
+        "description": "Transaction",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Transaction"
+            },
+            "examples": {
+              "Deposit Transaction": {
+                "$ref": "#/components/examples/DepositTransaction"
+              },
+              "Withdraw Transaction": {
+                "$ref": "#/components/examples/WithdrawTransaction"
+              }
+            }
+          }
+        }
+      },
       "DepositTransaction": {
         "description": "Deposit Transaction",
         "content": {
@@ -250,11 +371,7 @@
               "$ref": "#/components/schemas/Transaction"
             },
             "example": {
-              "id": "63cca04bd6608851304d5f31",
-              "account": "63cc9f72a23faefce2e1e80d",
-              "value": 1000,
-              "type": "depoist",
-              "date": "2023-01-22T02:51:41.436Z"
+              "$ref": "#/components/examples/DepositTransaction"
             }
           }
         }
@@ -267,32 +384,82 @@
               "$ref": "#/components/schemas/Transaction"
             },
             "example": {
-              "id": "63cca04bd6608851304d5f31",
-              "account": "63cc9f72a23faefce2e1e80d",
-              "value": -1000,
-              "type": "withdraw",
-              "date": "2023-01-22T02:51:41.436Z"
+              "$ref": "#/components/examples/WithdrawTransaction"
+            }
+          }
+        }
+      },
+      "Balance": {
+        "description": "Balance",
+        "content": {
+          "application/json": {
+            "example": {
+              "balance": 1000
             }
           }
         }
       },
       "BadRequestDepositTransaction": {
-        "description": "Invalid id",
+        "description": "Invalid request",
         "content": {
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
             },
             "examples": {
-              "When checking validations": {
-                "errors": {
-                  "field": "value is required"
-                }
+              "When required fields are missing": {
+                "$ref": "#/components/examples/TransactionRequiredFieldsError"
               },
-              "When value is less than 0": {
-                "errors": {
-                  "value": "0 is required"
-                }
+              "When value is less or equal to 0": {
+                "$ref": "#/components/examples/TransactionInvalidValueError"
+              },
+              "When the account is blocked for transactions": {
+                "$ref": "#/components/examples/TransactionAccountBlockedError"
+              },
+              "When the account is disabled for transactions": {
+                "$ref": "#/components/examples/TransactionAccountDisabledError"
+              }
+            }
+          }
+        }
+      },
+      "BadRequestWithdrawTransaction": {
+        "description": "Invalid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "When required fields are missing": {
+                "$ref": "#/components/examples/TransactionRequiredFieldsError"
+              },
+              "When value is less or equal to 0": {
+                "$ref": "#/components/examples/TransactionInvalidValueError"
+              },
+              "When the account is blocked for transactions": {
+                "$ref": "#/components/examples/TransactionAccountBlockedError"
+              },
+              "When the account is disabled for transactions": {
+                "$ref": "#/components/examples/TransactionAccountDisabledError"
+              },
+              "When the account has insufficient funds": {
+                "$ref": "#/components/examples/TransactionInsufficientFundsError"
+              }
+            }
+          }
+        }
+      },
+      "AccountNotFound": {
+        "description": "Accout not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "errors": {
+                "holder": "Account not found"
               }
             }
           }

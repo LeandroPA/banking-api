@@ -22,7 +22,7 @@ exports.deposit = (req, res, next) => {
 			description: '',			
 			content: {
 				'application/json': {
-					schema: { $ref: '#/components/schemas/New Transaction' },
+					schema: { $ref: '#/components/schemas/New Transaction' }
 				}
 			}
 		}
@@ -31,28 +31,68 @@ exports.deposit = (req, res, next) => {
 		// #swagger.responses[201] = { $ref: '#/components/responses/DepositTransaction'}
 		.then(transaction => res.status(201).json(transaction))
 		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestDepositTransaction'}
-		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/AccountNotFound'}
 		.catch(next);
 }
 
 exports.withdraw = (req, res, next) => {
 
+	/*
+		#swagger.operationId = 'withdraw'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Create a withdraw transaction'
+		#swagger.description = 'Endpoint to create a withdraw transaction.'
+		#swagger.produces = ['application/json']
+		#swagger.requestBody = {
+			required: true,
+			description: '',			
+			content: {
+				'application/json': {
+					schema: { $ref: '#/components/schemas/New Transaction' }
+				}
+			}
+		}
+	*/
 	transactionService.createWithdrawTransaction(req.body)
+		// #swagger.responses[201] = { $ref: '#/components/responses/WithdrawTransaction'}
 		.then(transaction => res.status(201).json(transaction))
+		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestWithdrawTransaction'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/AccountNotFound'}
 		.catch(next);
 }
 
 exports.get = (req, res, next) => {
 
+	/*
+		#swagger.operationId = 'withdraw'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Create a withdraw transaction'
+		#swagger.description = 'Endpoint to create a withdraw transaction.'
+		#swagger.produces = ['application/json']
+		#swagger.requestBody = {
+			required: true,
+			description: '',			
+			content: {
+				'application/json': {
+					schema: { $ref: '#/components/schemas/New Transaction' }
+				}
+			}
+		}
+	*/
 	transactionService.getTransaction(req.params.id)
+		// #swagger.responses[200] = { $ref: '#/components/responses/Transaction'}
 		.then(transaction => handleResourceResponse(res, transaction))
+		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
 		.catch(next);
 }
 
 exports.getBalance = (req, res, next) => {
 
 	transactionService.getBalance({accountId: req.params.id})
+		// #swagger.responses[200] = { $ref: '#/components/responses/Balance'}
 		.then(transaction => handleResourceResponse(res, transaction))
+		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
 		.catch(next);
 }
 
