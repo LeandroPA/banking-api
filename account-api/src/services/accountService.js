@@ -78,12 +78,7 @@ exports.createAccount = (json) => {
 }
 
 exports.getAccount = (id) => {
-	return Account.findById(id)
-		.then(exports.getAccountBalance);
-}
-
-exports.getAccountByNumberAndAgency = (agency, number) => {
-	return Account.findOne({agency: agency, number: number})
+	return Account.findOneByIdOrAgencyAndNumber(id)
 		.then(exports.getAccountBalance);
 }
 

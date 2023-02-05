@@ -61,6 +61,16 @@ let accountSchema = new mongoose.Schema(
     }
 )
 
+accountSchema.static('findOneByIdOrAgencyAndNumber', function(IdOrAgencyAndNumber) {
+	if (mongoose.isValidObjectId(IdOrAgencyAndNumber)) {
+		return this.findById(IdOrAgencyAndNumber);
+	}
+
+    let [agency, number, numberDigit] = IdOrAgencyAndNumber.split('-');
+    
+	return this.findOne({agency: agency, number: `${number}-${numberDigit}`});
+});
+
 accountSchema.method('toJSON', toJSON);
 
 module.exports = mongoose.model('Account', accountSchema);
