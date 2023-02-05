@@ -45,37 +45,10 @@ exports.get = (req, res, next) => {
 		#swagger.parameters['id'] = {
 			in: 'path',
 			required: true,
-			description: 'The id of the account'
+			description: 'The id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>'
 		}
 	*/
 	accountService.getAccount(req.params.id)
-		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
-		.then(account => handleResourceResponse(res, account))
-		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
-		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}	
-		.catch(next);
-}
-
-exports.getByAgencyAndNumber = (req, res, next) => {
-
-	/*
-		#swagger.operationId = 'getAccountByNumberAndAgency'
-		#swagger.tags = ['account-api']
-		#swagger.summary = 'Get an account by agency and number'
-		#swagger.description = 'Some description...'
-		#swagger.produces = ['application/json']
-		#swagger.parameters['agency'] = {
-			in: 'path',
-			required: true,
-			description: 'The agency of the account'
-		}
-		#swagger.parameters['number'] = {
-			in: 'path',
-			required: true,
-			description: 'The number of the account'
-		}
-	*/
-	accountService.getAccountByNumberAndAgency(req.params.agency, req.params.number)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
 		.then(account => handleResourceResponse(res, account))
 		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}

@@ -101,7 +101,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "Id of the person. It can be the field <code>person.id</code> or <code>person.documentNumber</code>."
+            "description": "The id of the person. It can be the field <code>${person.id}</code> or <code>${person.documentNumber}</code>."
           }
         ],
         "responses": {

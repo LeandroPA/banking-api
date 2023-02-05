@@ -43,7 +43,7 @@ exports.get = (req, res, next) => {
 		#swagger.parameters['id'] = {
 			in: 'path',
 			required: true,
-			description: 'Id of the person. It can be the field <code>person.id</code> or <code>person.documentNumber</code>.'
+			description: 'The id of the person. It can be the field <code>${person.id}</code> or <code>${person.documentNumber}</code>.'
 		}
 	*/
 	personService.getPerson(req.params.id)

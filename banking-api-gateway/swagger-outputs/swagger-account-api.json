@@ -119,51 +119,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "The id of the account"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/GetAccount",
-            "description": "OK"
-          },
-          "400": {
-            "$ref": "#/components/responses/InvalidId",
-            "description": "Bad Request"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound",
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/account/{agency}/{number}": {
-      "get": {
-        "tags": [
-          "account-api"
-        ],
-        "summary": "Get an account by agency and number",
-        "description": "Some description...",
-        "operationId": "getAccountByNumberAndAgency",
-        "parameters": [
-          {
-            "name": "agency",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The agency of the account"
-          },
-          {
-            "name": "number",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The number of the account"
+            "description": "The id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>"
           }
         ],
         "responses": {
