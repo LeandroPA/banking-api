@@ -42,18 +42,20 @@ exports.get = (req, res, next) => {
 		#swagger.summary = 'Get an account'
 		#swagger.description = 'Some description...'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = {
-			in: 'path',
-			required: true,
-			description: 'The id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>'
-		}
 	*/
 	accountService.getAccount(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
 		.then(account => handleResourceResponse(res, account))
-		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/AccountInvalidId'}
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}	
 		.catch(next);
+
+		/*
+		
+		#swagger.parameters['id'] = {
+			$ref: '#/components/parameters/AccountId'
+		}
+		*/
 }
 
 exports.block = (req, res, next) => {
@@ -61,13 +63,9 @@ exports.block = (req, res, next) => {
 		#swagger.operationId = 'blockAccount'
 		#swagger.tags = ['account-api']
 		#swagger.summary = 'Block an account'
-		#swagger.description = 'Some description...'
+		#swagger.description = 'Temporary block the account to prevent making transations.'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = {
-			in: 'path',
-			required: true,
-			description: 'The id of the account'
-		}
+		#swagger.parameters['id'] = { $ref: '#/components/parameters/AccountId' }
 	*/
 	accountService.blockAccount(req.params.id, true)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
@@ -85,11 +83,7 @@ exports.unblock = (req, res, next) => {
 		#swagger.summary = 'Unblock an account'
 		#swagger.description = 'Some description...'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = {
-			in: 'path',
-			required: true,
-			description: 'The id of the account'
-		}
+		#swagger.parameters['id'] = { $ref: '#/components/parameters/AccountId' }
 	*/
 	accountService.blockAccount(req.params.id, false)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
@@ -107,11 +101,7 @@ exports.disable = (req, res, next) => {
 		#swagger.summary = 'Unblock an account'
 		#swagger.description = 'Some description...'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = {
-			in: 'path',
-			required: true,
-			description: 'The id of the account'
-		}
+		#swagger.parameters['id'] = { $ref: '#/components/parameters/AccountId' }
 	*/
 	accountService.disableAccount(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}

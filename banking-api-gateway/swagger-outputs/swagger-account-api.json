@@ -113,13 +113,7 @@
         "operationId": "getAccount",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>"
+            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -128,7 +122,7 @@
             "description": "OK"
           },
           "400": {
-            "$ref": "#/components/responses/InvalidId",
+            "$ref": "#/components/responses/AccountInvalidId",
             "description": "Bad Request"
           },
           "404": {
@@ -144,8 +138,8 @@
           "account-api"
         ],
         "summary": "Block an account",
-        "description": "Some description...",
-        "operationId": "blockAccount",
+        "description": "Temporary block the account to prevent making transations.",
+        "operationId": " ",
         "parameters": [
           {
             "name": "id",
@@ -153,8 +147,10 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "The id of the account"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -186,8 +182,10 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "The id of the account"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -221,8 +219,10 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "The id of the account"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -335,6 +335,18 @@
         }
       }
     },
+    "parameters": {
+      "AccountId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
+        "schema": {
+          "type": "string",
+          "example": "63cc9f72a23faefce2e1e80d"
+        }
+      }
+    },
     "responses": {
       "AccountCreated": {
         "description": "Resource created",
@@ -389,7 +401,7 @@
       "NotFound": {
         "description": "Not Found"
       },
-      "InvalidId": {
+      "AccountInvalidId": {
         "description": "Invalid id",
         "content": {
           "application/json": {

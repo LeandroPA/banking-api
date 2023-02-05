@@ -126,9 +126,9 @@
         "tags": [
           "transaction-api"
         ],
-        "summary": "Create a withdraw transaction",
-        "description": "Endpoint to create a withdraw transaction.",
-        "operationId": "withdraw",
+        "summary": "Get a transaction",
+        "description": "Endpoint to get a transaction.",
+        "operationId": " ",
         "parameters": [
           {
             "name": "id",
@@ -136,7 +136,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "The id of the transaction."
           }
         ],
         "responses": {
@@ -151,17 +152,6 @@
           "404": {
             "$ref": "#/components/responses/NotFound",
             "description": "Not Found"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/New Transaction"
-              }
-            }
           }
         }
       }

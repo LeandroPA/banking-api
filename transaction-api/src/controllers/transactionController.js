@@ -64,19 +64,15 @@ exports.withdraw = (req, res, next) => {
 exports.get = (req, res, next) => {
 
 	/*
-		#swagger.operationId = 'withdraw'
+		#swagger.operationId = 'getTransaction'
 		#swagger.tags = ['transaction-api']
-		#swagger.summary = 'Create a withdraw transaction'
-		#swagger.description = 'Endpoint to create a withdraw transaction.'
+		#swagger.summary = 'Get a transaction'
+		#swagger.description = 'Endpoint to get a transaction.'
 		#swagger.produces = ['application/json']
-		#swagger.requestBody = {
+		#swagger.parameters['id'] = {
+			in: 'path',
 			required: true,
-			description: '',			
-			content: {
-				'application/json': {
-					schema: { $ref: '#/components/schemas/New Transaction' }
-				}
-			}
+			description: 'The id of the transaction.'
 		}
 	*/
 	transactionService.getTransaction(req.params.id)

@@ -74,6 +74,19 @@ const doc = {
                 }
             }
         },
+        parameters: {
+            AccountId: {
+                //The id of the account{
+                name: 'id',
+                in: 'path',
+                required: true,
+                description: 'The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>',
+                schema: {
+                    type: 'string',
+                    example: '63cc9f72a23faefce2e1e80d',
+                }
+		    }
+        },
         responses: {
             AccountCreated: {
                 description: 'Resource created',
@@ -128,7 +141,7 @@ const doc = {
             NotFound: {
                 description: 'Not Found'
             },
-            InvalidId: {
+            AccountInvalidId: {
                 description: 'Invalid id',
                 content: {
                     'application/json': {
@@ -137,7 +150,7 @@ const doc = {
                         },
                         example: {
                             errors: {
-                                id: 'invalid id'                                
+                                id: 'invalid id'
                             }
                         }
                     }
