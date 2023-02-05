@@ -67,6 +67,9 @@ accountSchema.static('findOneByIdOrAgencyAndNumber', function(IdOrAgencyAndNumbe
 	}
 
     let [agency, number, numberDigit] = IdOrAgencyAndNumber.split('-');
+
+    agency = agency.padStart(4, 0);
+    number = number.padStart(7, 0);
     
 	return this.findOne({agency: agency, number: `${number}-${numberDigit}`});
 });
