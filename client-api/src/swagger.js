@@ -33,16 +33,16 @@ const doc = {
     tags: [
         {
             'name': 'account-api',
-            'description': 'Endpoints'
+            'description': 'Endpoints for accounts management.'
         },
         {
             'name': 'client-api',
-            'description': 'Endpoints'
+            'description': 'Endpoints for clients management.'
         },
         {
             'name': 'transaction-api',
-            'description': 'Endpoints'
-        }
+            'description': 'Endpoints for accounts\' transactions management.'
+        },
     ],
     components: {
         schemas: {

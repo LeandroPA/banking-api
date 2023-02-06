@@ -40,13 +40,13 @@ exports.get = (req, res, next) => {
 		#swagger.operationId = 'getAccount'
 		#swagger.tags = ['account-api']
 		#swagger.summary = 'Get an account'
-		#swagger.description = 'Some description...'
+		#swagger.description = 'Get informations about an account.'
 		#swagger.produces = ['application/json']
 		#swagger.parameters['id'] = {
-			"in": "path",
-			"required": true,
-			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
-			"schema": '63cc9f72a23faefce2e1e80d'
+			in: 'path',
+			required: true,
+			description: 'The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>',
+			schema: '63cc9f72a23faefce2e1e80d'
 		}
 	*/
 	accountService.getAccount(req.params.id)
@@ -66,10 +66,10 @@ exports.block = (req, res, next) => {
 		#swagger.description = 'Temporary block the account to prevent making transations.'
 		#swagger.produces = ['application/json']
 		#swagger.parameters['id'] = {
-			"name": id
-			"in": "path",
-			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
-			"schema": '63cc9f72a23faefce2e1e80d'
+			in: 'path',
+			required: true,
+			description: 'The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>',
+			schema: '63cc9f72a23faefce2e1e80d'
 		}
 	*/
 	accountService.blockAccount(req.params.id, true)
@@ -88,10 +88,10 @@ exports.unblock = (req, res, next) => {
 		#swagger.description = 'Remove temporary block that prevents making transations.'
 		#swagger.produces = ['application/json']
 		#swagger.parameters['id'] = {
-			"name": id
-			"in": "path",
-			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
-			"schema": '63cc9f72a23faefce2e1e80d'
+			in: 'path',
+			required: true,
+			description: 'The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>',
+			schema: '63cc9f72a23faefce2e1e80d'
 		}
 	*/
 	accountService.blockAccount(req.params.id, false)
@@ -110,10 +110,10 @@ exports.disable = (req, res, next) => {
 		#swagger.description = 'Disable an account permanently.'
 		#swagger.produces = ['application/json']
 		#swagger.parameters['id'] = {
-			"name": id
-			"in": "path",
-			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
-			"schema": '63cc9f72a23faefce2e1e80d'
+			in: 'path',
+			required: true,
+			description: 'The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>',
+			schema: '63cc9f72a23faefce2e1e80d'
 		}
 	*/
 	accountService.disableAccount(req.params.id)

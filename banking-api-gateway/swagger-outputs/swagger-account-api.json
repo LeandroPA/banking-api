@@ -26,47 +26,18 @@
   "tags": [
     {
       "name": "account-api",
-      "description": "Endpoints"
+      "description": "Endpoints for accounts management."
     },
     {
       "name": "client-api",
-      "description": "Endpoints"
+      "description": "Endpoints for clients management."
     },
     {
       "name": "transaction-api",
-      "description": "Endpoints"
+      "description": "Endpoints for accounts' transactions management."
     }
   ],
   "paths": {
-    "/": {
-      "get": {
-        "tags": [
-          "Index"
-        ],
-        "summary": "Index endpoint",
-        "description": "Some description...",
-        "operationId": "index",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "A valid response as health check, including some api informations",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "apiVersion": {
-                      "type": "string",
-                      "example": "1.0.0"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/account/": {
       "post": {
         "tags": [
@@ -109,7 +80,7 @@
           "account-api"
         ],
         "summary": "Get an account",
-        "description": "Some description...",
+        "description": "Get informations about an account.",
         "operationId": "getAccount",
         "parameters": [
           {
@@ -120,7 +91,7 @@
               "type": "string",
               "example": "63cc9f72a23faefce2e1e80d"
             },
-            "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>"
+            "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>"
           }
         ],
         "responses": {
@@ -153,8 +124,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "63cc9f72a23faefce2e1e80d"
+            },
+            "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>"
           }
         ],
         "responses": {
@@ -185,8 +158,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "63cc9f72a23faefce2e1e80d"
+            },
+            "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>"
           }
         ],
         "responses": {
@@ -219,8 +194,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "63cc9f72a23faefce2e1e80d"
+            },
+            "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>.<p>Examples: <code>63cc9f72a23faefce2e1e80d</code> or <code>0564-0000013-2</code></p>"
           }
         ],
         "responses": {
