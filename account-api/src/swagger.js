@@ -74,6 +74,28 @@ const doc = {
                 }
             }
         },
+        examples: {
+            InvalidIdError: {
+                errors: {
+                    id: 'invalid id'
+                }
+            },
+            AccountAlreadyBlockedError: {
+                errors: {
+                    details: 'Account already blocked'
+                }
+            },
+            AccountAlreadyUnblockedError: {
+                errors: {
+                    details: 'Account already unblocked'
+                }
+            },
+            AccountAlreadyDisabledError: {
+                errors: {
+                    details: 'Account already disabled'
+                }
+            }
+        },
         parameters: {
             AccountId: {
                 //The id of the account{
@@ -156,31 +178,55 @@ const doc = {
                     }
                 }
             },
-            AccountAlreadyBlocked: {
-                description: 'Account already blocked',
+            BadRequestBlockAccount: {
+                description: 'Invalid request',
                 content: {
                     'application/json': {
                         schema: {
                             $ref: '#/components/schemas/Error',
                         },
-                        example: {
-                            errors: {
-                                details: 'Account already blocked'
+                        examples: {
+                            'When the id is invalid': {
+                                $ref: '#/components/examples/InvalidIdError'
+                            },
+                            'When the account is already blocked': {
+                                $ref: '#/components/examples/AccountAlreadyBlockedError'
                             }
                         }
                     }
                 }
             },
-            AccountAlreadyUnblocked: {
-                description: 'Account already unblocked',
+            BadRequestUnblockAccount: {
+                description: 'Invalid request',
                 content: {
                     'application/json': {
                         schema: {
                             $ref: '#/components/schemas/Error',
                         },
-                        example: {
-                            errors: {
-                                details: 'Account already unblocked'
+                        examples: {
+                            'When the id is invalid': {
+                                $ref: '#/components/examples/InvalidIdError'
+                            },
+                            'When the account is already unblocked': {
+                                $ref: '#/components/examples/AccountAlreadyUnblockedError'
+                            }
+                        }
+                    }
+                }
+            },
+            BadRequestDisableAccount: {
+                description: 'Invalid request',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Error',
+                        },
+                        examples: {
+                            'When the id is invalid': {
+                                $ref: '#/components/examples/InvalidIdError'
+                            },
+                            'When the account is already disabled': {
+                                $ref: '#/components/examples/AccountAlreadyDisabledError'
                             }
                         }
                     }

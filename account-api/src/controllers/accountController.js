@@ -42,6 +42,12 @@ exports.get = (req, res, next) => {
 		#swagger.summary = 'Get an account'
 		#swagger.description = 'Some description...'
 		#swagger.produces = ['application/json']
+		#swagger.parameters['id'] = {
+			"in": "path",
+			"required": true,
+			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
+			"schema": '63cc9f72a23faefce2e1e80d'
+		}
 	*/
 	accountService.getAccount(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
@@ -50,12 +56,6 @@ exports.get = (req, res, next) => {
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}	
 		.catch(next);
 
-		/*
-		
-		#swagger.parameters['id'] = {
-			$ref: '#/components/parameters/AccountId'
-		}
-		*/
 }
 
 exports.block = (req, res, next) => {
@@ -65,13 +65,17 @@ exports.block = (req, res, next) => {
 		#swagger.summary = 'Block an account'
 		#swagger.description = 'Temporary block the account to prevent making transations.'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = { $ref: '#/components/parameters/AccountId' }
+		#swagger.parameters['id'] = {
+			"name": id
+			"in": "path",
+			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
+			"schema": '63cc9f72a23faefce2e1e80d'
+		}
 	*/
 	accountService.blockAccount(req.params.id, true)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
 		.then(account => handleResourceResponse(res, account))
-		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
-		// #swagger.responses[400] = { $ref: '#/components/responses/AccountAlreadyBlocked'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestBlockAccount'}
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}	
 		.catch(next);
 }
@@ -81,33 +85,41 @@ exports.unblock = (req, res, next) => {
 		#swagger.operationId = 'unblockAccount'
 		#swagger.tags = ['account-api']
 		#swagger.summary = 'Unblock an account'
-		#swagger.description = 'Some description...'
+		#swagger.description = 'Remove temporary block that prevents making transations.'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = { $ref: '#/components/parameters/AccountId' }
+		#swagger.parameters['id'] = {
+			"name": id
+			"in": "path",
+			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
+			"schema": '63cc9f72a23faefce2e1e80d'
+		}
 	*/
 	accountService.blockAccount(req.params.id, false)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
 		.then(account => handleResourceResponse(res, account))
-		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
-		// #swagger.responses[400] = { $ref: '#/components/responses/AccountAlreadyUnblocked'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestUnblockAccount'}
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}	
 		.catch(next);
 }
 
 exports.disable = (req, res, next) => {
 	/*
-		#swagger.operationId = 'unblockAccount'
+		#swagger.operationId = 'disableAccount'
 		#swagger.tags = ['account-api']
-		#swagger.summary = 'Unblock an account'
-		#swagger.description = 'Some description...'
+		#swagger.summary = 'Disable an account'
+		#swagger.description = 'Disable an account permanently.'
 		#swagger.produces = ['application/json']
-		#swagger.parameters['id'] = { $ref: '#/components/parameters/AccountId' }
+		#swagger.parameters['id'] = {
+			"name": id
+			"in": "path",
+			"description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>",
+			"schema": '63cc9f72a23faefce2e1e80d'
+		}
 	*/
 	accountService.disableAccount(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/GetAccount'}
 		.then(account => handleResourceResponse(res, account))
-		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
-		// #swagger.responses[400] = { $ref: '#/components/responses/AccountAlreadyDisabled'}
+		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestDisableAccount'}
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}	
 		.catch(next);
 }

@@ -20,7 +20,7 @@
     "mongoose": "^6.8.3",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.8",
-    "swagger-autogen": "^2.22.0",
+    "swagger-autogen": "^2.23.0",
     "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {

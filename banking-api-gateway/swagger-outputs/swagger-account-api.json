@@ -113,7 +113,14 @@
         "operationId": "getAccount",
         "parameters": [
           {
-            "$ref": "#/components/parameters/AccountId"
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63cc9f72a23faefce2e1e80d"
+            },
+            "description": "The a id of the account. It may be the field <code>${account.id}</code> or <code>${account.agency}-${account.number}</code>"
           }
         ],
         "responses": {
@@ -148,9 +155,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -159,7 +163,7 @@
             "description": "OK"
           },
           "400": {
-            "$ref": "#/components/responses/AccountAlreadyBlocked",
+            "$ref": "#/components/responses/BadRequestBlockAccount",
             "description": "Bad Request"
           },
           "404": {
@@ -173,7 +177,7 @@
           "account-api"
         ],
         "summary": "Unblock an account",
-        "description": "Some description...",
+        "description": "Remove temporary block that prevents making transations.",
         "operationId": "unblockAccount",
         "parameters": [
           {
@@ -183,9 +187,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -194,7 +195,7 @@
             "description": "OK"
           },
           "400": {
-            "$ref": "#/components/responses/AccountAlreadyUnblocked",
+            "$ref": "#/components/responses/BadRequestUnblockAccount",
             "description": "Bad Request"
           },
           "404": {
@@ -209,9 +210,9 @@
         "tags": [
           "account-api"
         ],
-        "summary": "Unblock an account",
-        "description": "Some description...",
-        "operationId": "unblockAccount",
+        "summary": "Disable an account",
+        "description": "Disable an account permanently.",
+        "operationId": "disableAccount",
         "parameters": [
           {
             "name": "id",
@@ -220,9 +221,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "$ref": "#/components/parameters/AccountId"
           }
         ],
         "responses": {
@@ -231,7 +229,7 @@
             "description": "OK"
           },
           "400": {
-            "$ref": "#/components/responses/AccountAlreadyDisabled",
+            "$ref": "#/components/responses/BadRequestDisableAccount",
             "description": "Bad Request"
           },
           "404": {
@@ -335,6 +333,36 @@
         }
       }
     },
+    "examples": {
+      "InvalidIdError": {
+        "value": {
+          "errors": {
+            "id": "invalid id"
+          }
+        }
+      },
+      "AccountAlreadyBlockedError": {
+        "value": {
+          "errors": {
+            "details": "Account already blocked"
+          }
+        }
+      },
+      "AccountAlreadyUnblockedError": {
+        "value": {
+          "errors": {
+            "details": "Account already unblocked"
+          }
+        }
+      },
+      "AccountAlreadyDisabledError": {
+        "value": {
+          "errors": {
+            "details": "Account already disabled"
+          }
+        }
+      }
+    },
     "parameters": {
       "AccountId": {
         "name": "id",
@@ -416,31 +444,55 @@
           }
         }
       },
-      "AccountAlreadyBlocked": {
-        "description": "Account already blocked",
+      "BadRequestBlockAccount": {
+        "description": "Invalid request",
         "content": {
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
             },
-            "example": {
-              "errors": {
-                "details": "Account already blocked"
+            "examples": {
+              "When the id is invalid": {
+                "$ref": "#/components/examples/InvalidIdError"
+              },
+              "When the account is already blocked": {
+                "$ref": "#/components/examples/AccountAlreadyBlockedError"
               }
             }
           }
         }
       },
-      "AccountAlreadyUnblocked": {
-        "description": "Account already unblocked",
+      "BadRequestUnblockAccount": {
+        "description": "Invalid request",
         "content": {
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
             },
-            "example": {
-              "errors": {
-                "details": "Account already unblocked"
+            "examples": {
+              "When the id is invalid": {
+                "$ref": "#/components/examples/InvalidIdError"
+              },
+              "When the account is already unblocked": {
+                "$ref": "#/components/examples/AccountAlreadyUnblockedError"
+              }
+            }
+          }
+        }
+      },
+      "BadRequestDisableAccount": {
+        "description": "Invalid request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "When the id is invalid": {
+                "$ref": "#/components/examples/InvalidIdError"
+              },
+              "When the account is already disabled": {
+                "$ref": "#/components/examples/AccountAlreadyDisabledError"
               }
             }
           }
