@@ -8,30 +8,27 @@ const AccountDisabledError = require('../errors/AccountDisabledError');
 const AccountBlockedError = require('../errors/AccountBlockedError');
 const TransactionLimitError = require('../errors/TransactionLimitError');
 const InsufficientFundsError = require('../errors/InsufficientFundsError');
+const ApiRestService = require('./apiRestService');
 
-const ACCOUNT_API_URL = process.env.ACCOUNT_API_URL;
+const { ACCOUNT_API_URL, CLIENT_API_URL } = process.env;
 
-function handleApiResponseError(response) {
+const accountApiRestService = new ApiRestService(ACCOUNT_API_URL);
+const clientApiRestService = new ApiRestService(CLIENT_API_URL);
 
-	let body = {
-		errors: {}
-	};
+function handleApiResponseError(error) {
+	if (error.status == 404 || error.status == 400) {
 
-	if (response.status == 404) {
-		body.errors.holder = 'Account not found';
-		throw new HttpStatusCodeError(404, 'Account not found', body);
+		let body = {
+			errors: {
+				details: 'Resource not found'
+			}
+		};
+
+		throw new HttpStatusCodeError(404, 'Resource not found', body);
+
+	} else {
+		throw error;
 	}
-
-	if (response.status >= 500 || response instanceof fetch.FetchError) {
-		body.errors.details = 'Internal API error';
-		throw new HttpStatusCodeError(500, 'Internal API error', body);
-	}
-
-	if (response instanceof Error) {
-		throw response; //Pass to the next catch
-	}
-
-	return response;
 }
 
 function handleAccountEnabledForTransact(account, transaction) {
@@ -94,10 +91,8 @@ exports.createWithdrawTransaction = (json) => {
 exports.createTransaction = (transaction) => {
 
 	return transaction.validate()
-		.then(() => fetch(`${ACCOUNT_API_URL}/account/${transaction.account}`))
+		.then(() => accountApiRestService.get(transaction.account))
 		.catch(handleApiResponseError)
-		.then(handleApiResponseError)
-		.then(response => response.json())
 		.then(account => handleAccountEnabledForTransact(account, transaction))
 		.then(account => handleTransactionLimits(account, transaction))
 		.then(transaction => {
@@ -170,4 +165,16 @@ exports.getStatement = (params) => {
 			result.total.balance = balance.balance;
 			return result;
 		});
+}
+
+exports.getCoupon = (id) => {
+	
+	return exports.getTransaction(id)
+		.then(transaction => transaction.toJSON())
+		.then(async transaction => {
+
+			transaction.account = await accountApiRestService.get(transaction.account)
+			transaction.account.holder = await clientApiRestService.get(transaction.account.holder)
+			return transaction;
+		})
 }
