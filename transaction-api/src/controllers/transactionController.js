@@ -75,7 +75,7 @@ exports.get = (req, res, next) => {
 			description: 'The id of the transaction.'
 		}
 	*/
-	transactionService.getTransaction(req.params.id)
+	transactionService.getCoupon(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/Transaction'}
 		.then(transaction => handleResourceResponse(res, transaction))
 		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
