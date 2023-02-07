@@ -84,7 +84,18 @@ exports.get = (req, res, next) => {
 }
 
 exports.getBalance = (req, res, next) => {
-
+	/*
+		#swagger.operationId = 'getBalance'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Get the balance of the account'
+		#swagger.description = 'Endpoint to get the balance of the account.'
+		#swagger.produces = ['application/json']
+		#swagger.parameters['id'] = {
+			in: 'path',
+			required: true,
+			description: 'The id of the account.'
+		}
+	*/
 	transactionService.getBalance({accountId: req.params.id})
 		// #swagger.responses[200] = { $ref: '#/components/responses/Balance'}
 		.then(transaction => handleResourceResponse(res, transaction))
@@ -93,7 +104,30 @@ exports.getBalance = (req, res, next) => {
 }
 
 exports.getStatement = (req, res, next) => {
-
+	/*
+		#swagger.operationId = 'getStatement'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Get the balance of the account'
+		#swagger.description = 'Endpoint to get the balance of the account.'
+		#swagger.produces = ['application/json']
+		#swagger.parameters['id'] = {
+			in: 'path',
+			required: true,
+			description: 'The id of the transaction.'
+		}
+		#swagger.parameters['from'] = {
+			in: 'query',
+			format: 'date',
+			required: false,
+			description: 'The id of the transaction.'
+		}
+		#swagger.parameters['to'] = {
+			in: 'query',
+			format: 'date',
+			required: false,
+			description: 'The id of the transaction.'
+		}
+	*/
 	let params = {
 		accountId: req.params.id,
 		from: req.query.from && new Date(req.query.from),

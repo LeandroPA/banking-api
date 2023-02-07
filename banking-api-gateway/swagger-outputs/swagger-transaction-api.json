@@ -147,7 +147,12 @@
     },
     "/transaction/account/{id}/balance": {
       "get": {
-        "description": "",
+        "tags": [
+          "transaction-api"
+        ],
+        "summary": "Get the balance of the account",
+        "description": "Endpoint to get the balance of the account.",
+        "operationId": "getBalance",
         "parameters": [
           {
             "name": "id",
@@ -155,7 +160,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "The id of the account."
           }
         ],
         "responses": {
@@ -172,7 +178,12 @@
     },
     "/transaction/account/{id}/statement": {
       "get": {
-        "description": "",
+        "tags": [
+          "transaction-api"
+        ],
+        "summary": "Get the balance of the account",
+        "description": "Endpoint to get the balance of the account.",
+        "operationId": "getStatement",
         "parameters": [
           {
             "name": "id",
@@ -180,11 +191,15 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "The id of the transaction."
           },
           {
             "name": "from",
             "in": "query",
+            "format": "date",
+            "required": false,
+            "description": "The id of the transaction.",
             "schema": {
               "type": "string"
             }
@@ -192,6 +207,9 @@
           {
             "name": "to",
             "in": "query",
+            "format": "date",
+            "required": false,
+            "description": "The id of the transaction.",
             "schema": {
               "type": "string"
             }
