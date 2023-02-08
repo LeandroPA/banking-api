@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 const Transaction = require('./transaction');
+const { toJSON } = require('../util/mongooseUtil');
 
 const depositTransactionSchema = new Schema({
 });

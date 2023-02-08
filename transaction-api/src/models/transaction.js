@@ -1,7 +1,7 @@
-let mongoose = require('mongoose')
-let { toJSON } = require('../util/mongooseUtil')
+const mongoose = require('mongoose');
+const { toJSON } = require('../util/mongooseUtil');
 
-let transactionSchema = new mongoose.Schema(
+const transactionSchema = new mongoose.Schema(
 	{
         account: {
             type: String,

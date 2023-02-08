@@ -92,8 +92,13 @@ exports.createTransferTransaction = (json) => {
 	transferOut.receiver = transferIn;
 	transferIn.sender = transferOut;
 
-	return this.createTransaction(transferOut)
-		.then(() => this.createTransaction(transferIn));
+	return this.createTransaction(transferIn)
+		.then(() => this.createTransaction(transferOut))
+		.then(transaction => {
+			console.log(transaction);
+			// transaction.receiver = transaction.receiver.id;
+			return transaction.toJSON({virtuals: true});
+		});
 
 }
 exports.createDepositTransaction = (json) => {
