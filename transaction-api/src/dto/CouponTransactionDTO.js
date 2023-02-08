@@ -6,7 +6,7 @@ class CouponTransactionDTO {
         this.date = params.date;
         this.accounts = {
             source: params.accountSource,
-            destin: params.accountSource,
+            destination: params.accountDestination,
         };        
     }
 }

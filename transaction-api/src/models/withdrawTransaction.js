@@ -12,4 +12,11 @@ const withdrawTransactionSchema = new Schema({
     }
 })
 
+withdrawTransactionSchema.virtual('source').get(function() {
+    return this.account;
+});
+withdrawTransactionSchema.virtual('destination').get(function() {
+    return undefined;
+});
+
 module.exports = Transaction.discriminator('withdraw', withdrawTransactionSchema)

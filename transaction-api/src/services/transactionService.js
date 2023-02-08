@@ -3,6 +3,10 @@ const { startOfDay, endOfDay } = require('date-fns');
 const Transaction = require('../models/transaction');
 const DepositTransaction = require('../models/depositTransaction');
 const WithdrawTransaction = require('../models/withdrawTransaction');
+const TransferInTransaction = require('../models/transferInTransaction');
+const TransferOutTransaction = require('../models/transferOutTransaction');
+const WithdrawTransaction = require('../models/withdrawTransaction');
+const CouponTransactionDTO = require('../dto/CouponTransactionDTO');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 const AccountBlockedError = require('../errors/AccountBlockedError');
@@ -81,10 +85,22 @@ function handleTransactionLimits(account, transaction) {
 		})
 }
 
-exports.createDepositTransaction = (json) => {	
+exports.createTransferTransaction = (json) => {
+
+	let transferOut = new TransferOutTransaction({value: json.value, account: json.account.from});
+	let transferIn = new TransferInTransaction({value: json.value, account: json.account.to});
+
+	transferOut.destination = transferIn;
+	transferIn.source = transferOut;
+
+	return this.createTransaction(transferOut)
+		.then(() => this.createTransaction(transferIn));
+
+}
+exports.createDepositTransaction = (json) => {
 	return this.createTransaction(new DepositTransaction(json));
 }
-exports.createWithdrawTransaction = (json) => {	
+exports.createWithdrawTransaction = (json) => {
 	return this.createTransaction(new WithdrawTransaction(json));
 }
 
@@ -170,11 +186,34 @@ exports.getStatement = (params) => {
 exports.getCoupon = (id) => {
 	
 	return exports.getTransaction(id)
-		.then(transaction => transaction.toJSON())
 		.then(async transaction => {
 
-			transaction.account = await accountApiRestService.get(transaction.account)
-			transaction.account.holder = await clientApiRestService.get(transaction.account.holder)
-			return transaction;
+			let coupon = {};
+
+			coupon.id = transaction.id;
+			coupon.value = transaction.value;
+			coupon.type = transaction.type;
+			coupon.date = transaction.date;
+
+			coupon.accountSource = await getAccountInfo(transaction.source);
+			coupon.accountDestination = await getAccountInfo(transaction.destination);
+
+			return new CouponTransactionDTO(coupon);
 		})
+}
+
+async function getAccountInfo(account) {
+	if (!account) {
+		return Promise.resolve();
+	}		
+
+	account = await accountApiRestService.get(account);
+	account.holder = await clientApiRestService.get(account.holder);
+
+	return {
+		id: account.id,
+		agency: account.agency,
+		number: account.number,
+		documentNumber: account.holder.documentNumber
+	}
 }
