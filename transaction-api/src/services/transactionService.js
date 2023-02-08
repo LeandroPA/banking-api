@@ -5,7 +5,6 @@ const DepositTransaction = require('../models/depositTransaction');
 const WithdrawTransaction = require('../models/withdrawTransaction');
 const TransferInTransaction = require('../models/transferInTransaction');
 const TransferOutTransaction = require('../models/transferOutTransaction');
-const WithdrawTransaction = require('../models/withdrawTransaction');
 const CouponTransactionDTO = require('../dto/CouponTransactionDTO');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');

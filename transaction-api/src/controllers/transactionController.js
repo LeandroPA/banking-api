@@ -61,6 +61,32 @@ exports.withdraw = (req, res, next) => {
 		.catch(next);
 }
 
+exports.transfer = (req, res, next) => {
+
+	/*
+		#swagger.operationId = 'transfer'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Create a transfer transaction'
+		#swagger.description = 'Endpoint to create a transfer transaction.'
+		#swagger.produces = ['application/json']
+		#swagger.requestBody = {
+			required: true,
+			description: '',			
+			content: {
+				'application/json': {
+					schema: { $ref: '#/components/schemas/New Transaction' }
+				}
+			}
+		}
+	*/
+	transactionService.createTransferTransaction(req.body)
+		// #swagger.responses[201] = { $ref: '#/components/responses/WithdrawTransaction'}
+		.then(transaction => res.status(201).json(transaction))
+		// #swagger.responses[400] = { $ref: '#/components/responses/BadRequestWithdrawTransaction'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/AccountNotFound'}
+		.catch(next);
+}
+
 exports.get = (req, res, next) => {
 
 	/*

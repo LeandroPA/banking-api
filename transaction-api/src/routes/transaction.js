@@ -6,6 +6,7 @@ const validate = require('../errorHandler/requestValidationErrorHandler');
 
 router.post('/deposit', transactionController.deposit);
 router.post('/withdraw', transactionController.withdraw);
+router.post('/transfer', transactionController.transfer);
 router.get('/:id', validate(param('id').isMongoId()), transactionController.get);
 router.get('/account/:id/balance', validate(param('id').isMongoId()), transactionController.getBalance);
 router.get('/account/:id/statement', validate(
