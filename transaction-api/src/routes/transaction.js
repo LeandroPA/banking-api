@@ -8,6 +8,7 @@ router.post('/deposit', transactionController.deposit);
 router.post('/withdraw', transactionController.withdraw);
 router.post('/transfer', transactionController.transfer);
 router.get('/:id', validate(param('id').isMongoId()), transactionController.get);
+router.get('/:id/coupon', validate(param('id').isMongoId()), transactionController.getCoupon);
 router.get('/account/:id/balance', validate(param('id').isMongoId()), transactionController.getBalance);
 router.get('/account/:id/statement', validate(
     param('id').isMongoId(), 

@@ -101,6 +101,28 @@ exports.get = (req, res, next) => {
 			description: 'The id of the transaction.'
 		}
 	*/
+	transactionService.getTransaction(req.params.id)
+		// #swagger.responses[200] = { $ref: '#/components/responses/Transaction'}
+		.then(transaction => handleResourceResponse(res, transaction))
+		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
+		.catch(next);
+}
+
+exports.getCoupon = (req, res, next) => {
+
+	/*
+		#swagger.operationId = 'getCoupon'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Get a coupon of a transaction'
+		#swagger.description = 'Endpoint to get a coupon of a transaction.'
+		#swagger.produces = ['application/json']
+		#swagger.parameters['id'] = {
+			in: 'path',
+			required: true,
+			description: 'The id of the transaction.'
+		}
+	*/
 	transactionService.getCoupon(req.params.id)
 		// #swagger.responses[200] = { $ref: '#/components/responses/Transaction'}
 		.then(transaction => handleResourceResponse(res, transaction))
