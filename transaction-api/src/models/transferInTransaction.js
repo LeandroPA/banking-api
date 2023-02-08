@@ -1,9 +1,9 @@
-const { Schema, ObjectId } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 const Transaction = require('./transaction');
 
 const transferInTransaction = new Schema({
     sender: {
-        type: ObjectId, ref: 'Transaction',
+        type: Schema.Types.ObjectId, ref: 'Transaction',
     }
 });
 

@@ -89,8 +89,8 @@ exports.createTransferTransaction = (json) => {
 	let transferOut = new TransferOutTransaction({value: json.value, account: json.account.from});
 	let transferIn = new TransferInTransaction({value: json.value, account: json.account.to});
 
-	transferOut.destination = transferIn;
-	transferIn.source = transferOut;
+	transferOut.receiver = transferIn;
+	transferIn.sender = transferOut;
 
 	return this.createTransaction(transferOut)
 		.then(() => this.createTransaction(transferIn));
