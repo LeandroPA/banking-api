@@ -51,12 +51,6 @@ function handleAccountEnabledForTransact(account, transaction) {
 
 function handleTransactionLimits(account, transaction) {
 	
-	if (!account.limits || !account.limits[transaction.type] ||
-		!('daily' in account.limits[transaction.type])) {
-		return Promise.resolve(transaction);		
-	}
-
-	let limit = account.limits[transaction.type].daily;
 
 	let statementQuery = {
 		accountId: transaction.account,
@@ -71,12 +65,19 @@ function handleTransactionLimits(account, transaction) {
 			let futureTotalBalance = statement.total.balance + transaction.value;
 
 			futureTotalTransacted *= futureTotalTransacted < 0 ? -1 : 1;
+			
+			let limit = futureTotalTransacted;
+			
+			if (account.limits && account.limits[transaction.type] &&
+				'daily' in account.limits[transaction.type]) {
+				limit = account.limits[transaction.type].daily;		
+			}
 
 			if (futureTotalTransacted > limit) {
 				throw new TransactionLimitError(`daily ${transaction.type} limit reached`);
 			}
 
-			if (futureTotalBalance < 0) {
+			if (futureTotalBalance < 0 && transaction.value < 0) {
 				throw new InsufficientFundsError();
 			}
 
