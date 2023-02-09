@@ -1,7 +1,8 @@
-let mongoose = require('mongoose')
-let { toJSON } = require('../util/mongooseUtil')
+const mongoose = require('mongoose');
+const clientApiRestService = require('../services/clientApiRestService');
+const { toJSON } = require('../util/mongooseUtil');
 
-let balanceSchema = new mongoose.Schema(
+const balanceSchema = new mongoose.Schema(
     {
         currency: {
             type: String,
@@ -23,11 +24,13 @@ balanceSchema.virtual('value')
     .get(() => this.value || 0)
     .set((val) => val);
 
-let accountSchema = new mongoose.Schema(
+const accountSchema = new mongoose.Schema(
 	{
         holder: {
             type: String,
-            required: [true, '{PATH} is required']
+            required: [true, '{PATH} is required'],
+            get: value => clientApiRestService.get(value),
+            validate: [clientApiRestService.get, '{PATH} not found']
         },
         agency: String,
         number: String,
@@ -75,5 +78,11 @@ accountSchema.static('findOneByIdOrAgencyAndNumber', function(IdOrAgencyAndNumbe
 });
 
 accountSchema.method('toJSON', toJSON);
+
+// accountSchema.virtual('holder')
+//     .get((value, virtual, doc) => {
+//         console.log(`Last value? ${value}`);
+//         return clientApiRestService.get(this.holder);
+//     });
 
 module.exports = mongoose.model('Account', accountSchema);

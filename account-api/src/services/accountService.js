@@ -79,6 +79,10 @@ exports.createAccount = (json) => {
 
 exports.getAccount = (id) => {
 	return Account.findOneByIdOrAgencyAndNumber(id)
+		.then(account => {
+			console.log(account.holder);
+			return account;
+		})
 		.then(exports.getAccountBalance);
 }
 
