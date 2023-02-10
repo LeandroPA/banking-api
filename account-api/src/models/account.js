@@ -24,8 +24,12 @@ const balanceSchema = new mongoose.Schema(
 )
 
 balanceSchema.virtual('value')
-    .get(() => this.value || 0)
-    .set((val) => val);
+    .get(function() {
+        return this._value || 0;
+    })
+    .set(function(value) {
+        this._value = value;
+    });
 
 const accountSchema = new mongoose.Schema(
 	{
@@ -134,8 +138,10 @@ function calculateVerifierDigit(number) {
 }
 
 accountSchema.pre('save', async function() {
-    this.agency = await generateAgencyNumber();
-    this.number = await generateAccountNumber();
+    if (this.isNew) {
+        this.agency = await generateAgencyNumber();
+        this.number = await generateAccountNumber();
+    }
 });
 
 accountSchema.method('toJSON', toJSON);
