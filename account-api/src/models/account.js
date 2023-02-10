@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const clientApiRestService = require('../services/clientApiRestService');
+const transactionApiRestService = require('../services/transactionApiRestService');
 const { getSequencial } = require('../services/sequencialGeneratorService');
 const { toJSON } = require('../util/mongooseUtil');
 
@@ -37,7 +38,7 @@ const accountSchema = new mongoose.Schema(
             type: String,
             required: [true, '{PATH} is required'],
             // get: value => clientApiRestService.get(value),
-            validate: validApiRequestResource,
+            // validate: validApiRequestResource,
         },
         agency: String,
         number: String,
@@ -90,22 +91,12 @@ function validApiRequestResource(id) {
             let { errors } = err.body || {};
 
             if (errors) {
-                err = new Error(errors.id || errors._errors);
+                err = new Error(errors.id || errors._error);
             }
-
+            
             throw err;
         });
 }
-
-// accountSchema.post('findOne', (account, next) => {
-//     console.log('post Find', account.holder);
-//     clientApiRestService.get(account.holder)
-//         .then(person => {
-//             account.holderObject = person;
-//             return account;
-//         })
-//         .then(next);
-// })
 
 function randomNumber(max) {
 	return Math.floor(Math.random() * max);
@@ -137,6 +128,15 @@ function calculateVerifierDigit(number) {
 	return verifierDigit > 1 ? 11 - verifierDigit : 0;
 }
 
+accountSchema.pre('validate', async function() {
+    return validApiRequestResource(this.holder)
+        .then(person => { 
+            this.$holder = person;
+            this.holder = person.id;
+        })
+        .catch(err => this.invalidate('holder', err.message));
+});
+
 accountSchema.pre('save', async function() {
     if (this.isNew) {
         this.agency = await generateAgencyNumber();
@@ -144,12 +144,19 @@ accountSchema.pre('save', async function() {
     }
 });
 
-accountSchema.method('toJSON', toJSON);
+accountSchema.post('findOne', async function(account) {
+    account.$holder = await clientApiRestService.get(account.holder);
+    account.balance.value = await transactionApiRestService.getBalance(account.id).value;
+});
 
-// accountSchema.virtual('holderObject')
-//     .get((value, virtual, doc) => {
-//         console.log(`Last value? ${value}`);
-//         return clientApiRestService.get(this.holder);
-//     });
+accountSchema.virtual('$holder')
+    .get(function() {
+        return this._holder;
+    })
+    .set(function(holder) {
+        this._holder = holder;
+    });
+
+accountSchema.method('toJSON', toJSON);
 
 module.exports = mongoose.model('Account', accountSchema);

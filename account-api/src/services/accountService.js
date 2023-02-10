@@ -4,9 +4,6 @@ const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 const AccountBlockedError = require('../errors/AccountBlockedError');
 
-// const CLIENT_API_URL = process.env.CLIENT_API_URL;
-const TRANSACTION_API_URL = process.env.TRANSACTION_API_URL;
-
 function handleApiResponseError(response) {
 
 	let body = {
@@ -35,24 +32,8 @@ exports.createAccount = (json) => {
 }
 
 exports.getAccount = (id) => {
-	return Account.findOneByIdOrAgencyAndNumber(id)
-		.then(exports.getAccountBalance);
-}
+	return Account.findOneByIdOrAgencyAndNumber(id);
 
-exports.getAccountBalance = (account) => {
-
-	if (!account || !account.id) {
-		return Promise.resolve(account);
-	}
-
-	return fetch(`${TRANSACTION_API_URL}/transaction/account/${account.id}/balance`)
-		.catch(handleApiResponseError)
-		.then(handleApiResponseError)
-		.then(response => response.json())
-		.then(balance => {
-			account.balance.value = balance.balance;
-			return account;
-		})
 }
 
 exports.blockAccount = (id, status) => {
