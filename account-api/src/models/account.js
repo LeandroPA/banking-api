@@ -37,8 +37,6 @@ const accountSchema = new mongoose.Schema(
         holder: {
             type: String,
             required: [true, '{PATH} is required'],
-            // get: value => clientApiRestService.get(value),
-            // validate: validApiRequestResource,
         },
         agency: String,
         number: String,
