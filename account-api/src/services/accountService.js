@@ -1,31 +1,6 @@
-const fetch = require('node-fetch');
 const Account = require('../models/account');
-const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 const AccountBlockedError = require('../errors/AccountBlockedError');
-
-function handleApiResponseError(response) {
-
-	let body = {
-		errors: {}
-	};
-
-	if (response.status == 404) {
-		body.errors.holder = 'Holder not found';
-		throw new HttpStatusCodeError(404, 'Holder not found', body);
-	}
-
-	if (response.status >= 500 || response instanceof fetch.FetchError) {
-		body.errors.details = 'Internal API error';
-		throw new HttpStatusCodeError(500, 'Internal API error', body);
-	}
-
-	if (response instanceof Error) {
-		throw response; //Pass to the next catch
-	}
-
-	return response;
-}
 
 exports.createAccount = (json) => {	
 	return new Account(json).save();
