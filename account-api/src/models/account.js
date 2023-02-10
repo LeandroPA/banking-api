@@ -29,8 +29,8 @@ const accountSchema = new mongoose.Schema(
         holder: {
             type: String,
             required: [true, '{PATH} is required'],
-            get: value => clientApiRestService.get(value),
-            validate: [clientApiRestService.get, '{PATH} not found']
+            // get: value => clientApiRestService.get(value),
+            validate: validApiRequestResource,
         },
         agency: String,
         number: String,
@@ -77,9 +77,32 @@ accountSchema.static('findOneByIdOrAgencyAndNumber', function(IdOrAgencyAndNumbe
 	return this.findOne({agency: agency, number: `${number}-${numberDigit}`});
 });
 
+function validApiRequestResource(id) {
+    return clientApiRestService.get(id)
+        .catch(err => {
+            let { errors } = err.body || {};
+
+            if (errors) {
+                err = new Error(Object.values(errors)[0]);
+            }
+
+            throw err;
+        });
+}
+
+// accountSchema.post('findOne', (account, next) => {
+//     console.log('post Find', account.holder);
+//     clientApiRestService.get(account.holder)
+//         .then(person => {
+//             account.holderObject = person;
+//             return account;
+//         })
+//         .then(next);
+// })
+
 accountSchema.method('toJSON', toJSON);
 
-// accountSchema.virtual('holder')
+// accountSchema.virtual('holderObject')
 //     .get((value, virtual, doc) => {
 //         console.log(`Last value? ${value}`);
 //         return clientApiRestService.get(this.holder);

@@ -63,26 +63,17 @@ function generateAgencyNumber() {
 }
 
 exports.createAccount = (json) => {	
-	return fetch(`${CLIENT_API_URL}/person/${json.holder}`)
-		.catch(handleApiResponseError)
-		.then(handleApiResponseError)
-		.then(response => response.json())
-		.then(async client => {
-			json.holder = client.id;			
-			json.agency = await generateAgencyNumber();
-			json.number = await generateAccountNumber();
-			return json;
+	return Promise.resolve(new Account(json))
+		.then(async account => {			
+			account.agency = await generateAgencyNumber();
+			account.number = await generateAccountNumber();
+			return account;
 		})
-		.then(account => new Account(account))
 		.then(account => account.save());
 }
 
 exports.getAccount = (id) => {
 	return Account.findOneByIdOrAgencyAndNumber(id)
-		.then(account => {
-			console.log(account.holder);
-			return account;
-		})
 		.then(exports.getAccountBalance);
 }
 
