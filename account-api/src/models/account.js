@@ -133,10 +133,10 @@ function calculateVerifierDigit(number) {
 	return verifierDigit > 1 ? 11 - verifierDigit : 0;
 }
 
-accountSchema.pre('save', async () => {
+accountSchema.pre('save', async function() {
     this.agency = await generateAgencyNumber();
-    this.number = await generateAccountNumber();    
-})
+    this.number = await generateAccountNumber();
+});
 
 accountSchema.method('toJSON', toJSON);
 
