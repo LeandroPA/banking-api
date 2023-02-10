@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const clientApiRestService = require('../services/clientApiRestService');
+const { getSequencial } = require('../services/sequencialGeneratorService');
 const { toJSON } = require('../util/mongooseUtil');
+
+const accountNumberIdentifier = 'account_number';
 
 const balanceSchema = new mongoose.Schema(
     {
@@ -83,7 +86,7 @@ function validApiRequestResource(id) {
             let { errors } = err.body || {};
 
             if (errors) {
-                err = new Error(Object.values(errors)[0]);
+                err = new Error(errors.id || errors._errors);
             }
 
             throw err;
@@ -99,6 +102,41 @@ function validApiRequestResource(id) {
 //         })
 //         .then(next);
 // })
+
+function randomNumber(max) {
+	return Math.floor(Math.random() * max);
+}
+
+function generateAgencyNumber() {
+	return Promise.resolve(randomNumber(1000) + 1)
+		.catch(err => 0) // Default value in case of error
+		.then(number => number.toString().padStart(4, 0));
+}
+
+function generateAccountNumber() {
+	return getSequencial(accountNumberIdentifier)
+		.catch(err => 0) // Default value in case of error
+		.then(number => number.toString().padStart(7, 0))
+		.then(number => `${number}-${calculateVerifierDigit(number)}`)
+		.catch(err => 0);
+}
+
+function calculateVerifierDigit(number) {
+
+	let verifierDigit = 0;
+
+	for (let i = 0; i < number.length; i++) {
+		verifierDigit += number[i] * (number.length - i + 1);
+	}
+	
+	verifierDigit = verifierDigit % 11;
+	return verifierDigit > 1 ? 11 - verifierDigit : 0;
+}
+
+accountSchema.pre('save', async () => {
+    this.agency = await generateAgencyNumber();
+    this.number = await generateAccountNumber();    
+})
 
 accountSchema.method('toJSON', toJSON);
 

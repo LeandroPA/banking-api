@@ -1,13 +1,11 @@
 const fetch = require('node-fetch');
 const Account = require('../models/account');
-const { getSequencial } = require('../services/sequencialGeneratorService');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
 const AccountDisabledError = require('../errors/AccountDisabledError');
 const AccountBlockedError = require('../errors/AccountBlockedError');
 
-const CLIENT_API_URL = process.env.CLIENT_API_URL;
+// const CLIENT_API_URL = process.env.CLIENT_API_URL;
 const TRANSACTION_API_URL = process.env.TRANSACTION_API_URL;
-const accountNumberIdentifier = 'account_number';
 
 function handleApiResponseError(response) {
 
@@ -32,44 +30,8 @@ function handleApiResponseError(response) {
 	return response;
 }
 
-function randomNumber(max) {
-	return Math.floor(Math.random() * max );
-}
-
-function calculateVerifierDigit(number) {
-
-	let verifierDigit = 0;
-
-	for (let i = 0; i < number.length; i++) {
-		verifierDigit += number[i] * (number.length - i + 1);
-	}
-	
-	verifierDigit = verifierDigit % 11;
-	return verifierDigit > 1 ? 11 - verifierDigit : 0;
-}
-
-function generateAccountNumber() {
-	return getSequencial(accountNumberIdentifier)
-		.catch(err => 0) // Default value in case of error
-		.then(number => number.toString().padStart(7, 0))
-		.then(number => `${number}-${calculateVerifierDigit(number)}`)
-		.catch(err => 0);
-}
-
-function generateAgencyNumber() {
-	return Promise.resolve(randomNumber(1000) + 1)
-		.catch(err => 0) // Default value in case of error
-		.then(number => number.toString().padStart(4, 0));
-}
-
 exports.createAccount = (json) => {	
-	return Promise.resolve(new Account(json))
-		.then(async account => {			
-			account.agency = await generateAgencyNumber();
-			account.number = await generateAccountNumber();
-			return account;
-		})
-		.then(account => account.save());
+	return new Account(json).save();
 }
 
 exports.getAccount = (id) => {

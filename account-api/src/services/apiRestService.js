@@ -47,13 +47,13 @@ class ApiRestService {
         return this.request(`${id}`).then(toJson);
     }
 
-    create(params) {
-        return this.request('', {method: 'POST', body: JSON.stringify(params)})
+    create(body) {
+        return this.request('', {method: 'POST', body: JSON.stringify(body)})
             .then(toJson);
     }
 
-    update(params) {
-        return this.request(`${id}`, {method: 'PUT', body: JSON.stringify(params)})
+    update(body) {
+        return this.request(`${id}`, {method: 'PUT', body: JSON.stringify(body)})
             .then(toJson);
     }
 
