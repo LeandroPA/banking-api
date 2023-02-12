@@ -106,8 +106,6 @@ exports.createWithdrawTransaction = (json) => {
 exports.createTransaction = (transaction) => {
 
 	return transaction.validate()
-		.then(() => accountApiRestService.get(transaction.account))
-		.catch(handleApiResponseError)
 		.then(account => handleAccountEnabledForTransact(account, transaction))
 		.then(account => handleTransactionLimits(account, transaction))
 		.then(transaction => {

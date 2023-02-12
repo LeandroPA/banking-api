@@ -8,7 +8,6 @@ exports.createAccount = (json) => {
 
 exports.getAccount = (id) => {
 	return Account.findOneByIdOrAgencyAndNumber(id);
-
 }
 
 exports.blockAccount = (id, status) => {
