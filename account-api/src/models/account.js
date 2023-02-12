@@ -144,7 +144,8 @@ accountSchema.pre('save', async function() {
 
 accountSchema.post('findOne', async function(account) {
     account.$holder = await clientApiRestService.get(account.holder);
-    account.balance.value = await transactionApiRestService.getBalance(account.id).value;
+    let balance = await transactionApiRestService.getBalance(account.id);
+    account.balance.value = balance.balance;
 });
 
 accountSchema.virtual('$holder')
