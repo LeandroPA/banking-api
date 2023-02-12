@@ -4,12 +4,15 @@ const AccountBlockedError = require('../errors/AccountBlockedError');
 
 class PreValidateAccountEnabledForTransact extends Hook {
 
-    hook(transaction) {
-        if (!transaction.$account.enabled) {
+    async hook(transaction) {
+
+        let account = await transaction.$account;
+
+        if (!account.enabled) {
             throw new AccountDisabledError('account is disabled for transactions');
         }
 
-        if (transaction.$account.blocked) {
+        if (account.blocked) {
             throw new AccountBlockedError();
         }
 

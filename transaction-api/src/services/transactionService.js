@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const { startOfDay, endOfDay } = require('date-fns');
+const { safelyPopulate } = require('../util/mongooseUtil');
 const Transaction = require('../models/transaction');
 const DepositTransaction = require('../models/depositTransaction');
 const WithdrawTransaction = require('../models/withdrawTransaction');
@@ -111,8 +112,11 @@ exports.getCoupon = (id) => {
 			coupon.type = transaction.type;
 			coupon.date = transaction.date;
 
-			coupon.accountSource = await getAccountInfo(transaction.source);
-			coupon.accountDestination = await getAccountInfo(transaction.destination);
+			await safelyPopulate(transaction, 'sender', 'account');
+			await safelyPopulate(transaction, 'receiver', 'account');
+
+			coupon.accountSource = await transaction.source.then(getAccountInfo);
+			coupon.accountDestination = await transaction.destination.then(getAccountInfo);
 
 			return new CouponTransactionDTO(coupon);
 		})
@@ -121,15 +125,17 @@ exports.getCoupon = (id) => {
 async function getAccountInfo(account) {
 	if (!account) {
 		return Promise.resolve();
-	}		
+	}
 
-	account = await accountApiRestService.get(account);
+	console.log(account);
+
 	account.holder = await clientApiRestService.get(account.holder);
 
 	return {
 		id: account.id,
 		agency: account.agency,
 		number: account.number,
+		name: account.holder.fullname,
 		documentNumber: account.holder.documentNumber
 	}
 }

@@ -1,7 +1,6 @@
 const { Schema } = require('mongoose');
 const Transaction = require('./transaction');
 const { optionsTransformToJSON } = require('../util/mongooseUtil');
-const mongooseAutopopulate = require('mongoose-autopopulate');
 
 const transferInTransaction = new Schema({
     sender: {
@@ -11,12 +10,10 @@ const transferInTransaction = new Schema({
 }, optionsTransformToJSON);
 
 transferInTransaction.virtual('source').get(function() {
-    return this.sender.account;
+    return Promise.resolve(this.sender.$account);
 });
 transferInTransaction.virtual('destination').get(function() {
-    return this.account;
+    return Promise.resolve(this.$account);
 });
-
-transferInTransaction.plugin(mongooseAutopopulate);
 
 module.exports = Transaction.discriminator('transfer_in', transferInTransaction);

@@ -4,6 +4,15 @@ exports.toJSON = function() {
 	return {id: _id, ...object};
 }
 
+exports.safelyPopulate = async function(document, element, select) {
+	if (document[element]) {
+        await document.populate({
+            path: element,
+            select: select
+        });
+    }
+}
+
 exports.optionsTransformToJSON = {
     toObject: {
         transform: function (doc, ret) {

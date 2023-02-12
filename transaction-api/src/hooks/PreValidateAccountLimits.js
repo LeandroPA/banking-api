@@ -4,31 +4,31 @@ const transactionService = require('../services/transactionService');
 
 class PreValidateAccountEnabledForTransact extends Hook {
 
-    hook(transaction) {
+    async hook(transaction) {
         let query = {
             accountId: transaction.account,
             from: new Date(),
             to: new Date(),
             type: transaction.type
         }
-        return transactionService.getStatement(query)
-            .then(statement => {
 
-                let limit = 0;
-                let { [transaction.type]: transactionLimits } = transaction.$account.limits;
-                let futureTotalTransacted = statement.total.transacted + transaction.value;
-                futureTotalTransacted *= futureTotalTransacted < 0 ? -1 : 1;
+        let statement = await transactionService.getStatement(query);
+        let account = await transaction.$account;
 
-                if (transactionLimits && 'daily' in transactionLimits) {
-                    limit = transactionLimits.daily;
-                }
+        let limit = 0;
+        let { [transaction.type]: transactionLimits } = account.limits;
+        let futureTotalTransacted = statement.total.transacted + transaction.value;
+        futureTotalTransacted *= futureTotalTransacted < 0 ? -1 : 1;
 
-                if (limit > 0 && futureTotalTransacted > limit) {
-                    throw new TransactionLimitError(`daily ${transaction.type} limit reached`);
-                }
+        if (transactionLimits && 'daily' in transactionLimits) {
+            limit = transactionLimits.daily;
+        }
 
-                return transaction;
-            })
+        if (limit > 0 && futureTotalTransacted > limit) {
+            throw new TransactionLimitError(`daily ${transaction.type} limit reached`);
+        }
+
+        return transaction;
     }
 }
 

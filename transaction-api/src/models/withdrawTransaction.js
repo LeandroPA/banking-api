@@ -14,10 +14,10 @@ const withdrawTransactionSchema = new Schema({
 })
 
 withdrawTransactionSchema.virtual('source').get(function() {
-    return this.account;
+    return Promise.resolve(this.$account);
 });
 withdrawTransactionSchema.virtual('destination').get(function() {
-    return undefined;
+    return Promise.resolve(this.$account);
 });
 
 module.exports = Transaction.discriminator('withdraw', withdrawTransactionSchema)

@@ -3,9 +3,11 @@ const InsufficientFundsError = require('../errors/InsufficientFundsError');
 
 class PreValidateAccountFunds extends Hook {
 
-    hook(transaction) {
+    async hook(transaction) {
 
-        let futureTotalBalance = transaction.$account.balance.value + transaction.value;
+        let account = await transaction.$account;
+
+        let futureTotalBalance = account.balance.value + transaction.value;
 
         if (futureTotalBalance < 0 && transaction.value < 0) {
             throw new InsufficientFundsError();

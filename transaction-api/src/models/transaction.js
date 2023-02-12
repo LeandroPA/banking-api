@@ -28,6 +28,19 @@ const transactionSchema = new mongoose.Schema(
     }
 );
 
+transactionSchema.virtual('$account')
+    .get(function() {
+
+        if (this._account || !this.account) {
+            return Promise.resolve(this._account);
+        }
+
+        return validateAccountExists(this).then(() => this._account);
+    })
+    .set(function(account) {
+        this._account = account;
+    });
+
 transactionSchema.pre('validate', async function() {
     this.date = new Date();
     return Promise.resolve(this)
@@ -38,7 +51,7 @@ transactionSchema.pre('validate', async function() {
         .catch(err => {
             console.error('Error on transaction pre validate: ', err);
             return Promise.reject(err);
-        })
+        });
 });
 
 transactionSchema.method('toJSON', toJSON);
