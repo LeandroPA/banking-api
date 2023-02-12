@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const { toJSON } = require('../util/mongooseUtil');
-const accountApiRestService = require('../services/accountApiRestService');
-const {hook: validateAccountExists } = new (require('../hooks/PreValidateAccountExistsHook'));
-const {hook: validateAccountEnabledForTransact } = new (require('../hooks/PreValidateAccountEnabledForTransact'));
+const { hook: validateAccountExists } = new (require('../hooks/PreValidateAccountExistsHook'));
+const { hook: validateAccountEnabledForTransact } = new (require('../hooks/PreValidateAccountEnabledForTransact'));
+const { hook: validateAccountFunds } = new (require('../hooks/PreValidateAccountFunds'));
+const { hook: validateAccountLimits } = new (require('../hooks/PreValidateAccountLimits'));
 
 const transactionSchema = new mongoose.Schema(
 	{
@@ -30,7 +31,13 @@ const transactionSchema = new mongoose.Schema(
 transactionSchema.pre('validate', async function() {
     return Promise.resolve(this)
         .then(validateAccountExists)
-        .then(validateAccountEnabledForTransact);
+        .then(validateAccountEnabledForTransact)
+        .then(validateAccountFunds)
+        .then(validateAccountLimits)
+        .catch(err => {
+            console.error('Error on transaction pre validate: ', err);
+            return Promise.reject(err);
+        })
 });
 
 transactionSchema.method('toJSON', toJSON);
