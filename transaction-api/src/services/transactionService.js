@@ -7,8 +7,6 @@ const TransferInTransaction = require('../models/transferInTransaction');
 const TransferOutTransaction = require('../models/transferOutTransaction');
 const CouponTransactionDTO = require('../dto/CouponTransactionDTO');
 const HttpStatusCodeError = require('../errors/HttpStatusCodeError');
-const AccountDisabledError = require('../errors/AccountDisabledError');
-const AccountBlockedError = require('../errors/AccountBlockedError');
 const TransactionLimitError = require('../errors/TransactionLimitError');
 const InsufficientFundsError = require('../errors/InsufficientFundsError');
 const ApiRestService = require('./apiRestService');
@@ -18,39 +16,7 @@ const { ACCOUNT_API_URL, CLIENT_API_URL } = process.env;
 const accountApiRestService = new ApiRestService(ACCOUNT_API_URL);
 const clientApiRestService = new ApiRestService(CLIENT_API_URL);
 
-function handleApiResponseError(error) {
-	if (error.status == 404 || error.status == 400) {
-
-		let body = {
-			errors: {
-				details: 'Resource not found'
-			}
-		};
-
-		throw new HttpStatusCodeError(404, 'Resource not found', body);
-
-	} else {
-		throw error;
-	}
-}
-
-function handleAccountEnabledForTransact(account, transaction) {
-	return Promise.resolve(account)
-		.then(account => {
-			if (!account.enabled) {
-				throw new AccountDisabledError('account is disabledd for transactions');
-			}
-
-			if (account.blocked) {
-				throw new AccountBlockedError();
-			}
-
-			return account;
-		});
-}
-
-function handleTransactionLimits(account, transaction) {
-	
+function handleTransactionLimits(account, transaction) {	
 
 	let statementQuery = {
 		accountId: transaction.account,
