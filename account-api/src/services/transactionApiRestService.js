@@ -3,7 +3,7 @@ const { TRANSACTION_API_URL } = process.env;
 class TransactionApiRestService extends ApiRestService {
 
     constructor() {
-        super(TRANSACTION_API_URL + '/transaction/');
+        super(TRANSACTION_API_URL);
     }
 
     getBalance(id) {

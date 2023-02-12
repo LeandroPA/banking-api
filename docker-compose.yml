@@ -35,8 +35,8 @@ services:
     # volumes:
     #   - ./account-api:/usr/app
     environment:
-      CLIENT_API_URL: http://client-api:3001
-      TRANSACTION_API_URL: http://transaction-api:3003
+      CLIENT_API_URL: http://client-api:3001/person/
+      TRANSACTION_API_URL: http://transaction-api:3003/transaction/
       ACCOUNT_DB_URL: mongodb://mongo-db:27017/account-api?retryWrites=true&w=majority
   
   transaction-api:
