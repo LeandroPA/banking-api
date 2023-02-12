@@ -3,10 +3,9 @@ const accountApiRestService = require('../services/accountApiRestService');
 
 class PreValidateAccountExistsHook extends ApiRestRequestHook {
 
-    constructor() {
-        super(accountApiRestService, 'account');
+    hook(document) {
+        return super.hook(document, accountApiRestService, 'account');
     }
-
 }
 
 module.exports = PreValidateAccountExistsHook;

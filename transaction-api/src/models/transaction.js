@@ -29,6 +29,7 @@ const transactionSchema = new mongoose.Schema(
 );
 
 transactionSchema.pre('validate', async function() {
+    this.date = new Date();
     return Promise.resolve(this)
         .then(validateAccountExists)
         .then(validateAccountEnabledForTransact)

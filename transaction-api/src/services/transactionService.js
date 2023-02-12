@@ -30,14 +30,7 @@ exports.createWithdrawTransaction = (json) => {
 }
 
 exports.createTransaction = (transaction) => {
-
-	return transaction.validate()
-		.then(account => handleAccountEnabledForTransact(account, transaction))
-		.then(account => handleTransactionLimits(account, transaction))
-		.then(transaction => {
-			transaction.date = new Date()
-			return transaction.save();
-		});
+	return transaction.save();
 }
 
 exports.getTransaction = (id) => {

@@ -15,12 +15,12 @@ class PreValidateAccountEnabledForTransact extends Hook {
             .then(statement => {
 
                 let limit = 0;
+                let { [transaction.type]: transactionLimits } = transaction.$account.limits;
                 let futureTotalTransacted = statement.total.transacted + transaction.value;
                 futureTotalTransacted *= futureTotalTransacted < 0 ? -1 : 1;
 
-                if (account.limits && account.limits[transaction.type] &&
-                    'daily' in account.limits[transaction.type]) {
-                    limit = account.limits[transaction.type].daily;
+                if (transactionLimits && 'daily' in transactionLimits) {
+                    limit = transactionLimits.daily;
                 }
 
                 if (limit > 0 && futureTotalTransacted > limit) {
