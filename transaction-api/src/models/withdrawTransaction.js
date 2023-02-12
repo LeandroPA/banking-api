@@ -17,7 +17,7 @@ withdrawTransactionSchema.virtual('source').get(function() {
     return Promise.resolve(this.$account);
 });
 withdrawTransactionSchema.virtual('destination').get(function() {
-    return Promise.resolve(this.$account);
+    return Promise.resolve();
 });
 
 module.exports = Transaction.discriminator('withdraw', withdrawTransactionSchema)

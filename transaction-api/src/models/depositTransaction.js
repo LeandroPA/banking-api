@@ -6,7 +6,7 @@ const depositTransactionSchema = new Schema({
 });
 
 depositTransactionSchema.virtual('source').get(function() {
-    return Promise.resolve(undefined);
+    return Promise.resolve();
 });
 depositTransactionSchema.virtual('destination').get(function() {
     return Promise.resolve(this.$account);
