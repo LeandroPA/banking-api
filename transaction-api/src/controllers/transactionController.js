@@ -124,7 +124,7 @@ exports.getCoupon = (req, res, next) => {
 		}
 	*/
 	transactionService.getCoupon(req.params.id)
-		// #swagger.responses[200] = { $ref: '#/components/responses/Transaction'}
+		// #swagger.responses[200] = { $ref: '#/components/responses/CouponTransaction'}
 		.then(transaction => handleResourceResponse(res, transaction))
 		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
 		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}

@@ -77,7 +77,7 @@ const doc = {
                     },
                     type: {
                         type: 'string',
-                        'enum': ['deposit', 'withdraw'],
+                        'enum': ['deposit', 'withdraw', 'transfer_in', 'transfer_out'],
                         description: 'The type of transaction',
                         example: 'deposit'
                     },
@@ -101,6 +101,101 @@ const doc = {
                         description: 'The value of the transaction.',
                         example: 1000
                     }
+                }
+            },
+            'Coupon Transaction': {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string',
+                        description: 'Id of the transaction',
+                        example: '63cca04bd6608851304d5f31'
+                    },
+                    value: {
+                        type: 'number',
+                        description: 'The value of the transaction.',
+                        example: 1000
+                    },
+                    type: {
+                        type: 'string',
+                        'enum': ['deposit', 'withdraw', 'transfer_in', 'transfer_out'],
+                        description: 'The type of transaction',
+                        example: 'deposit'
+                    },
+                    date: {
+                        type: 'string',
+                        description: 'The date of transaction',
+                        example: '2023-01-22T02:51:41.436Z'
+                    },
+                    accounts: {
+                        type: 'object',
+                        description: 'The accounts involving in the transaction',
+                        // example: '63cc9f72a23faefce2e1e80d'
+                        properties: {
+                            source: {
+                                type: 'object',
+                                description: 'The information about the source, where the value are debited.',
+                                properties: {
+                                    id: {
+                                        type: 'string',
+                                        description: 'The Id of the account',
+                                        example: '63e834ed80f6d1131ef3f6a9'
+                                    },
+                                    agency: {
+                                        type: 'string',
+                                        description: 'The agency number of the account',
+                                        example: '0958'
+                                    },
+                                    number: {
+                                        type: 'string',
+                                        description: 'The number of the account',
+                                        example: '0000027-2'
+                                    },
+                                    name: {
+                                        type: 'string',
+                                        description: 'The name of the holder of the account',
+                                        example: 'Leandro Alencar'
+                                    },
+                                    documentNumber: {
+                                        type: 'string',
+                                        description: 'The document number of the holder of the account',
+                                        example: '42813376442'
+                                    }
+                                }
+                            },
+                            destination: {
+                                type: 'object',
+                                description: 'The information about the destination, where the value are credited.',
+                                properties: {
+                                    id: {
+                                        type: 'string',
+                                        description: 'The Id of the account',
+                                        example: '63e834ed80f6d1131ef3f6a9'
+                                    },
+                                    agency: {
+                                        type: 'string',
+                                        description: 'The agency number of the account',
+                                        example: '0958'
+                                    },
+                                    number: {
+                                        type: 'string',
+                                        description: 'The number of the account',
+                                        example: '0000027-2'
+                                    },
+                                    name: {
+                                        type: 'string',
+                                        description: 'The name of the holder of the account',
+                                        example: 'Leandro Alencar'
+                                    },
+                                    documentNumber: {
+                                        type: 'string',
+                                        description: 'The document number of the holder of the account',
+                                        example: '42813376442'
+                                    }
+                                }
+                            }
+                        }
+                    },
                 }
             }
         },
@@ -167,6 +262,16 @@ const doc = {
                                 $ref: '#/components/examples/WithdrawTransaction'
                             },
                         }
+                    }
+                }
+            },
+            CouponTransaction: {
+                description: 'CouponTransaction',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/components/schemas/Coupon Transaction',
+                        },
                     }
                 }
             },
