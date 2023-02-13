@@ -1,0 +1,28 @@
+{
+    "transaction.type.deposit": "Depósito 1",
+    "transaction": {
+        "type": {
+            "deposit": "Depósito 2",
+            "withdraw": "Saque",
+            "transfer_in": "Transferência Recebida",
+            "transfer_out": "Transferência Enviada"
+        },
+        "coupon": {
+            "header": "Comprovante de %s",
+            "details": {
+                "header": "Detalhes",
+                "transactionId": "ID da transação",
+                "value": "Valor"
+            },
+            "source": "Origem",
+            "destination": "Destino",
+            "account": {
+                "name": "Nome",
+                "documentNumber": "CPF",
+                "agency": "Agência",
+                "number": "Conta"
+            },
+            "autentication": "Autenticação",
+        }
+    }
+}

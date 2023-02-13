@@ -5,7 +5,7 @@ const WithdrawTransaction = require('../models/withdrawTransaction');
 const TransferInTransaction = require('../models/transferInTransaction');
 const TransferOutTransaction = require('../models/transferOutTransaction');
 const CouponTransactionDTO = require('../dto/CouponTransactionDTO');
-const { generateCouponTransaction } = require('./CouponTransactionImageService');
+const { generateCouponTransaction } = require('./couponTransactionImageService');
 
 exports.createTransferTransaction = (json) => {
 
@@ -99,9 +99,9 @@ exports.getStatement = (params) => {
 
 exports.getCoupon = (id) => {	
 	return exports.getTransaction(id)
-		.then(async transaction => new CouponTransactionDTO(transaction).resolve())
+		.then(transaction => new CouponTransactionDTO(transaction).resolve());
 }
 
-exports.getCouponPdf = (id) => {	
+exports.getCouponToPdf = (id) => {	
 	return this.getCoupon(id).then(generateCouponTransaction);
 }

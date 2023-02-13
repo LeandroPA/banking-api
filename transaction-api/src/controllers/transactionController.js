@@ -131,6 +131,31 @@ exports.getCoupon = (req, res, next) => {
 		.catch(next);
 }
 
+exports.getCouponToPdf = (req, res, next) => {
+
+	/*
+		#swagger.operationId = 'getCoupon'
+		#swagger.tags = ['transaction-api']
+		#swagger.summary = 'Get a coupon of a transaction'
+		#swagger.description = 'Endpoint to get a coupon of a transaction.'
+		#swagger.produces = ['application/json']
+		#swagger.parameters['id'] = {
+			in: 'path',
+			required: true,
+			description: 'The id of the transaction.'
+		}
+	*/
+	transactionService.getCouponToPdf(req.params.id)
+		// #swagger.responses[200] = { $ref: '#/components/responses/CouponTransaction'}
+		.then(coupon => {
+			console.log(coupon);
+			res.render('coupon_transaction', { coupon: coupon } );
+		})
+		// #swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
+		// #swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
+		.catch(next);
+}
+
 exports.getBalance = (req, res, next) => {
 	/*
 		#swagger.operationId = 'getBalance'

@@ -1,0 +1,107 @@
+<html>
+
+<head>
+
+    <style>
+        body {
+            width: 320px;
+        }
+        .coupon {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .coupon > .header{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .coupon > .footer{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .coupon > .footer img {
+            margin-top: 10px;
+
+        }
+
+        .coupon hr {
+            height:1px;
+            border-width:0;
+            color:gray;
+            background-color:gray
+        }
+
+        .details {
+            margin-top: 10px;
+        }
+
+        .details .header{
+            text-align: left;
+        }
+
+        .details .header + hr{
+            margin-top: 2px;
+        }
+
+        .details .element {
+            text-align: left;
+        }
+
+        .details .element-value {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="coupon">
+        <div class="header">
+            <div>Comprovante de {{coupon.type}}</div>
+            <div>{{coupon.date}}</div>
+        </div>
+
+        <div class="details">
+            <div class="header"><strong>Detalhes</strong></div>
+            <hr>
+            <!-- <div class="element">ID da transação<span class="element-value">{{coupon.id}}</span></div> -->
+            <div class="element">Valor <span class="element-value">{{coupon.value}}</span></div>
+        </div>
+
+        {{#if coupon.accounts.source}}
+        <div class="details">
+            <div class="header"><strong>Origem</strong></div>
+            <hr>
+            <div class="element">Nome <span class="element-value">{{coupon.accounts.source.name}}</span></div>
+            <div class="element">CPF <span class="element-value">{{coupon.accounts.source.documentNumber}}</span></div>
+            <div class="element">Agência <span class="element-value">{{coupon.accounts.source.agency}}</span></div>
+            <div class="element">Conta <span class="element-value">{{coupon.accounts.source.number}}</span></div>
+        </div>
+        {{/if}}
+
+        {{#if coupon.accounts.destination}}
+        <div class="details">
+            <div class="header"><strong>Destino</strong></div>
+            <hr>
+            <div class="element">Nome <span class="element-value">{{coupon.accounts.destination.name}}</span></div>
+            <div class="element">CPF <span class="element-value">{{coupon.accounts.destination.documentNumber}}</span></div>
+            <div class="element">Agência <span class="element-value">{{coupon.accounts.destination.agency}}</span></div>
+            <div class="element">Conta <span class="element-value">{{coupon.accounts.destination.number}}</span></div>
+        </div>
+        {{/if}}
+
+        <div class="footer">
+            <hr>
+            <div class="element"><strong>Autenticação</strong></div>
+            <div class="element"><a href="http://localhost:3000/transaction/{{coupon.id}}/coupon.html">{{coupon.id}}</a></div>
+            <div class="element"><img id='barcode' 
+                src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:3000/transaction/{{coupon.id}}/coupon.html&amp;size=150x150" 
+                alt="" 
+                title="HELLO" 
+                width="150" 
+                height="150" /></div>
+        </div>
+    </div>
+</body>
+</html>
