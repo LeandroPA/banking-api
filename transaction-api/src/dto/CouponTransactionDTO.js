@@ -1,4 +1,11 @@
 const clientApiRestService = require('../services/clientApiRestService');
+const { safelyPopulate } = require('../util/mongooseUtil');
+
+function populate(transaction, elementPopulate, elementGetter) {
+    return safelyPopulate(transaction, elementPopulate, 'account')
+        .then(transaction => transaction[elementGetter])
+        .then(getAccountInfo);
+}
 
 class CouponTransactionDTO {
     constructor(transaction) {
@@ -8,8 +15,8 @@ class CouponTransactionDTO {
         this.type = transaction.type;
         this.date = transaction.date;
         this.accounts = {
-            source: transaction.source.then(getAccountInfo),
-            destination: transaction.destination.then(getAccountInfo)
+            source: populate(transaction, 'sender', 'source'),
+            destination: populate(transaction, 'receiver', 'destination')
         };        
     }
 
@@ -21,6 +28,7 @@ class CouponTransactionDTO {
     }
 
     toLocale(localeService) {
+        this.value *= this.value < 0 ? -1 : 1;
         this.value = this.value.toLocaleString(localeService.getCurrentLocale(), {style: 'currency', currency: this.currency});
         this.date = this.date.toLocaleDateString(localeService.getCurrentLocale(), { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
         this.type = localeService.translate(`transaction.type.${this.type}`);

@@ -11,6 +11,8 @@ exports.safelyPopulate = async function(document, element, select) {
             select: select
         });
     }
+
+    return document;
 }
 
 exports.optionsTransformToJSON = {
