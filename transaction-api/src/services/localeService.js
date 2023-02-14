@@ -35,18 +35,14 @@ class LocaleService {
 		}
 	}
 
-	middleware(req, res, next) {		
-		res.locals.i18n = () => (text, render) => req.__(text, render);
-		next();
-	}
 	/**
 	 *
 	 * @param string String to translate
 	 * @param args Extra parameters
 	 * @returns {string} Translated string
 	 */
-	translate(string, args = undefined) {
-		return this.i18nProvider.__(string, args)
+	translate() {
+		return this.i18nProvider.__.apply(this, arguments); 
 	}
 	/**
 	 *
@@ -54,8 +50,8 @@ class LocaleService {
 	 * @param count The plural number
 	 * @returns {string} Translated string
 	 */
-	translatePlurals(phrase, count) {
-		return this.i18nProvider.__N(phrase, count)
+	translatePlurals() {
+		return this.i18nProvider.__N.apply(this, arguments); 
 	}
 }
 
