@@ -34,6 +34,11 @@ class LocaleService {
 		this.i18nProvider.setLocale(locale)
 		}
 	}
+
+	middleware(req, res, next) {		
+		res.locals.i18n = () => (text, render) => req.__(text, render);
+		next();
+	}
 	/**
 	 *
 	 * @param string String to translate

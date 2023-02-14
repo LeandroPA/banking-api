@@ -1,0 +1,16 @@
+{
+    "transaction.type.deposit": "Deposit",
+    "transaction.type.withdraw": "Withdraw",
+    "transaction.type.transfer_in": "Transfer Received",
+    "transaction.type.transfer_out": "Transfer Sent",
+    "transaction.coupon.header": "%s Receipt",
+    "transaction.coupon.details.header": "Details",
+    "transaction.coupon.details.value": "Value",
+    "transaction.coupon.source": "Source",
+    "transaction.coupon.destination": "Destination",
+    "transaction.coupon.account.name": "Name",
+    "transaction.coupon.account.documentNumber": "SSN",
+    "transaction.coupon.account.agency": "Agency",
+    "transaction.coupon.account.number": "Number",
+    "transaction.coupon.autentication": "Autentication"
+}

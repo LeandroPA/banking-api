@@ -5,7 +5,7 @@ i18n.configure({
 	locales: ['en-US', 'pt-BR'],
 	defaultLocale: 'pt-BR',
 	queryParameter: 'lang',
-	directory: path.join('./', 'locales')
+	directory: path.join('./src/', 'locales')
 });
 
 module.exports = i18n;

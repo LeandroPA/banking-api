@@ -1,28 +1,16 @@
 {
-    "transaction.type.deposit": "Depósito 1",
-    "transaction": {
-        "type": {
-            "deposit": "Depósito 2",
-            "withdraw": "Saque",
-            "transfer_in": "Transferência Recebida",
-            "transfer_out": "Transferência Enviada"
-        },
-        "coupon": {
-            "header": "Comprovante de %s",
-            "details": {
-                "header": "Detalhes",
-                "transactionId": "ID da transação",
-                "value": "Valor"
-            },
-            "source": "Origem",
-            "destination": "Destino",
-            "account": {
-                "name": "Nome",
-                "documentNumber": "CPF",
-                "agency": "Agência",
-                "number": "Conta"
-            },
-            "autentication": "Autenticação",
-        }
-    }
+    "transaction.type.deposit": "Depósito",
+    "transaction.type.withdraw": "Saque",
+    "transaction.type.transfer_in": "Transferência Recebida",
+    "transaction.type.transfer_out": "Transferência Enviada",
+    "transaction.coupon.header": "Comprovante de %s",
+    "transaction.coupon.details.header": "Detalhes",
+    "transaction.coupon.details.value": "Valor",
+    "transaction.coupon.source": "Origem",
+    "transaction.coupon.destination": "Destino",
+    "transaction.coupon.account.name": "Nome",
+    "transaction.coupon.account.documentNumber": "CPF",
+    "transaction.coupon.account.agency": "Agência",
+    "transaction.coupon.account.number": "Conta",
+    "transaction.coupon.autentication": "Autenticação"
 }
