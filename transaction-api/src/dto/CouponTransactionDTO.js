@@ -27,11 +27,11 @@ class CouponTransactionDTO {
         return this;
     }
 
-    toLocale(localeService) {
+    toLocale(req) {
         this.value *= this.value < 0 ? -1 : 1;
-        this.value = this.value.toLocaleString(localeService.getCurrentLocale(), {style: 'currency', currency: this.currency});
-        this.date = this.date.toLocaleDateString(localeService.getCurrentLocale(), { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
-        this.type = localeService.translate(`transaction.type.${this.type}`);
+        this.value = this.value.toLocaleString(req.locale, {style: 'currency', currency: this.currency});
+        this.date = this.date.toLocaleDateString(req, { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+        this.type = req.__(`transaction.type.${this.type}`);
         return this;
     }
 }

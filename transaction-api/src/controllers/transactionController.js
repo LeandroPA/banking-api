@@ -126,6 +126,16 @@ exports.getCoupon = (req, res, next) => {
 		#swagger.responses[400] = { $ref: '#/components/responses/InvalidId'}
 		#swagger.responses[404] = { $ref: '#/components/responses/NotFound'}
 	*/
+	transactionService.getCoupon(req.params.id)
+		.then(coupon => {
+			res.format({
+				json: () => handleResourceResponse(res, coupon),
+				html: () => res.render('coupon_transaction', { coupon: coupon.toLocale(req) } )
+			});
+		})
+		.catch(next);
+
+		/*
 	res.format({
 		html: function () {
 			transactionService.getCouponToPdf(req.params.id)
@@ -140,7 +150,7 @@ exports.getCoupon = (req, res, next) => {
 				.catch(next);
 			
 		}
-	});
+	});*/
 }
 
 exports.getBalance = (req, res, next) => {
