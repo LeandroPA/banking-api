@@ -30,7 +30,7 @@ class CouponTransactionDTO {
     toLocale(req) {
         this.value *= this.value < 0 ? -1 : 1;
         this.value = this.value.toLocaleString(req.locale, {style: 'currency', currency: this.currency});
-        this.date = this.date.toLocaleDateString(req, { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+        this.date = this.date.toLocaleDateString(req.locale, { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
         this.type = req.__(`transaction.type.${this.type}`);
         return this;
     }

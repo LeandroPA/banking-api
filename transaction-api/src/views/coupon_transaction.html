@@ -58,6 +58,7 @@
 
     <div class="coupon">
         <div class="header">
+            <div><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><rect height="7" width="3" x="4" y="10"/><rect height="7" width="3" x="10.5" y="10"/><rect height="3" width="20" x="2" y="19"/><rect height="7" width="3" x="17" y="10"/><polygon points="12,1 2,6 2,8 22,8 22,6"/></g></g></svg></div>
             <div>{{__ 'transaction.coupon.header' coupon.type}}</div>
             <div>{{coupon.date}}</div>
         </div>
@@ -93,9 +94,9 @@
         <div class="footer">
             <hr>
             <div class="element"><strong>{{__ 'transaction.coupon.autentication'}}</strong></div>
-            <div class="element"><a href="http://localhost:3000/transaction/{{coupon.id}}/coupon.html">{{coupon.id}}</a></div>
+            <div class="element"><a href="http://localhost:3000/transaction/{{coupon.id}}/coupon">{{coupon.id}}</a></div>
             <div class="element"><img id='barcode' 
-                src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:3000/transaction/{{coupon.id}}/coupon.html&amp;size=150x150" 
+                src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:3000/transaction/{{coupon.id}}/coupon&amp;size=150x150" 
                 width="150" 
                 height="150" /></div>
         </div>
