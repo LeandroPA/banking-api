@@ -129,8 +129,8 @@ exports.getCoupon = (req, res, next) => {
 	transactionService.getCoupon(req.params.id)
 		.then(coupon => {
 			res.format({
+				html: () => res.render('coupon_transaction', { coupon: coupon.toLocale(req) } ),
 				json: () => handleResourceResponse(res, coupon),
-				html: () => res.render('coupon_transaction', { coupon: coupon.toLocale(req) } )
 			});
 		})
 		.catch(next);
