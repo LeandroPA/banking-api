@@ -134,23 +134,6 @@ exports.getCoupon = (req, res, next) => {
 			});
 		})
 		.catch(next);
-
-		/*
-	res.format({
-		html: function () {
-			transactionService.getCouponToPdf(req.params.id)
-				.then(coupon => {
-					res.render('coupon_transaction', { coupon } );
-				})
-				.catch(next);
-		},
-		json: function() {
-			transactionService.getCoupon(req.params.id)
-				.then(transaction => handleResourceResponse(res, transaction))
-				.catch(next);
-			
-		}
-	});*/
 }
 
 exports.getBalance = (req, res, next) => {
