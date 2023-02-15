@@ -23,6 +23,7 @@ app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.set('views', path.join(__dirname, 'views'));
 app.use(localeService.i18nProvider.init);
+app.use(localeService.queryParameterMiddleware);
 app.use(logger('dev'));
 app.use(express.json());
 

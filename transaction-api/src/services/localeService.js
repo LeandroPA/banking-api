@@ -35,6 +35,14 @@ class LocaleService {
 		}
 	}
 
+	queryParameterMiddleware(req, res, next) {
+		
+		if (req.query.lang) {
+			module.exports.i18nProvider.setLocale(req, req.query.lang);
+		}
+		next();
+	}
+
 	/**
 	 *
 	 * @param string String to translate
