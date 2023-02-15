@@ -1,8 +1,8 @@
 {
     "transaction.type.deposit": "Deposit",
-    "transaction.type.withdraw": "Withdraw",
-    "transaction.type.transfer_in": "Transfer Received",
-    "transaction.type.transfer_out": "Transfer Sent",
+    "transaction.type.withdraw": "Withdrawal",
+    "transaction.type.transfer_in": "Received Transfer",
+    "transaction.type.transfer_out": "Sent Transfer",
     "transaction.coupon.header": "%s Receipt",
     "transaction.coupon.details.header": "Details",
     "transaction.coupon.details.value": "Value",
