@@ -1,7 +1,12 @@
 const swaggerAutogen = require('swagger-autogen')({openapi: '3.0.0'});
 require('dotenv').config();
 
-const outputFile = process.env.SWAGGER_OUTPUT_JSON_PATH;
+if (!process.env.SWAGGER_OUTPUT_FOLDER_APP) {
+    console.error(`Missing SWAGGER_OUTPUT_FOLDER_APP environment variable.`);
+    process.exit(1);
+}
+
+const outputFile = `${process.env.SWAGGER_OUTPUT_FOLDER_APP}/swagger-${process.env.npm_package_name}.json`;
 const endpointsFiles = ['./src/app.js'];
 
 const doc = {
