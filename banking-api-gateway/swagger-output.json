@@ -297,28 +297,10 @@
         "operationId": "deposit",
         "parameters": [
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           }
         ],
         "responses": {
@@ -358,28 +340,10 @@
         "operationId": "withdraw",
         "parameters": [
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           }
         ],
         "responses": {
@@ -419,28 +383,10 @@
         "operationId": "transfer",
         "parameters": [
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           }
         ],
         "responses": {
@@ -489,28 +435,10 @@
             "description": "The id of the transaction."
           },
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           }
         ],
         "responses": {
@@ -548,28 +476,10 @@
             "description": "The id of the transaction."
           },
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           }
         ],
         "responses": {
@@ -607,28 +517,10 @@
             "description": "The id of the account."
           },
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           }
         ],
         "responses": {
@@ -662,28 +554,10 @@
             "description": "The id of the transaction."
           },
           {
-            "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Accept_Language"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": false,
-            "enum": [
-              "en-US",
-              "pt-BR"
-            ],
-            "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
-            "default": "en-US",
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/Lang"
           },
           {
             "name": "from",
@@ -1093,6 +967,28 @@
           "type": "string",
           "example": "63cc9f72a23faefce2e1e80d"
         }
+      },
+      "Lang": {
+        "name": "lang",
+        "in": "query",
+        "required": false,
+        "enum": [
+          "en-US",
+          "pt-BR"
+        ],
+        "description": "The language for some resources in api. It is used by default by web browsers, see [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language).",
+        "example": "en-US"
+      },
+      "Accept_Language": {
+        "name": "Accept-Language",
+        "in": "headers",
+        "required": false,
+        "enum": [
+          "en-US",
+          "pt-BR"
+        ],
+        "description": "The language for some resources in api. It overrides the header <code>Accept-Language</code>.",
+        "default": "en-US"
       }
     },
     "responses": {

@@ -251,6 +251,24 @@ const doc = {
             }
 
         },
+        parameters: {
+            Lang: {
+                name: 'lang',
+                in: 'query',
+                required: false,
+                enum: ['en-US', 'pt-BR'],
+                description: 'The language for some resources in api. It is used by default by web browsers, see [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language).',
+                example: 'en-US'
+            },
+            Accept_Language: {
+                name: 'Accept-Language',
+                in: 'headers',
+                required: false,
+                enum: ['en-US', 'pt-BR'],
+                description: 'The language for some resources in api. It overrides the header <code>Accept-Language</code>.',
+                default: 'en-US'
+            }
+        },
         responses: {
             Transaction: {
                 description: 'Transaction',
